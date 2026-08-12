@@ -3,178 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v19 - Akıllı Kategori & Dinamik Filtre Sistemi</title>
+    <title>YerimBurada v20 - Özgün ve Modern İlan Portalı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --primary-navy: #0f172a;
-            --secondary-navy: #1e293b;
-            --accent-gold: #ff9800;
-            --accent-blue: #2563eb;
-            --light-bg: #f8fafc;
-            --card-border: #cbd5e1;
-            --text-dark: #020617;
-            --text-muted: #64748b;
+            --yb-navy: #0b132b;
+            --yb-slate: #1c2541;
+            --yb-blue: #3a86ff;
+            --yb-orange: #ff9f1c;
+            --yb-green: #2ec4b6;
+            --yb-light: #f4f6f8;
+            --yb-border: #d8e2dc;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--light-bg); color: var(--text-dark); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 65px; }
+        body { background-color: var(--yb-light); color: var(--yb-navy); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
 
-        header { background: var(--primary-navy); color: white; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--accent-gold); }
+        /* ÖZGÜN ÜST MENÜ */
+        header { background: var(--yb-navy); color: white; padding: 15px 6%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 25px rgba(11,19,43,0.2); position: sticky; top: 0; z-index: 100; border-bottom: 4px solid var(--yb-orange); }
         .logo-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px; }
-        .logo-text span { color: var(--accent-gold); }
+        .logo-text span { color: var(--yb-orange); }
 
-        .header-search { display: flex; flex: 1; max-width: 600px; margin: 0 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.25); border-radius: 8px; overflow: hidden; }
-        .header-search input { width: 100%; padding: 12px 18px; border: none; background: #ffffff; outline: none; font-size: 13px; color: #000000; font-weight: 600; }
-        .header-search input::placeholder { color: #64748b; font-weight: 500; }
-        .header-search button { background: var(--accent-gold); color: #000000; border: none; padding: 12px 24px; cursor: pointer; font-weight: 800; font-size: 13px; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .header-search { display: flex; flex: 1; max-width: 600px; margin: 0 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 10px; overflow: hidden; }
+        .header-search input { width: 100%; padding: 13px 20px; border: none; background: #ffffff; outline: none; font-size: 13px; color: #000; font-weight: 600; }
+        .header-search input::placeholder { color: #8d99ae; font-weight: 500; }
+        .header-search button { background: var(--yb-orange); color: #000; border: none; padding: 13px 26px; cursor: pointer; font-weight: 800; font-size: 13px; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .header-search button:hover { background: #f39200; }
 
-        .header-nav { display: flex; align-items: center; gap: 18px; }
+        .header-nav { display: flex; align-items: center; gap: 20px; }
         .nav-item { color: #cbd5e1; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; cursor: pointer; transition: 0.2s; }
-        .btn-add { background: linear-gradient(135deg, var(--accent-gold), #eab308); color: #0f172a; border: none; padding: 11px 20px; cursor: pointer; border-radius: 8px; font-weight: 800; font-size: 12px; }
+        .nav-item:hover { color: var(--yb-orange); }
+        .btn-add { background: linear-gradient(135deg, var(--yb-orange), #f39200); color: #0b132b; border: none; padding: 12px 22px; cursor: pointer; border-radius: 10px; font-weight: 900; font-size: 13px; box-shadow: 0 4px 15px rgba(255,159,28,0.3); transition: 0.2s; }
+        .btn-add:hover { transform: translateY(-2px); }
 
-        .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 350px 1fr; gap: 25px; flex: 1; width: 100%; }
+        .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 320px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* SOL PANEL AKORDİYON (HATASIZ AÇILIR-KAPANIR) */
-        .sidebar { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); height: fit-content; }
-        .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
+        /* ÖZGÜN SOL PANEL (AKORDİYON) */
+        .sidebar { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); height: fit-content; }
+        .sidebar h3 { font-size: 13px; color: var(--yb-navy); margin-bottom: 16px; border-bottom: 2px solid #edf2f4; padding-bottom: 10px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
         
-        .cat-accordion { list-style: none; margin-bottom: 22px; }
+        .cat-accordion { list-style: none; margin-bottom: 25px; }
         .cat-group { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 12px 10px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; transition: 0.2s; border-radius: 6px; }
-        .cat-header:hover { background: #f1f5f9; color: var(--accent-blue); }
-        .cat-header i.icon-left { width: 24px; color: var(--accent-gold); font-size: 15px; }
+        .cat-header { padding: 13px 12px; font-weight: 800; color: #2b2d42; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; transition: 0.2s; border-radius: 8px; }
+        .cat-header:hover { background: #edf2f4; color: var(--yb-blue); }
+        .cat-header i.icon-left { width: 24px; color: var(--yb-orange); font-size: 15px; }
         
-        .cat-sublist { list-style: none; padding-left: 32px; background: #f8fafc; display: none; border-left: 3px solid var(--accent-blue); margin: 4px 0 8px 10px; border-radius: 0 6px 6px 0; }
-        .cat-sublist li { padding: 9px 10px; font-size: 12px; color: #0284c7; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
-        .cat-sublist li:hover { color: var(--accent-blue); background: #e0f2fe; padding-left: 14px; }
+        .cat-sublist { list-style: none; padding-left: 35px; background: #fafbfc; display: none; border-left: 3px solid var(--yb-blue); margin: 4px 0 10px 10px; border-radius: 0 8px 8px 0; }
+        .cat-sublist li { padding: 10px 12px; font-size: 12px; color: #1d3557; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
+        .cat-sublist li:hover { color: var(--yb-blue); background: #e2eafc; padding-left: 16px; }
         .cat-group.active-group .cat-sublist { display: block; }
         .cat-group.active-group .chevron { transform: rotate(180deg); }
-        .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
+        .chevron { transition: transform 0.2s; font-size: 11px; color: #8d99ae; }
 
-        .filter-group { margin-bottom: 14px; }
-        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 5px; color: #475569; text-transform: uppercase; }
-        .filter-group label span.req { color: #dc2626; font-weight: bold; }
-        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--card-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
+        .filter-group { margin-bottom: 15px; }
+        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 6px; color: #4a4e69; text-transform: uppercase; }
+        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--yb-border); border-radius: 10px; font-size: 12px; outline: none; background: #fff; }
         .filter-inputs { display: flex; gap: 8px; }
 
-        /* WIZARD SİHRİBAZI */
-        .wizard-container { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 25px; margin-bottom: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: none; }
-        .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
-        .wizard-stepper::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1; }
-        .step-item { position: relative; z-index: 2; background: white; padding: 0 10px; text-align: center; }
-        .step-num { width: 38px; height: 38px; border-radius: 50%; background: #f1f5f9; color: #64748b; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; font-size: 14px; border: 3px solid white; }
-        .step-item.active .step-num { background: var(--primary-navy); color: var(--accent-gold); }
-        .step-item.completed .step-num { background: #16a34a; color: white; }
-        .step-title { font-size: 11px; font-weight: 700; color: #64748b; }
+        /* ÖZGÜN WIZARD (SİHRİBAZ) */
+        .wizard-container { background: white; border: 1px solid var(--yb-border); border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: none; }
+        .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 35px; }
+        .wizard-stepper::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 3px; background: #edf2f4; z-index: 1; }
+        .step-item { position: relative; z-index: 2; background: white; padding: 0 12px; text-align: center; }
+        .step-num { width: 40px; height: 40px; border-radius: 50%; background: #edf2f4; color: #8d99ae; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 14px; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .step-item.active .step-num { background: var(--yb-navy); color: var(--yb-orange); }
+        .step-item.completed .step-num { background: var(--yb-green); color: white; }
+        .step-title { font-size: 11px; font-weight: 800; color: #8d99ae; }
 
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
-        .category-columns { display: flex; gap: 12px; margin-bottom: 18px; }
-        .cat-column { flex: 1; background: #fff; border: 1px solid var(--card-border); border-radius: 8px; height: 260px; overflow-y: auto; }
-        .cat-column-header { background: #f1f5f9; padding: 10px 12px; font-weight: 800; color: var(--primary-navy); border-bottom: 1px solid var(--card-border); font-size: 11px; text-transform: uppercase; }
-        .cat-column-item { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-weight: 600; font-size: 12px; color: #334155; display: flex; justify-content: space-between; }
-        .cat-column-item:hover, .cat-column-item.selected { background: #eff6ff; color: var(--accent-blue); font-weight: 800; }
+        .category-columns { display: flex; gap: 15px; margin-bottom: 20px; }
+        .cat-column { flex: 1; background: #fff; border: 1px solid var(--yb-border); border-radius: 10px; height: 280px; overflow-y: auto; }
+        .cat-column-header { background: #edf2f4; padding: 12px 14px; font-weight: 900; color: var(--yb-navy); border-bottom: 1px solid var(--yb-border); font-size: 11px; text-transform: uppercase; }
+        .cat-column-item { padding: 12px 14px; border-bottom: 1px solid #f8fafc; cursor: pointer; font-weight: 700; font-size: 12px; color: #2b2d42; display: flex; justify-content: space-between; }
+        .cat-column-item:hover, .cat-column-item.selected { background: #e2eafc; color: var(--yb-blue); font-weight: 900; }
 
-        .wizard-buttons { display: flex; justify-content: space-between; margin-top: 22px; border-top: 1px solid #f1f5f9; padding-top: 16px; }
-        .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-wiz-next { background: var(--primary-navy); color: var(--accent-gold); border: none; padding: 10px 26px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+        .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #edf2f4; padding-top: 18px; }
+        .btn-wiz-prev { background: #8d99ae; color: white; border: none; padding: 11px 22px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-wiz-next { background: var(--yb-navy); color: var(--yb-orange); border: none; padding: 11px 28px; border-radius: 10px; font-weight: 900; cursor: pointer; }
 
-        .showcase-container { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; margin-bottom: 22px; }
-        .showcase-title { font-size: 14px; font-weight: 800; color: var(--primary-navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
-        .showcase-card { background: #fff; border: 1px solid #fef08a; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; }
-        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--accent-gold); color: #000; font-size: 9px; font-weight: 900; padding: 3px 6px; border-radius: 4px; }
-        .showcase-img { height: 115px; width: 100%; object-fit: cover; }
+        .showcase-container { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 20px; margin-bottom: 25px; }
+        .showcase-title { font-size: 14px; font-weight: 900; color: var(--yb-navy); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #edf2f4; padding-bottom: 10px; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 15px; }
+        .showcase-card { background: #fff; border: 1px solid #ffe8d6; border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; transition: 0.2s; box-shadow: 0 4px 12px rgba(255,159,28,0.1); }
+        .showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,159,28,0.25); }
+        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--yb-orange); color: #000; font-size: 9px; font-weight: 900; padding: 3px 8px; border-radius: 6px; }
+        .showcase-img { height: 120px; width: 100%; object-fit: cover; }
         .showcase-body { padding: 10px; }
-        .showcase-price { font-size: 15px; font-weight: 900; color: #dc2626; }
-        .showcase-text { font-size: 12px; font-weight: 700; color: var(--primary-navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .showcase-price { font-size: 16px; font-weight: 900; color: #d90429; }
+        .showcase-text { font-size: 12px; font-weight: 800; color: var(--yb-navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .content-header { background: white; padding: 14px 20px; border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
-        .content-header h2 { font-size: 15px; color: var(--primary-navy); font-weight: 800; }
-        .sort-select { padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 6px; font-size: 12px; background: #fff; font-weight: 600; }
+        .content-header { background: white; padding: 16px 22px; border: 1px solid var(--yb-border); border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .content-header h2 { font-size: 15px; color: var(--yb-navy); font-weight: 900; }
+        .sort-select { padding: 9px 14px; border: 1px solid var(--yb-border); border-radius: 8px; font-size: 12px; background: #fff; font-weight: 700; }
 
-        .bargain-badge { font-size: 9px; font-weight: 800; padding: 3px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
-        .bargain-badge.green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-        .bargain-badge.red { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .bargain-badge { font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
+        .bargain-badge.green { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .bargain-badge.red { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
 
-        .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
-        .card { background: white; border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--accent-blue); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
-        .card-img-wrapper { height: 165px; width: 100%; position: relative; background: #e2e8f0; }
+        .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid var(--yb-border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .card:hover { border-color: var(--yb-blue); transform: translateY(-4px); box-shadow: 0 12px 28px rgba(58,134,255,0.12); }
+        .card-img-wrapper { height: 175px; width: 100%; position: relative; background: #edf2f4; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.9); color: var(--accent-gold); font-size: 10px; padding: 4px 8px; border-radius: 5px; font-weight: 800; }
+        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(11,19,43,0.9); color: var(--yb-orange); font-size: 10px; padding: 4px 10px; border-radius: 6px; font-weight: 900; backdrop-filter: blur(2px); }
         .card-bargain-pos { position: absolute; top: 10px; right: 10px; }
-        .card-body { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-price { font-size: 17px; color: #dc2626; font-weight: 900; margin-bottom: 4px; }
-        .card-title { font-size: 12px; font-weight: 700; color: var(--primary-navy); margin-bottom: 6px; height: 32px; overflow: hidden; line-height: 1.3; }
-        .card-details-badge { font-size: 10px; color: #1e40af; background: #eff6ff; padding: 4px 8px; border-radius: 4px; margin-bottom: 6px; font-weight: 700; border: 1px solid #dbeafe; }
-        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; display: flex; justify-content: space-between; font-weight: 600; }
-        .btn-inspect { background: var(--accent-blue); color: white; border: none; padding: 9px; border-radius: 6px; font-weight: 800; margin-top: auto; cursor: pointer; text-align: center; font-size: 11px; }
+        .card-body { padding: 14px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-price { font-size: 18px; color: #d90429; font-weight: 900; margin-bottom: 4px; }
+        .card-title { font-size: 13px; font-weight: 800; color: var(--yb-navy); margin-bottom: 8px; height: 36px; overflow: hidden; line-height: 1.4; }
+        .card-details-badge { font-size: 11px; color: #1d3557; background: #e2eafc; padding: 5px 9px; border-radius: 6px; margin-bottom: 8px; font-weight: 800; border: 1px solid #bde0fe; }
+        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between; font-weight: 700; }
+        .btn-inspect { background: var(--yb-blue); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 900; margin-top: auto; cursor: pointer; text-align: center; font-size: 12px; transition: 0.2s; }
+        .btn-inspect:hover { background: #27496d; }
 
-        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px; margin-bottom: 14px; }
-        .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-        .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 10px; margin-bottom: 16px; }
+        .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+        .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 
-        .file-upload-box { border: 2px dashed var(--accent-blue); background: #eff6ff; padding: 22px; border-radius: 8px; text-align: center; cursor: pointer; }
+        .file-upload-box { border: 2px dashed var(--yb-blue); background: #e2eafc; padding: 24px; border-radius: 10px; text-align: center; cursor: pointer; }
+        .btn-submit { background: var(--yb-green); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; }
 
-        .btn-submit { background: #16a34a; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; font-size: 13px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,19,43,0.85); justify-content: center; align-items: center; padding: 20px; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-content { background: white; max-width: 850px; width: 100%; border-radius: 16px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        .modal-body { padding: 26px; }
+        .modal-price { font-size: 28px; color: #d90429; font-weight: 900; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-contact { background: #f8fafc; padding: 18px; border: 1px solid var(--yb-border); border-radius: 10px; margin-top: 18px; }
+        .btn-close { position: absolute; top: 14px; right: 14px; background: #d90429; color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 18px; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); justify-content: center; align-items: center; padding: 15px; z-index: 1000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; max-width: 820px; width: 100%; border-radius: 12px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; }
-        .modal-body { padding: 22px; }
-        .modal-price { font-size: 26px; color: #dc2626; font-weight: 900; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .modal-contact { background: #f8fafc; padding: 16px; border: 1px solid var(--card-border); border-radius: 8px; margin-top: 16px; }
-        .btn-close { position: absolute; top: 12px; right: 12px; background: #dc2626; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; background: #edf2f4; padding: 16px; border-radius: 10px; margin-bottom: 18px; }
+        .spec-item { font-size: 12px; color: #2b2d42; }
+        .spec-item strong { color: var(--yb-navy); }
 
-        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; background: #f1f5f9; padding: 14px; border-radius: 8px; margin-bottom: 16px; }
-        .spec-item { font-size: 11px; color: #334155; }
-        .spec-item strong { color: var(--primary-navy); }
+        .offer-box { background: #fff3e0; border: 2px dashed var(--yb-orange); padding: 18px; border-radius: 12px; margin-top: 18px; }
 
-        .offer-box { background: #fff7ed; border: 2px dashed #f97316; padding: 16px; border-radius: 8px; margin-top: 16px; }
+        .auth-tab { display: flex; margin-bottom: 18px; border-bottom: 2px solid #edf2f4; }
+        .auth-tab div { flex: 1; text-align: center; padding: 12px; font-weight: 900; cursor: pointer; color: #8d99ae; }
+        .auth-tab div.active { color: var(--yb-blue); border-bottom: 3px solid var(--yb-blue); }
 
-        .auth-tab { display: flex; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; }
-        .auth-tab div { flex: 1; text-align: center; padding: 10px; font-weight: 800; cursor: pointer; color: #64748b; }
-        .auth-tab div.active { color: var(--accent-blue); border-bottom: 3px solid var(--accent-blue); }
-
-        footer { background: #f8fafc; color: #475569; padding: 40px 5% 80px 5%; margin-top: 50px; font-size: 12px; border-top: 1px solid var(--card-border); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto 30px auto; }
-        .footer-col h4 { color: #0f172a; font-size: 13px; margin-bottom: 12px; font-weight: 800; }
+        footer { background: var(--yb-navy); color: #8d99ae; padding: 40px 6% 80px 6%; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--yb-orange); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto 25px auto; }
+        .footer-col h4 { color: white; font-size: 14px; margin-bottom: 12px; font-weight: 900; }
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; color: #64748b; cursor: pointer; }
-        .footer-bottom { text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; color: #94a3b8; font-weight: 600; }
+        .footer-col ul li { margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .footer-col ul li:hover { color: var(--yb-orange); }
+        .footer-bottom { text-align: center; border-top: 1px solid #1c2541; padding-top: 20px; color: #8d99ae; font-weight: 700; }
 
         /* MOBİL BOTTOM NAV */
-        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary-navy); border-top: 2px solid var(--accent-gold); box-shadow: 0 -4px 15px rgba(0,0,0,0.2); z-index: 999; justify-content: space-around; padding: 8px 0; }
-        .mobile-nav-item { color: #94a3b8; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 700; gap: 3px; cursor: pointer; flex: 1; }
+        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--yb-navy); border-top: 2px solid var(--yb-orange); box-shadow: 0 -4px 15px rgba(0,0,0,0.2); z-index: 999; justify-content: space-around; padding: 8px 0; }
+        .mobile-nav-item { color: #8d99ae; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; gap: 3px; cursor: pointer; flex: 1; }
         .mobile-nav-item i { font-size: 18px; }
-        .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--accent-gold); }
-        .mobile-nav-add-btn { background: linear-gradient(135deg, var(--accent-gold), #eab308); color: #000; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: -20px; border: 3px solid var(--primary-navy); box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 20px; }
+        .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--yb-orange); }
+        .mobile-nav-add-btn { background: linear-gradient(135deg, var(--yb-orange), #f39200); color: #0b132b; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: -20px; border: 3px solid var(--yb-navy); box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 20px; }
 
         @media (max-width: 768px) {
             body { padding-bottom: 70px; }
-            header { padding: 10px 15px; flex-wrap: wrap; gap: 10px; }
+            header { padding: 12px 15px; flex-wrap: wrap; gap: 10px; }
             .header-search { max-width: 100%; margin: 5px 0 0 0; order: 3; flex: 1 0 100%; }
             .header-nav { display: none; }
             
-            .main-layout { grid-template-columns: 1fr; margin: 10px auto; padding: 0 10px; gap: 15px; }
+            .main-layout { grid-template-columns: 1fr; margin: 15px auto; padding: 0 10px; gap: 15px; }
             .sidebar { display: none; }
             .sidebar.mobile-open { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 60px; z-index: 900; background: white; overflow-y: auto; padding: 20px; }
 
-            .showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .showcase-img { height: 95px; }
+            .showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .showcase-img { height: 105px; }
             
-            .listings { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .card-img-wrapper { height: 130px; }
-            .card-body { padding: 8px; }
-            .card-price { font-size: 15px; }
-            .card-title { font-size: 11px; height: 30px; }
+            .listings { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card-img-wrapper { height: 140px; }
+            .card-body { padding: 10px; }
+            .card-price { font-size: 16px; }
+            .card-title { font-size: 11px; height: 32px; }
 
-            .category-columns { flex-direction: column; gap: 8px; }
-            .cat-column { height: 150px; }
+            .category-columns { flex-direction: column; gap: 10px; }
+            .cat-column { height: 160px; }
 
             .mobile-bottom-nav { display: flex; }
         }
@@ -199,13 +203,13 @@
 
     <div class="main-layout">
 
-        <!-- HATASIZ AÇILIR-KAPANIR (AKORDİYON) SOL PANEL -->
+        <!-- ÖZGÜN AKORDİYON SOL PANEL -->
         <div class="sidebar" id="mainSidebar">
-            <h3><span>Kategori Kataloğu</span> <i class="fa-solid fa-layer-group" style="color:var(--accent-gold);"></i></h3>
+            <h3><span>YerimBurada Kataloğu</span> <i class="fa-solid fa-compass" style="color:var(--yb-orange);"></i></h3>
             <ul class="cat-accordion">
                 <li class="cat-group" id="group-emlak">
                     <div class="cat-header" onclick="akordiyonAcKapat('group-emlak')">
-                        <span><i class="fa-solid fa-house icon-left"></i> Emlak</span>
+                        <span><i class="fa-solid fa-house icon-left"></i> Emlak Portalı</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
@@ -213,25 +217,25 @@
                         <li onclick="kategoriSec('Müstakil Ev')">Müstakil Ev & Villa</li>
                         <li onclick="kategoriSec('İş Yeri')">İş Yeri & Dükkan</li>
                         <li onclick="kategoriSec('Arsa')">Arsa / Tarla / Bağ</li>
-                        <li onclick="kategoriSec('Devre Mülk')">Devre Mülk</li>
+                        <li onclick="kategoriSec('Devremülk')">Devremülk</li>
                         <li onclick="kategoriSec('Komple Bina')">Komple Bina</li>
                     </ul>
                 </li>
                 <li class="cat-group" id="group-vasita">
                     <div class="cat-header" onclick="akordiyonAcKapat('group-vasita')">
-                        <span><i class="fa-solid fa-car icon-left"></i> Vasıta</span>
+                        <span><i class="fa-solid fa-car icon-left"></i> Vasıta & Galeri</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
                         <li onclick="kategoriSec('Otomobil')">Otomobil</li>
-                        <li onclick="kategoriSec('SUV & Pickup')">Arazi, SUV & Pickup</li>
+                        <li onclick="kategoriSec('SUV')">Arazi, SUV & Pickup</li>
                         <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
                         <li onclick="kategoriSec('Ticari Araç')">Ticari Araçlar</li>
                     </ul>
                 </li>
                 <li class="cat-group" id="group-alisveris">
                     <div class="cat-header" onclick="akordiyonAcKapat('group-alisveris')">
-                        <span><i class="fa-solid fa-cart-shopping icon-left"></i> İkinci El & Sıfır Alışveriş</span>
+                        <span><i class="fa-solid fa-bag-shopping icon-left"></i> Alışveriş & Teknoloji</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
@@ -241,20 +245,9 @@
                         <li onclick="kategoriSec('Yapı Market')">Yapı Market & Hırdavat</li>
                     </ul>
                 </li>
-                <li class="cat-group" id="group-sanayi">
-                    <div class="cat-header" onclick="akordiyonAcKapat('group-sanayi')">
-                        <span><i class="fa-solid fa-industry icon-left"></i> İş Makineleri & Sanayi</span>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </div>
-                    <ul class="cat-sublist">
-                        <li onclick="kategoriSec('İş Makineleri')">İş Makineleri</li>
-                        <li onclick="kategoriSec('Tarım Makineleri')">Tarım & Traktör</li>
-                        <li onclick="kategoriSec('Sanayi Ekipman')">Sanayi Ekipmanları</li>
-                    </ul>
-                </li>
             </ul>
 
-            <h3><span>Gelişmiş Filtre</span> <i class="fa-solid fa-filter" style="color:var(--accent-blue);"></i></h3>
+            <h3><span>Hızlı Filtre</span> <i class="fa-solid fa-filter" style="color:var(--yb-blue);"></i></h3>
             <div class="filter-group">
                 <label>İl / İlçe / Konum</label>
                 <input type="text" id="konumFiltre" onkeyup="filtrele()" placeholder="Örn: Başakşehir">
@@ -268,12 +261,12 @@
                 </div>
             </div>
             
-            <button class="btn-submit" onclick="mobilFiltreKapat()" style="display:none;" id="btnMobilFiltreKapat">Filtreleri Uygula</button>
+            <button class="btn-submit" onclick="mobilFiltreKapat()" style="display:none; background:var(--yb-blue);" id="btnMobilFiltreKapat">Filtreleri Uygula</button>
         </div>
 
         <div class="content">
 
-            <!-- İLAN SİHRİBAZI (WIZARD) -->
+            <!-- ÖZGÜN WIZARD (SİHRİBAZ) -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-stepper">
                     <div class="step-item active" id="stepIndicator1"><div class="step-num">1</div><div class="step-title">Kategori</div></div>
@@ -285,7 +278,7 @@
 
                 <!-- ADIM 1 -->
                 <div class="wizard-step-content active" id="wizardStep1">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sitemap" style="color:var(--accent-gold)"></i> 1. Kategori Seçimi</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-layer-group" style="color:var(--yb-orange)"></i> 1. Kategori Seçimi</h3>
                     
                     <div class="category-columns">
                         <div class="cat-column">
@@ -293,7 +286,6 @@
                             <div class="cat-column-item selected" onclick="wizAnaKatSec('Emlak', this)">Emlak <i class="fa-solid fa-chevron-right"></i></div>
                             <div class="cat-column-item" onclick="wizAnaKatSec('Vasıta', this)">Vasıta <i class="fa-solid fa-chevron-right"></i></div>
                             <div class="cat-column-item" onclick="wizAnaKatSec('Alisveris', this)">Alışveriş <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAnaKatSec('Sanayi', this)">İş Makineleri & Sanayi <i class="fa-solid fa-chevron-right"></i></div>
                         </div>
 
                         <div class="cat-column">
@@ -320,8 +312,8 @@
                         </div>
                     </div>
 
-                    <div style="background:#eff6ff; padding:10px; border-radius:8px; font-weight:bold; color:var(--accent-blue); font-size:11px; margin-bottom:15px; border:1px solid #dbeafe;">
-                        Seçilen: <span id="secilenKategoriEtiketi" style="color:var(--primary-navy);">Emlak > Konut > Satılık</span>
+                    <div style="background:#e2eafc; padding:12px; border-radius:10px; font-weight:bold; color:var(--yb-blue); font-size:12px; margin-bottom:15px; border:1px solid #bde0fe;">
+                        Seçilen Kategori Akışı: <span id="secilenKategoriEtiketi" style="color:var(--yb-navy);">Emlak > Konut > Satılık</span>
                     </div>
 
                     <div class="wizard-buttons">
@@ -330,14 +322,14 @@
                     </div>
                 </div>
 
-                <!-- ADIM 2: KATEGORİYE ÖZEL DİNAMİK TEKNİK ÖZELLİKLER -->
+                <!-- ADIM 2: KATEGORİYE ÖZEL AKILLI TEKNİK PARAMETRELER -->
                 <div class="wizard-step-content" id="wizardStep2">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sliders" style="color:var(--accent-blue)"></i> 2. Kategoriye Özel Teknik Özellikler</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-sliders" style="color:var(--yb-blue)"></i> 2. Seçtiğiniz Kategoriye Özel Özellikler</h3>
                     
-                    <div id="tasinmazNoAlani" class="form-section" style="background:#fefce8; border:1px solid #fef08a; display:none;">
+                    <div id="tasinmazNoAlani" class="form-section" style="background:#fff3e0; border:1px solid #ffe8d6; display:none;">
                         <div class="filter-group" style="margin-bottom:0;">
-                            <label style="color:#854d0e;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Taşınmaz No (E-Devlet Tapu / EİDS) <span class="req">* (ZORUNLU)</span></label>
-                            <input type="text" id="tasinmazNo" placeholder="Örn: 10293847" style="border-color:#fde047;">
+                            <label style="color:#b25e00;"><i class="fa-solid fa-shield-halved" style="color:var(--yb-orange);"></i> Taşınmaz No (E-Devlet Tapu / EİDS Doğrulama) <span class="req">* (ZORUNLU)</span></label>
+                            <input type="text" id="tasinmazNo" placeholder="Örn: 10293847" style="border-color:#ff9f1c;">
                         </div>
                     </div>
 
@@ -351,26 +343,26 @@
 
                 <!-- ADIM 3 -->
                 <div class="wizard-step-content" id="wizardStep3">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-camera" style="color:#16a34a"></i> 3. Görsel & Fiyat</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-camera" style="color:var(--yb-green)"></i> 3. Görsel, Fiyat & Pazarlık Durumu</h3>
                     <div class="form-section">
                         <div class="file-upload-box" onclick="document.getElementById('dosyaSecici').click()">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <p>Fotoğrafları Seçin</p>
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size:36px; color:var(--yb-blue); margin-bottom:8px;"></i>
+                            <p style="font-weight:900; color:var(--yb-navy);">Cihazınızdan Fotoğraf Ekleyin</p>
                             <input type="file" id="dosyaSecici" multiple accept="image/*" style="display:none;" onchange="dosyalariHazirla(this)">
                         </div>
-                        <div id="yuklenenResimlerListesi" style="margin-top:8px; font-weight:bold; color:var(--primary-navy); font-size:11px;"></div>
+                        <div id="yuklenenResimlerListesi" style="margin-top:10px; font-weight:bold; color:var(--yb-navy); font-size:12px;"></div>
                     </div>
                     <div class="form-grid-2">
                         <div class="filter-group">
                             <label>İlan Başlığı <span class="req">*</span></label>
-                            <input type="text" id="baslik" placeholder="Örn: T-LIFE ARMONİ 3+1 SATILIK DAİRE">
+                            <input type="text" id="baslik" placeholder="Örn: YERİMBURADA GÜVENCESİYLE 3+1 LÜKS DAİRE">
                         </div>
                         <div class="filter-group">
                             <label>Fiyat (TL) <span class="req">*</span></label>
                             <input type="text" id="fiyat" class="fiyat-input" placeholder="Örn: 4.500.000">
                         </div>
                         <div class="filter-group">
-                            <label>Pazarlık Durumu <span class="req">*</span></label>
+                            <label>Pazarlık Şartı <span class="req">*</span></label>
                             <select id="pazarlikDurumu">
                                 <option value="Pazarlıklı">Pazarlık Var (Yeşil Rozet)</option>
                                 <option value="Pazarlıksız">Son Fiyat / Pazarlık Yok (Kırmızı Rozet)</option>
@@ -385,9 +377,9 @@
                             <input type="text" id="telefon" placeholder="Örn: 05551112233">
                         </div>
                     </div>
-                    <div class="filter-group" style="margin-top:8px;">
+                    <div class="filter-group" style="margin-top:10px;">
                         <label>Açıklama</label>
-                        <textarea id="aciklama" rows="3" placeholder="İlan detayları..."></textarea>
+                        <textarea id="aciklama" rows="3" placeholder="İlan detayları, avantajlar..."></textarea>
                     </div>
                     <div class="wizard-buttons">
                         <button class="btn-wiz-prev" onclick="wizAdimGit(2)"><i class="fa-solid fa-arrow-left"></i> Geri</button>
@@ -397,37 +389,37 @@
 
                 <!-- ADIM 4 -->
                 <div class="wizard-step-content" id="wizardStep4">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-eye" style="color:var(--accent-blue)"></i> 4. İlan Önizleme</h3>
-                    <div style="background:#f8fafc; padding:18px; border-radius:10px; border:1px solid #e2e8f0;">
-                        <h2 id="wizOzetBaslik" style="font-size:18px; color:var(--primary-navy); margin-bottom:6px; font-weight:800;"></h2>
-                        <div id="wizOzetFiyat" style="font-size:22px; font-weight:900; color:#dc2626; margin-bottom:8px;"></div>
-                        <div id="wizOzetKonum" style="color:var(--text-muted); font-weight:700;"></div>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-eye" style="color:var(--yb-blue)"></i> 4. İlan Önizleme</h3>
+                    <div style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #d8e2dc;">
+                        <h2 id="wizOzetBaslik" style="font-size:18px; color:var(--yb-navy); margin-bottom:8px; font-weight:900;"></h2>
+                        <div id="wizOzetFiyat" style="font-size:24px; font-weight:900; color:#d90429; margin-bottom:10px;"></div>
+                        <div id="wizOzetKonum" style="color:var(--text-muted); font-weight:800;"></div>
                     </div>
                     <div class="wizard-buttons">
                         <button class="btn-wiz-prev" onclick="wizAdimGit(3)"><i class="fa-solid fa-arrow-left"></i> Düzelt</button>
-                        <button class="btn-submit" id="btnKaydet" onclick="ilanEkle()" style="width:auto; padding:10px 28px;"><i class="fa-solid fa-check-circle"></i> Onayla & Canlıda Yayınla</button>
+                        <button class="btn-submit" id="btnKaydet" onclick="ilanEkle()" style="width:auto; padding:12px 32px;"><i class="fa-solid fa-check-circle"></i> Onayla & Canlıda Yayınla</button>
                     </div>
                 </div>
 
                 <!-- ADIM 5 -->
-                <div class="wizard-step-content" id="wizardStep5" style="text-align:center; padding:30px 15px;">
-                    <i class="fa-solid fa-circle-check" style="font-size:55px; color:#16a34a; margin-bottom:15px;"></i>
-                    <h2 style="font-size:20px; color:var(--primary-navy); margin-bottom:8px; font-weight:900;">Tebrikler! İlanınız Yayınlandı.</h2>
-                    <p style="color:var(--text-muted); font-weight:600; margin-bottom:20px;">İlanınız YerimBurada veritabanına kaydedildi.</p>
+                <div class="wizard-step-content" id="wizardStep5" style="text-align:center; padding:35px 15px;">
+                    <i class="fa-solid fa-circle-check" style="font-size:60px; color:var(--yb-green); margin-bottom:15px;"></i>
+                    <h2 style="font-size:22px; color:var(--yb-navy); margin-bottom:8px; font-weight:900;">Tebrikler! İlanınız Başarıyla Yayınlandı.</h2>
+                    <p style="color:var(--text-muted); font-weight:700; margin-bottom:20px;">İlanınız YerimBurada veri tabanına kaydedildi.</p>
                     <button class="btn-wiz-next" onclick="formuAcKapa(); location.reload();">Ana Sayfaya Dön</button>
                 </div>
 
             </div>
 
             <div class="showcase-container" id="vitrinAlani">
-                <div class="showcase-title"><i class="fa-solid fa-star" style="color:var(--accent-gold);"></i> Günün Vitrin İlanları</div>
+                <div class="showcase-title"><i class="fa-solid fa-star" style="color:var(--yb-orange);"></i> YerimBurada Özel Vitrin İlanları</div>
                 <div class="showcase-grid" id="vitrinKutusu">
-                    <div style="font-size:11px; color:var(--text-muted);">Vitrin ilanları yükleniyor...</div>
+                    <div style="font-size:12px; color:var(--text-muted);">Vitrin yükleniyor...</div>
                 </div>
             </div>
 
             <div class="content-header">
-                <h2><i class="fa-solid fa-layer-group" style="color:var(--accent-blue)"></i> İlan Vitrini (<span id="toplamIlan">0</span>)</h2>
+                <h2><i class="fa-solid fa-layer-group" style="color:var(--yb-blue)"></i> Canlı İlan Vitrini (<span id="toplamIlan">0</span>)</h2>
                 <div>
                     <select class="sort-select" id="siralama" onchange="filtrele()">
                         <option value="yeni">En Yeni</option>
@@ -438,7 +430,7 @@
             </div>
 
             <div class="listings" id="ilanKutusu">
-                <div style="text-align:center; grid-column: 1/-1; padding:40px; color:var(--text-muted); font-weight:bold;">
+                <div style="text-align:center; grid-column: 1/-1; padding:50px; color:var(--text-muted); font-weight:bold;">
                     <i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Yükleniyor...
                 </div>
             </div>
@@ -491,7 +483,7 @@
                 </div>
 
                 <button class="btn-submit" id="btnAuthAction" onclick="kullaniciIslemi()"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
-                <button class="btn-submit" id="btnCikisYap" onclick="cikisYap()" style="background:#dc2626; display:none; margin-top:10px;"><i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat</button>
+                <button class="btn-submit" id="btnCikisYap" onclick="cikisYap()" style="background:#d90429; display:none; margin-top:10px;"><i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat</button>
             </div>
         </div>
     </div>
@@ -500,38 +492,38 @@
     <div class="modal" id="detayModal">
         <div class="modal-content">
             <button class="btn-close" onclick="detayKapat()">&times;</button>
-            <img id="modalResim" src="" style="width:100%; height:320px; object-fit:cover;">
+            <img id="modalResim" src="" style="width:100%; height:340px; object-fit:cover;">
             <div class="gallery-thumbs" id="modalGaleri"></div>
             <div class="modal-body">
                 <div class="modal-price">
                     <span id="modalFiyat"></span>
                     <span id="modalPazarlikRozet"></span>
                 </div>
-                <h2 id="modalBaslik" style="font-size:18px; margin-bottom:6px; color:var(--primary-navy); font-weight:800;"></h2>
-                <div id="modalKonum" style="color:var(--text-muted); margin-bottom:12px; font-weight:600;"></div>
+                <h2 id="modalBaslik" style="font-size:19px; margin-bottom:8px; color:var(--yb-navy); font-weight:900;"></h2>
+                <div id="modalKonum" style="color:var(--text-muted); margin-bottom:14px; font-weight:700;"></div>
                 
                 <div class="specs-grid" id="modalParametreTablosu"></div>
 
-                <div id="modalAciklama" style="line-height:1.5; color:#334155; margin-bottom:15px; white-space:pre-line; background:#fafafa; padding:12px; border-radius:8px; border:1px solid #e2e8f0;"></div>
+                <div id="modalAciklama" style="line-height:1.6; color:#2b2d42; margin-bottom:18px; white-space:pre-line; background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #d8e2dc;"></div>
                 
                 <div class="offer-box">
-                    <div class="offer-title"><i class="fa-solid fa-handshake"></i> Teklif Verin!</div>
+                    <div class="offer-title" style="font-weight:900; color:#b25e00; margin-bottom:8px; font-size:13px;"><i class="fa-solid fa-handshake"></i> Fiyatı Uygun mu Bulmadınız? Satıcıya Teklif Gönderin!</div>
                     <div class="form-grid-2">
                         <input type="text" id="teklifFiyati" class="fiyat-input" placeholder="Teklifiniz (TL)">
                         <input type="text" id="teklifNotu" placeholder="Satıcıya Kısa Not">
                     </div>
-                    <button class="btn-submit" onclick="teklifGonder()" style="background:#ea580c; margin-top:8px;"><i class="fa-solid fa-paper-plane"></i> Teklifi Gönder (WhatsApp)</button>
+                    <button class="btn-submit" onclick="teklifGonder()" style="background:var(--yb-orange); color:#0b132b; margin-top:10px;"><i class="fa-solid fa-paper-plane"></i> Teklifi WhatsApp İle İlet</button>
                 </div>
 
                 <div class="modal-contact">
-                    <strong style="color:var(--primary-navy);"><i class="fa-solid fa-user-check"></i> İlan Sahibi:</strong> <span id="modalSatici"></span><br>
-                    <strong style="color:var(--primary-navy);"><i class="fa-solid fa-phone"></i> İletişim:</strong> <span id="modalTelefon"></span>
-                    <div style="margin-top:12px; display:flex; gap:10px;">
-                        <a href="#" id="modalArama" style="background:var(--primary-navy); color:white; padding:10px 16px; text-decoration:none; border-radius:6px; font-weight:bold; flex:1; text-align:center;"><i class="fa-solid fa-phone"></i> Ara</a>
-                        <a href="#" id="modalWhatsapp" target="_blank" style="background:#25D366; color:white; padding:10px 16px; text-decoration:none; border-radius:6px; font-weight:bold; flex:1; text-align:center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    <strong style="color:var(--yb-navy);"><i class="fa-solid fa-user-check"></i> İlan Sahibi:</strong> <span id="modalSatici"></span><br>
+                    <strong style="color:var(--yb-navy);"><i class="fa-solid fa-phone"></i> İletişim:</strong> <span id="modalTelefon"></span>
+                    <div style="margin-top:14px; display:flex; gap:12px;">
+                        <a href="#" id="modalArama" style="background:var(--yb-navy); color:white; padding:11px 18px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-solid fa-phone"></i> Ara</a>
+                        <a href="#" id="modalWhatsapp" target="_blank" style="background:#25D366; color:white; padding:11px 18px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
                     </div>
                 </div>
-                <button onclick="" id="btnSil" style="background:#dc2626; color:white; border:none; padding:10px; width:100%; margin-top:14px; cursor:pointer; font-weight:bold; border-radius:6px;"><i class="fa-solid fa-trash-can"></i> İlanı Sil</button>
+                <button onclick="" id="btnSil" style="background:#d90429; color:white; border:none; padding:12px; width:100%; margin-top:16px; cursor:pointer; font-weight:bold; border-radius:8px;"><i class="fa-solid fa-trash-can"></i> İlanı Veritabanından Sil</button>
             </div>
         </div>
     </div>
@@ -540,14 +532,18 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>YerimBurada.com</h4>
-                <ul><li>Hakkımızda</li><li>Kurumsal İletişim</li></ul>
+                <ul><li>Hakkımızda</li><li>Kurumsal İletişim</li><li>Güvenli İlan Politikası</li></ul>
             </div>
             <div class="footer-col">
-                <h4>Gizlilik ve Kullanım</h4>
-                <ul><li>Güvenli Alışveriş İpuçları</li><li>Kullanım Koşulları</li></ul>
+                <h4>Kullanıcı İşlemleri</h4>
+                <ul><li>Ücretsiz İlan Ver</li><li>Mağaza Aç</li><li>EİDS Doğrulama Rehberi</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>İletişim & Destek</h4>
+                <ul><li>Yardım Merkezi</li><li>İletişim Formu</li></ul>
             </div>
         </div>
-        <div class="footer-bottom">&copy; 2026 YerimBurada.com - Türkiye'nin Özgün İlan Pazarı</div>
+        <div class="footer-bottom">&copy; 2026 YerimBurada.com - Tüm Hakları Saklıdır. Özgün Kurumsal İlan Platformu</div>
     </footer>
 
     <script>
@@ -574,17 +570,15 @@
             kullaniciOturumKontrol();
         };
 
-        /* AKORDİYON (AÇILIR-KAPANIR) SOL PANEL MANTIĞI */
+        /* AKORDİYON (AÇILIR-KAPANIR) SOL PANEL */
         function akordiyonAcKapat(groupId) {
             var group = document.getElementById(groupId);
             var isOpen = group.classList.contains("active-group");
             
-            // Tüm grupları kapat
             document.querySelectorAll('.cat-group').forEach(function(g) {
                 g.classList.remove("active-group");
             });
 
-            // Eğer tıklanan zaten açık değilse aç
             if (!isOpen) {
                 group.classList.add("active-group");
             }
@@ -660,11 +654,11 @@
 
             if (secilenAnaKat === 'Emlak') {
                 colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut / Daire', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Müstakil Ev & Villa', this)">Müstakil Ev & Villa <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri & Dükkan', this)">İş Yeri & Dükkan <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa / Tarla', this)">Arsa / Tarla <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Devre Mülk', this)">Devre Mülk <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Müstakil Ev', this)">Müstakil Ev & Villa <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri', this)">İş Yeri & Dükkan <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa', this)">Arsa & Tarla <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Devremülk', this)">Devremülk <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
@@ -673,7 +667,7 @@
             } else if (secilenAnaKat === 'Vasıta') {
                 colAlt.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizAltKatSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('SUV & Pickup', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('SUV', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
                     <div class="cat-column-item" onclick="wizAltKatSec('Motosiklet', this)">Motosiklet <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
@@ -682,7 +676,7 @@
                 `;
             } else {
                 colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Genel Ürün', this)">Genel Ürün <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Teknoloji', this)">Teknoloji & Eşya <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
@@ -693,7 +687,7 @@
             detayAlanlariniGoster();
         }
 
-        /* KATEGORİYE ÖZEL DİNAMİK TEKNİK ÖZELLİKLER (DAİRE, ARSA, DEVREMÜLK, ARAÇ AYRIMI) */
+        /* KATEGORİYE ÖZEL AKILLI TEKNİK PARAMETRELER */
         function detayAlanlariniGoster() {
             var kutu = document.getElementById("dinamikDetaylar");
             var tasinmazBox = document.getElementById("tasinmazNoAlani");
@@ -705,7 +699,7 @@
                 if (secilenAltKat.includes("Arsa")) {
                     kutu.innerHTML = `
                         <div class="filter-group"><label>Metrekare (m²) <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 1000"></div>
-                        <div class="filter-group"><label>İmar Durumu <span class="req">*</span></label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Sanayi İmarlı">Sanayi İmarlı</option><option value="Tarla / Bağ / Bahçe">Tarla / Bağ / Bahçe</option></select></div>
+                        <div class="filter-group"><label>İmar Durumu <span class="req">*</span></label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Tarla / Bağ / Bahçe">Tarla / Bağ / Bahçe</option></select></div>
                         <div class="filter-group"><label>Kaks (Emsal)</label><input type="text" id="detayEmsal" placeholder="Örn: 0.50 / 1.50"></div>
                         <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Müstakil Parsel">Müstakil Parsel</option><option value="Hisseli Tapu">Hisseli Tapu</option></select></div>
                     `;
@@ -716,7 +710,6 @@
                         <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Devremülk Tapulu">Devremülk Tapulu</option><option value="Kullanım Haklı">Kullanım Haklı</option></select></div>
                     `;
                 } else {
-                    // Daire / Villa / İş Yeri
                     kutu.innerHTML = `
                         <div class="filter-group"><label>Net m² <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 135"></div>
                         <div class="filter-group"><label>Oda Sayısı <span class="req">*</span></label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
@@ -731,7 +724,7 @@
                     <div class="filter-group"><label>Model Yılı <span class="req">*</span></label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
                     <div class="filter-group"><label>Kilometre (KM) <span class="req">*</span></label><input type="number" id="detayKm" placeholder="Örn: 85000"></div>
                     <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Manuel">Manuel</option></select></div>
-                    <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="Elektrik">Elektrik</option><option value="Hibrit">Hibrit</option></select></div>
+                    <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="Elektrik">Elektrik</option></select></div>
                 `;
             } else {
                 tasinmazBox.style.display = "none";
@@ -937,7 +930,7 @@
             var vitrinKutusu = document.getElementById("vitrinKutusu");
             vitrinKutusu.innerHTML = "";
             if (liste.length === 0) {
-                vitrinKutusu.innerHTML = "<div style='font-size:11px; color:var(--text-muted);'>Henüz vitrin ilanı yok.</div>";
+                vitrinKutusu.innerHTML = "<div style='font-size:12px; color:var(--text-muted);'>Vitrin ilanı bulunmuyor.</div>";
                 return;
             }
             liste.forEach(function(ilan) {
@@ -946,7 +939,7 @@
                 
                 var vCard = `
                     <div class="showcase-card" onclick="detayAc(${ilan.id})">
-                        <span class="showcase-badge">VİTRİN</span>
+                        <span class="showcase-badge">ÖZEL VİTRİN</span>
                         <img src="${anaResim}" class="showcase-img">
                         <div class="showcase-body">
                             <div class="showcase-price">${formatliFiyat}</div>
@@ -964,7 +957,7 @@
             document.getElementById("toplamIlan").innerText = liste.length;
 
             if (liste.length === 0) {
-                ilanKutusu.innerHTML = `<div style="text-align:center; grid-column: 1/-1; padding:40px; color:var(--text-muted); font-weight:bold;">Henüz ilan bulunmuyor. İlk ilanı siz verin!</div>`;
+                ilanKutusu.innerHTML = `<div style="text-align:center; grid-column: 1/-1; padding:50px; color:var(--text-muted); font-weight:bold;">Henüz ilan bulunmuyor. İlk ilanı siz verin!</div>`;
                 return;
             }
 
@@ -989,7 +982,7 @@
                             <div class="card-title">${ilan.baslik}</div>
                             ${ilan.durum ? `<div class="card-details-badge">${ilan.durum}</div>` : ''}
                             <div class="card-location">
-                                <span><i class="fa-solid fa-location-dot" style="color:var(--accent-gold)"></i> ${ilan.konum || 'Türkiye'}</span>
+                                <span><i class="fa-solid fa-location-dot" style="color:var(--yb-orange)"></i> ${ilan.konum || 'Türkiye'}</span>
                             </div>
                             <button class="btn-inspect">İncele & Teklif Ver</button>
                         </div>
@@ -1049,11 +1042,11 @@
             
             var pazarlikVarMi = (aktifIlan.durum || "").includes("Pazarlıklı");
             document.getElementById("modalPazarlikRozet").innerHTML = pazarlikVarMi 
-                ? `<span class="bargain-badge green" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-handshake"></i> Pazarlıklı İlan</span>`
-                : `<span class="bargain-badge red" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-ban"></i> Pazarlıksız (Son Fiyat)</span>`;
+                ? `<span class="bargain-badge green" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-handshake"></i> Pazarlık Var</span>`
+                : `<span class="bargain-badge red" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-ban"></i> Son Fiyat</span>`;
 
             document.getElementById("modalBaslik").innerText = aktifIlan.baslik;
-            document.getElementById("modalKonum").innerHTML = `<i class="fa-solid fa-location-dot" style="color:var(--accent-gold)"></i> ${aktifIlan.konum || 'Belirtilmedi'}`;
+            document.getElementById("modalKonum").innerHTML = `<i class="fa-solid fa-location-dot" style="color:var(--yb-orange)"></i> ${aktifIlan.konum || 'Belirtilmedi'}`;
             
             var tabloKutusu = document.getElementById("modalParametreTablosu");
             tabloKutusu.innerHTML = "";
@@ -1071,7 +1064,7 @@
                 });
             }
 
-            document.getElementById("modalAciklama").innerText = aktifIlan.aciklama || "Açıklama yok.";
+            document.getElementById("modalAciklama").innerText = aktifIlan.aciklama || "Açıklama belirtilmedi.";
             document.getElementById("modalSatici").innerText = aktifIlan.satici;
             document.getElementById("modalTelefon").innerText = aktifIlan.telefon || "Belirtilmedi";
 
