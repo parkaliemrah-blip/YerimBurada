@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v18 - Özgün Kurumsal İlan Portalı</title>
+    <title>YerimBurada v19 - Akıllı Kategori & Dinamik Filtre Sistemi</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -37,7 +37,7 @@
 
         .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 350px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* ÖZGÜN, TEMİZ VE İŞLEVSEL SOL PANEL */
+        /* SOL PANEL AKORDİYON (HATASIZ AÇILIR-KAPANIR) */
         .sidebar { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); height: fit-content; }
         .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
         
@@ -50,8 +50,8 @@
         .cat-sublist { list-style: none; padding-left: 32px; background: #f8fafc; display: none; border-left: 3px solid var(--accent-blue); margin: 4px 0 8px 10px; border-radius: 0 6px 6px 0; }
         .cat-sublist li { padding: 9px 10px; font-size: 12px; color: #0284c7; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
         .cat-sublist li:hover { color: var(--accent-blue); background: #e0f2fe; padding-left: 14px; }
-        .cat-group.open .cat-sublist { display: block; }
-        .cat-group.open .chevron { transform: rotate(180deg); }
+        .cat-group.active-group .cat-sublist { display: block; }
+        .cat-group.active-group .chevron { transform: rotate(180deg); }
         .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
 
         .filter-group { margin-bottom: 14px; }
@@ -199,71 +199,57 @@
 
     <div class="main-layout">
 
-        <!-- ÖZGÜN, FONKSİYONEL VE TIKLANABİLİR KATEGORİ MENÜSÜ -->
+        <!-- HATASIZ AÇILIR-KAPANIR (AKORDİYON) SOL PANEL -->
         <div class="sidebar" id="mainSidebar">
             <h3><span>Kategori Kataloğu</span> <i class="fa-solid fa-layer-group" style="color:var(--accent-gold);"></i></h3>
             <ul class="cat-accordion">
-                <li class="cat-group open">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
+                <li class="cat-group" id="group-emlak">
+                    <div class="cat-header" onclick="akordiyonAcKapat('group-emlak')">
                         <span><i class="fa-solid fa-house icon-left"></i> Emlak</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
-                    <ul class="cat-sublist" style="display:block;">
-                        <li onclick="kategoriSec('Konut')">Konut</li>
-                        <li onclick="kategoriSec('İş Yeri')">İş Yeri</li>
-                        <li onclick="kategoriSec('Arsa')">Arsa</li>
-                        <li onclick="kategoriSec('Konut Projeleri')">Konut Projeleri</li>
-                        <li onclick="kategoriSec('Bina')">Bina</li>
+                    <ul class="cat-sublist">
+                        <li onclick="kategoriSec('Konut')">Konut / Daire</li>
+                        <li onclick="kategoriSec('Müstakil Ev')">Müstakil Ev & Villa</li>
+                        <li onclick="kategoriSec('İş Yeri')">İş Yeri & Dükkan</li>
+                        <li onclick="kategoriSec('Arsa')">Arsa / Tarla / Bağ</li>
                         <li onclick="kategoriSec('Devre Mülk')">Devre Mülk</li>
-                        <li onclick="kategoriSec('Turistik Tesis')">Turistik Tesis</li>
+                        <li onclick="kategoriSec('Komple Bina')">Komple Bina</li>
                     </ul>
                 </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
+                <li class="cat-group" id="group-vasita">
+                    <div class="cat-header" onclick="akordiyonAcKapat('group-vasita')">
                         <span><i class="fa-solid fa-car icon-left"></i> Vasıta</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
                         <li onclick="kategoriSec('Otomobil')">Otomobil</li>
-                        <li onclick="kategoriSec('Arazi, SUV & Pickup')">Arazi, SUV & Pickup</li>
-                        <li onclick="kategoriSec('Elektrikli Araçlar')">Elektrikli Araçlar</li>
+                        <li onclick="kategoriSec('SUV & Pickup')">Arazi, SUV & Pickup</li>
                         <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
-                        <li onclick="kategoriSec('Minivan & Panelvan')">Minivan & Panelvan</li>
-                        <li onclick="kategoriSec('Ticari Araçlar')">Ticari Araçlar</li>
+                        <li onclick="kategoriSec('Ticari Araç')">Ticari Araçlar</li>
                     </ul>
                 </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-wrench icon-left"></i> Yedek Parça & Aksesuar</span>
+                <li class="cat-group" id="group-alisveris">
+                    <div class="cat-header" onclick="akordiyonAcKapat('group-alisveris')">
+                        <span><i class="fa-solid fa-cart-shopping icon-left"></i> İkinci El & Sıfır Alışveriş</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Otomotiv Ekipmanları')">Otomotiv Ekipmanları</li>
-                        <li onclick="kategoriSec('Motosiklet Ekipmanları')">Motosiklet Ekipmanları</li>
+                        <li onclick="kategoriSec('Bilgisayar')">Bilgisayar & Tablet</li>
+                        <li onclick="kategoriSec('Cep Telefonu')">Cep Telefonu & Aksesuar</li>
+                        <li onclick="kategoriSec('Giyim & Tekstil')">Giyim & Tekstil</li>
+                        <li onclick="kategoriSec('Yapı Market')">Yapı Market & Hırdavat</li>
                     </ul>
                 </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-cart-shopping icon-left"></i> İkinci El ve Sıfır Alışveriş</span>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </div>
-                    <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Bilgisayar')">Bilgisayar</li>
-                        <li onclick="kategoriSec('Cep Telefonu & Aksesuar')">Cep Telefonu & Aksesuar</li>
-                        <li onclick="kategoriSec('Ev Elektroniği')">Ev Elektroniği</li>
-                        <li onclick="kategoriSec('Giyim & Aksesuar')">Giyim & Aksesuar</li>
-                        <li onclick="kategoriSec('Bahçe & Yapı Market')">Bahçe & Yapı Market</li>
-                    </ul>
-                </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-tractor icon-left"></i> İş Makineleri & Sanayi</span>
+                <li class="cat-group" id="group-sanayi">
+                    <div class="cat-header" onclick="akordiyonAcKapat('group-sanayi')">
+                        <span><i class="fa-solid fa-industry icon-left"></i> İş Makineleri & Sanayi</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
                         <li onclick="kategoriSec('İş Makineleri')">İş Makineleri</li>
-                        <li onclick="kategoriSec('Tarım Makineleri')">Tarım Makineleri</li>
-                        <li onclick="kategoriSec('Sanayi')">Sanayi</li>
+                        <li onclick="kategoriSec('Tarım Makineleri')">Tarım & Traktör</li>
+                        <li onclick="kategoriSec('Sanayi Ekipman')">Sanayi Ekipmanları</li>
                     </ul>
                 </li>
             </ul>
@@ -287,7 +273,7 @@
 
         <div class="content">
 
-            <!-- ADIM ADIM İLAN SİHRİBAZI -->
+            <!-- İLAN SİHRİBAZI (WIZARD) -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-stepper">
                     <div class="step-item active" id="stepIndicator1"><div class="step-num">1</div><div class="step-title">Kategori</div></div>
@@ -344,11 +330,11 @@
                     </div>
                 </div>
 
-                <!-- ADIM 2 -->
+                <!-- ADIM 2: KATEGORİYE ÖZEL DİNAMİK TEKNİK ÖZELLİKLER -->
                 <div class="wizard-step-content" id="wizardStep2">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sliders" style="color:var(--accent-blue)"></i> 2. Teknik Detaylar</h3>
+                    <h3 style="margin-bottom:12px; font-size:14px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sliders" style="color:var(--accent-blue)"></i> 2. Kategoriye Özel Teknik Özellikler</h3>
                     
-                    <div id="tasinmazNoAlani" class="form-section" style="background:#fefce8; border:1px solid #fef08a;">
+                    <div id="tasinmazNoAlani" class="form-section" style="background:#fefce8; border:1px solid #fef08a; display:none;">
                         <div class="filter-group" style="margin-bottom:0;">
                             <label style="color:#854d0e;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Taşınmaz No (E-Devlet Tapu / EİDS) <span class="req">* (ZORUNLU)</span></label>
                             <input type="text" id="tasinmazNo" placeholder="Örn: 10293847" style="border-color:#fde047;">
@@ -588,6 +574,22 @@
             kullaniciOturumKontrol();
         };
 
+        /* AKORDİYON (AÇILIR-KAPANIR) SOL PANEL MANTIĞI */
+        function akordiyonAcKapat(groupId) {
+            var group = document.getElementById(groupId);
+            var isOpen = group.classList.contains("active-group");
+            
+            // Tüm grupları kapat
+            document.querySelectorAll('.cat-group').forEach(function(g) {
+                g.classList.remove("active-group");
+            });
+
+            // Eğer tıklanan zaten açık değilse aç
+            if (!isOpen) {
+                group.classList.add("active-group");
+            }
+        }
+
         function mobilFiltreAc() {
             var sidebar = document.getElementById("mainSidebar");
             sidebar.classList.add("mobile-open");
@@ -602,7 +604,7 @@
         function wizAdim1KontrolEt() { wizAdimGit(2); }
 
         function wizAdim2KontrolEt() {
-            if (secilenAnaKat === "Emlak") {
+            if (secilenAnaKat === "Emlak" && !secilenAltKat.includes("Arsa")) {
                 var tasinmazNo = document.getElementById("tasinmazNo").value.trim();
                 if (!tasinmazNo) {
                     document.getElementById("tasinmazNo").classList.add("error-border");
@@ -658,12 +660,11 @@
 
             if (secilenAnaKat === 'Emlak') {
                 colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut', this)">Konut <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri', this)">İş Yeri <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa', this)">Arsa <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Bina', this)">Bina <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut / Daire', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Müstakil Ev & Villa', this)">Müstakil Ev & Villa <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri & Dükkan', this)">İş Yeri & Dükkan <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa / Tarla', this)">Arsa / Tarla <i class="fa-solid fa-chevron-right"></i></div>
                     <div class="cat-column-item" onclick="wizAltKatSec('Devre Mülk', this)">Devre Mülk <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Turistik Tesis', this)">Turistik Tesis <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
@@ -672,7 +673,7 @@
             } else if (secilenAnaKat === 'Vasıta') {
                 colAlt.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizAltKatSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Arazi, SUV & Pickup', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('SUV & Pickup', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
                     <div class="cat-column-item" onclick="wizAltKatSec('Motosiklet', this)">Motosiklet <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
@@ -692,6 +693,7 @@
             detayAlanlariniGoster();
         }
 
+        /* KATEGORİYE ÖZEL DİNAMİK TEKNİK ÖZELLİKLER (DAİRE, ARSA, DEVREMÜLK, ARAÇ AYRIMI) */
         function detayAlanlariniGoster() {
             var kutu = document.getElementById("dinamikDetaylar");
             var tasinmazBox = document.getElementById("tasinmazNoAlani");
@@ -699,22 +701,43 @@
 
             if (secilenAnaKat === "Emlak") {
                 tasinmazBox.style.display = "block";
-                kutu.innerHTML = `
-                    <div class="filter-group"><label>Metrekare (m² Net) <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 125"></div>
-                    <div class="filter-group"><label>Oda Sayısı <span class="req">*</span></label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
-                    <div class="filter-group"><label>Bina Yaşı <span class="req">*</span></label><select id="detayBinaYasi"><option value="0 (Sıfır)">0 (Sıfır)</option><option value="1-5 Yaş">1-5 Yaş</option><option value="6-10 Yaş">6-10 Yaş</option></select></div>
-                `;
+
+                if (secilenAltKat.includes("Arsa")) {
+                    kutu.innerHTML = `
+                        <div class="filter-group"><label>Metrekare (m²) <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 1000"></div>
+                        <div class="filter-group"><label>İmar Durumu <span class="req">*</span></label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Sanayi İmarlı">Sanayi İmarlı</option><option value="Tarla / Bağ / Bahçe">Tarla / Bağ / Bahçe</option></select></div>
+                        <div class="filter-group"><label>Kaks (Emsal)</label><input type="text" id="detayEmsal" placeholder="Örn: 0.50 / 1.50"></div>
+                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Müstakil Parsel">Müstakil Parsel</option><option value="Hisseli Tapu">Hisseli Tapu</option></select></div>
+                    `;
+                } else if (secilenAltKat.includes("Devre")) {
+                    kutu.innerHTML = `
+                        <div class="filter-group"><label>Dönem / Sezon <span class="req">*</span></label><input type="text" id="detayDonem" placeholder="Örn: Ağustos Ayı (15 Günlük)"></div>
+                        <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+1">1+1 Suit</option><option value="2+1">2+1 Aile</option></select></div>
+                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Devremülk Tapulu">Devremülk Tapulu</option><option value="Kullanım Haklı">Kullanım Haklı</option></select></div>
+                    `;
+                } else {
+                    // Daire / Villa / İş Yeri
+                    kutu.innerHTML = `
+                        <div class="filter-group"><label>Net m² <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 135"></div>
+                        <div class="filter-group"><label>Oda Sayısı <span class="req">*</span></label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
+                        <div class="filter-group"><label>Bina Yaşı <span class="req">*</span></label><select id="detayBinaYasi"><option value="0 (Sıfır)">0 (Sıfır)</option><option value="1-5 Yaş">1-5 Yaş</option><option value="6-10 Yaş">6-10 Yaş</option><option value="11+ Yaş">11+ Yaş</option></select></div>
+                        <div class="filter-group"><label>Bulunduğu Kat</label><input type="text" id="detayKat" placeholder="Örn: 3. Kat"></div>
+                    `;
+                }
             } else if (secilenAnaKat === "Vasıta") {
                 tasinmazBox.style.display = "none";
                 kutu.innerHTML = `
                     <div class="filter-group"><label>Marka / Seri <span class="req">*</span></label><input type="text" id="detayMarka" placeholder="Örn: BMW 3.20i"></div>
                     <div class="filter-group"><label>Model Yılı <span class="req">*</span></label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
-                    <div class="filter-group"><label>Kilometre (KM) <span class="req">*</span></label><input type="number" id="detayKm" placeholder="Örn: 120000"></div>
+                    <div class="filter-group"><label>Kilometre (KM) <span class="req">*</span></label><input type="number" id="detayKm" placeholder="Örn: 85000"></div>
+                    <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Manuel">Manuel</option></select></div>
+                    <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="Elektrik">Elektrik</option><option value="Hibrit">Hibrit</option></select></div>
                 `;
             } else {
                 tasinmazBox.style.display = "none";
                 kutu.innerHTML = `
                     <div class="filter-group"><label>Marka / Model</label><input type="text" id="detayMarka" placeholder="Örn: Apple / Bosch"></div>
+                    <div class="filter-group"><label>Ürün Durumu</label><select id="detayDurum"><option value="Sıfır / Kutulu">Sıfır / Kutulu</option><option value="İkinci El">İkinci El</option></select></div>
                 `;
             }
         }
@@ -732,11 +755,6 @@
                 document.getElementById('wizOzetFiyat').innerText = (document.getElementById('fiyat').value || '0') + ' TL';
                 document.getElementById('wizOzetKonum').innerText = document.getElementById('konum').value || 'Konum Belirtilmedi';
             }
-        }
-
-        function kategoriGrupAc(header) {
-            var parent = header.parentElement;
-            parent.classList.toggle("open");
         }
 
         async function kullaniciOturumKontrol() {
@@ -873,11 +891,12 @@
 
             var detayObje = {};
             detayObje["Pazarlık"] = pazarlik;
-            if (secilenAnaKat === "Emlak") {
+            if (secilenAnaKat === "Emlak" && !secilenAltKat.includes("Arsa")) {
                 detayObje["Taşınmaz No"] = document.getElementById("tasinmazNo").value;
             }
             if (document.getElementById("detayM2Net") && document.getElementById("detayM2Net").value) detayObje["m²"] = document.getElementById("detayM2Net").value + " m²";
             if (document.getElementById("detayOda")) detayObje["Oda"] = document.getElementById("detayOda").value;
+            if (document.getElementById("detayImar")) detayObje["İmar"] = document.getElementById("detayImar").value;
 
             var teknikOzet = Object.entries(detayObje).map(([k, v]) => `${k}: ${v}`).join(' | ');
             var tamKategoriMetni = `${secilenIslem} ${secilenAltKat}`;
