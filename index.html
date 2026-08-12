@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada v6 - Türkiye'nin Canlı İlan Pazarı</title>
+    <title>YerimBurada v7 - Türkiye'nin Canlı İlan Pazarı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -32,19 +32,19 @@
         .btn-add { background-color: var(--brand-orange); color: #000; border: none; padding: 10px 18px; cursor: pointer; border-radius: 6px; font-weight: 800; font-size: 13px; transition: 0.2s; }
         .btn-add:hover { background-color: #e68a00; }
 
-        .main-layout { max-width: 1400px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 290px 1fr; gap: 20px; flex: 1; width: 100%; }
+        .main-layout { max-width: 1400px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 310px 1fr; gap: 20px; flex: 1; width: 100%; }
 
         .sidebar { background: white; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); height: fit-content; }
         .sidebar h3 { font-size: 12px; color: var(--shb-blue); margin-bottom: 12px; border-bottom: 2px solid var(--shb-blue); padding-bottom: 6px; text-transform: uppercase; font-weight: 800; }
         
         .cat-accordion { list-style: none; margin-bottom: 20px; }
         .cat-group { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 10px 8px; font-weight: 700; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 12px; transition: 0.2s; }
+        .cat-header { padding: 9px 8px; font-weight: 700; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 12px; transition: 0.2s; }
         .cat-header:hover { background: #eff6ff; color: var(--shb-blue); }
-        .cat-header i.icon-left { width: 20px; color: var(--brand-orange); }
-        .cat-sublist { list-style: none; padding-left: 28px; background: #fafafa; display: none; }
-        .cat-sublist li { padding: 7px 8px; font-size: 11px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; }
-        .cat-sublist li:hover { color: var(--shb-blue); font-weight: 800; }
+        .cat-header i.icon-left { width: 22px; color: var(--brand-orange); font-size: 14px; }
+        .cat-sublist { list-style: none; padding-left: 30px; background: #f8fafc; display: none; border-left: 2px solid #e2e8f0; margin-left: 10px; }
+        .cat-sublist li { padding: 6px 8px; font-size: 11px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; display: flex; justify-content: space-between; }
+        .cat-sublist li:hover { color: var(--shb-blue); font-weight: 800; background: #eff6ff; }
         .cat-group.open .cat-sublist { display: block; }
         .cat-group.open .chevron { transform: rotate(180deg); }
         .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
@@ -160,11 +160,14 @@
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Daire')">Satılık / Kiralık Daire</li>
-                        <li onclick="kategoriSec('Villa')">Müstakil Ev & Villa</li>
-                        <li onclick="kategoriSec('Arsa')">Arsa & Tarla</li>
-                        <li onclick="kategoriSec('İş Yeri')">İş Yeri / Dükkan / Depo</li>
-                        <li onclick="kategoriSec('Proje')">Konut Projeleri</li>
+                        <li onclick="kategoriSec('Daire')"><span>Konut / Daire</span></li>
+                        <li onclick="kategoriSec('Müstakil Ev')"><span>Müstakil Ev & Villa</span></li>
+                        <li onclick="kategoriSec('İş Yeri')"><span>İş Yeri / Dükkan / Depo</span></li>
+                        <li onclick="kategoriSec('Arsa')"><span>Arsa & Tarla</span></li>
+                        <li onclick="kategoriSec('Proje')"><span>Konut Projeleri</span></li>
+                        <li onclick="kategoriSec('Bina')"><span>Bina</span></li>
+                        <li onclick="kategoriSec('Devre Mülk')"><span>Devre Mülk</span></li>
+                        <li onclick="kategoriSec('Turistik Tesis')"><span>Turistik Tesis</span></li>
                     </ul>
                 </li>
                 <li class="cat-group">
@@ -173,11 +176,15 @@
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Otomobil')">Otomobil</li>
-                        <li onclick="kategoriSec('SUV')">Arazi, SUV & Pick-up</li>
-                        <li onclick="kategoriSec('Ticari')">Ticari Araçlar (Kamyon / Tır)</li>
-                        <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
-                        <li onclick="kategoriSec('Deniz')">Deniz Araçları / Tekne</li>
+                        <li onclick="kategoriSec('Otomobil')"><span>Otomobil</span></li>
+                        <li onclick="kategoriSec('SUV')"><span>Arazi, SUV & Pickup</span></li>
+                        <li onclick="kategoriSec('Elektrikli')"><span>Elektrikli Araçlar</span></li>
+                        <li onclick="kategoriSec('Motosiklet')"><span>Motosiklet</span></li>
+                        <li onclick="kategoriSec('Minivan')"><span>Minivan & Panelvan</span></li>
+                        <li onclick="kategoriSec('Ticari')"><span>Ticari Araçlar (Kamyon/Tır)</span></li>
+                        <li onclick="kategoriSec('Kiralık Araç')"><span>Kiralık Araçlar</span></li>
+                        <li onclick="kategoriSec('Deniz')"><span>Deniz Araçları</span></li>
+                        <li onclick="kategoriSec('Hasarlı')"><span>Hasarlı Araçlar</span></li>
                     </ul>
                 </li>
                 <li class="cat-group">
@@ -186,35 +193,71 @@
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Oto Yedek')">Otomobil Yedek Parça</li>
-                        <li onclick="kategoriSec('Jant')">Jant & Lastik</li>
-                        <li onclick="kategoriSec('Ses Sistemleri')">Oto Müzik & Görüntü</li>
+                        <li onclick="kategoriSec('Otomotiv Ekipman')"><span>Otomotiv Ekipmanları</span></li>
+                        <li onclick="kategoriSec('Motosiklet Ekipman')"><span>Motosiklet Ekipmanları</span></li>
+                        <li onclick="kategoriSec('Deniz Ekipman')"><span>Deniz Aracı Ekipmanları</span></li>
+                        <li onclick="kategoriSec('Jant Lastik')"><span>Jant & Lastik</span></li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-mobile-screen-button icon-left"></i> İletişim & Elektronik</span>
+                        <span><i class="fa-solid fa-cart-shopping icon-left"></i> İkinci El ve Sıfır Alışveriş</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Telefon')">Cep Telefonu & Aksesuar</li>
-                        <li onclick="kategoriSec('Bilgisayar')">Bilgisayar & Tablet</li>
-                        <li onclick="kategoriSec('TV')">TV & Ev Elektroniği</li>
+                        <li onclick="kategoriSec('Bilgisayar')"><span>Bilgisayar & Tablet</span></li>
+                        <li onclick="kategoriSec('Telefon')"><span>Cep Telefonu & Aksesuar</span></li>
+                        <li onclick="kategoriSec('Fotoğraf')"><span>Fotoğraf & Kamera</span></li>
+                        <li onclick="kategoriSec('Ev Elektroniği')"><span>Ev Elektroniği</span></li>
+                        <li onclick="kategoriSec('Ev Dekorasyon')"><span>Ev Dekorasyon</span></li>
+                        <li onclick="kategoriSec('Giyim')"><span>Giyim & Aksesuar</span></li>
+                        <li onclick="kategoriSec('Saat')"><span>Saat</span></li>
+                        <li onclick="kategoriSec('Hobi')"><span>Hobi & Oyuncak</span></li>
+                        <li onclick="kategoriSec('Spor')"><span>Spor Ekipmanları</span></li>
+                        <li onclick="kategoriSec('Antika')"><span>Antika & Koleksiyon</span></li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-industry icon-left"></i> Sanayi & İş Makineleri</span>
+                        <span><i class="fa-solid fa-industry icon-left"></i> İş Makineleri & Sanayi</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('İş Makinesi')">İş Makineleri & Kepçe</li>
-                        <li onclick="kategoriSec('Sanayi Ekipman')">Sanayi Makine & Ekipman</li>
+                        <li onclick="kategoriSec('İş Makinesi')"><span>İş Makineleri</span></li>
+                        <li onclick="kategoriSec('Tarım Makinesi')"><span>Tarım Makineleri</span></li>
+                        <li onclick="kategoriSec('Sanayi')"><span>Sanayi & Üretim</span></li>
+                        <li onclick="kategoriSec('Elektrik Enerji')"><span>Elektrik & Enerji</span></li>
+                    </ul>
+                </li>
+                <li class="cat-group">
+                    <div class="cat-header" onclick="kategoriGrupAc(this)">
+                        <span><i class="fa-solid fa-wrench icon-left"></i> Ustalar ve Hizmetler</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </div>
+                    <ul class="cat-sublist">
+                        <li onclick="kategoriSec('Tadilat')"><span>Ev Tadilat & Dekorasyon</span></li>
+                        <li onclick="kategoriSec('Nakliye')"><span>Nakliye & Taşımacılık</span></li>
+                        <li onclick="kategoriSec('Araç Servis')"><span>Araç Servis & Bakım</span></li>
+                        <li onclick="kategoriSec('Özel Ders')"><span>Özel Ders Verenler</span></li>
+                        <li onclick="kategoriSec('İş İlanları')"><span>İş İlanları</span></li>
+                    </ul>
+                </li>
+                <li class="cat-group">
+                    <div class="cat-header" onclick="kategoriGrupAc(this)">
+                        <span><i class="fa-solid fa-paw icon-left"></i> Hayvanlar Alemi</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </div>
+                    <ul class="cat-sublist">
+                        <li onclick="kategoriSec('Evcil Hayvan')"><span>Evcil Hayvanlar</span></li>
+                        <li onclick="kategoriSec('Akvaryum')"><span>Akvaryum Balıkları</span></li>
+                        <li onclick="kategoriSec('Kümes')"><span>Kümes Hayvanları</span></li>
+                        <li onclick="kategoriSec('Büyükbaş')"><span>Büyükbaş & Küçükbaş</span></li>
+                        <li onclick="kategoriSec('Mama')"><span>Aksesuar & Yem / Mama</span></li>
                     </ul>
                 </li>
             </ul>
 
-            <h3>Sahibinden Filtreleme</h3>
+            <h3>Detaylı Filtreleme</h3>
             <div class="filter-group">
                 <label>Konum (İl / İlçe)</label>
                 <input type="text" id="konumFiltre" onkeyup="filtrele()" placeholder="Örn: Başakşehir">
@@ -227,9 +270,6 @@
                     <input type="text" id="maxFiyat" class="fiyat-input" placeholder="Max">
                 </div>
             </div>
-
-            <!-- Sahibinden Sol Panel Dinamik Süzgeçler -->
-            <div id="solPanelSuzgecleri"></div>
         </div>
 
         <div class="content">
@@ -253,8 +293,10 @@
                                 <option value="Emlak">Emlak</option>
                                 <option value="Vasıta">Vasıta</option>
                                 <option value="Yedek Parça">Yedek Parça & Aksesuar</option>
-                                <option value="Elektronik">Elektronik & İletişim</option>
-                                <option value="Sanayi">Sanayi & İş Makineleri</option>
+                                <option value="İkinci El">İkinci El ve Sıfır Alışveriş</option>
+                                <option value="Sanayi">İş Makineleri & Sanayi</option>
+                                <option value="Hizmetler">Ustalar ve Hizmetler</option>
+                                <option value="Hayvanlar">Hayvanlar Alemi</option>
                             </select>
                         </div>
                         <div class="filter-group">
@@ -273,7 +315,7 @@
                 </div>
 
                 <div class="form-section" id="ozelDetayAlani">
-                    <div class="form-section-title">2. Sahibinden Teknik Parametreler & Nitelikler</div>
+                    <div class="form-section-title">2. Teknik Parametreler & Nitelikler</div>
                     <div class="form-grid-3" id="dinamikDetaylar"></div>
                 </div>
 
@@ -377,7 +419,7 @@
         </div>
     </div>
 
-    <!-- İlan Detay & Sahibinden Tarzı Tüm Parametreler Modalı -->
+    <!-- İlan Detay & Teklif Verme Modalı -->
     <div class="modal" id="detayModal">
         <div class="modal-content">
             <button class="btn-close" onclick="detayKapat()">&times;</button>
@@ -388,12 +430,10 @@
                 <h2 id="modalBaslik" style="font-size:20px; margin-bottom:8px; color:#0f172a;"></h2>
                 <div id="modalKonum" style="color:#64748b; margin-bottom:12px; font-weight:600;"></div>
                 
-                <!-- Sahibinden Özellikler Tablosu -->
                 <div class="specs-grid" id="modalParametreTablosu"></div>
 
                 <div id="modalAciklama" style="line-height:1.6; color:#334155; margin-bottom:15px; white-space:pre-line; background:#fafafa; padding:12px; border-radius:6px;"></div>
                 
-                <!-- Teklif Ver Alanı -->
                 <div class="offer-box">
                     <div class="offer-title"><i class="fa-solid fa-handshake"></i> Fiyatı Yüksek mi Buldunuz? Satıcıya Teklif Verin!</div>
                     <div class="form-grid-2">
@@ -558,7 +598,7 @@
                     <option value="Jant & Lastik">Jant & Lastik</option>
                     <option value="Oto Müzik & Görüntü">Oto Müzik & Görüntü</option>
                 `;
-            } else if (ana === "Elektronik") {
+            } else if (ana === "İkinci El") {
                 altSelect.innerHTML = `
                     <option value="Cep Telefonu & Aksesuar">Cep Telefonu & Aksesuar</option>
                     <option value="Bilgisayar & Tablet">Bilgisayar & Tablet</option>
@@ -574,7 +614,6 @@
             detayAlanlariniGoster();
         }
 
-        /* Sahibinden.com Birebir Detaylı Alanlar Formu */
         function detayAlanlariniGoster() {
             var ana = document.getElementById("anaKategori").value;
             var alt = document.getElementById("altKategori").value;
@@ -589,28 +628,20 @@
                         <div class="filter-group"><label>m² Fiyatı (TL)</label><input type="text" id="detayM2Fiyat" placeholder="Örn: 2.500"></div>
                         <div class="filter-group"><label>İmar Durumu</label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Sanayi İmarlı">Sanayi İmarlı</option><option value="Tarla / Bahçe">Tarla / Bahçe</option></select></div>
                         <div class="filter-group"><label>Kaks (Emsal)</label><input type="text" id="detayKaks" placeholder="Örn: 0.50 / 1.50"></div>
-                        <div class="filter-group"><label>Gabari</label><input type="text" id="detayGabari" placeholder="Örn: Serbest / 10.50"></div>
-                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Müstakil Parsel">Müstakil Parsel</option><option value="Hisseli Tapu">Hisseli Tapu</option><option value="Zilliyetlik">Zilliyetlik</option></select></div>
+                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Müstakil Parsel">Müstakil Parsel</option><option value="Hisseli Tapu">Hisseli Tapu</option></select></div>
                         <div class="filter-group"><label>Takas</label><select id="detayTakas"><option value="Hayır">Hayır</option><option value="Evet">Evet</option></select></div>
                     `;
                 } else {
                     kutu.innerHTML = `
                         <div class="filter-group"><label>m² (Brüt)</label><input type="number" id="detayM2Brut" placeholder="Örn: 140"></div>
                         <div class="filter-group"><label>m² (Net)</label><input type="number" id="detayM2Net" placeholder="Örn: 120"></div>
-                        <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+0 (Stüdyo)">1+0 (Stüdyo)</option><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option><option value="5+1 ve üzeri">5+1 ve üzeri</option></select></div>
+                        <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option><option value="5+1 ve üzeri">5+1 ve üzeri</option></select></div>
                         <div class="filter-group"><label>Bina Yaşı</label><select id="detayBinaYasi"><option value="0 (Yeni)">0 (Yeni)</option><option value="1-5 arası">1-5 arası</option><option value="6-10 arası">6-10 arası</option><option value="11-15 arası">11-15 arası</option><option value="16-20 arası">16-20 arası</option><option value="21 ve üzeri">21 ve üzeri</option></select></div>
                         <div class="filter-group"><label>Bulunduğu Kat</label><input type="text" id="detayKat" placeholder="Örn: 4. Kat / Yüksek Giriş"></div>
-                        <div class="filter-group"><label>Kat Sayısı</label><input type="number" id="detayKatSayisi" placeholder="Örn: 12"></div>
-                        <div class="filter-group"><label>Isıtma Tipi</label><select id="detayIsitma"><option value="Doğalgaz (Kombi)">Doğalgaz (Kombi)</option><option value="Merkezi (Pay Ölçer)">Merkezi (Pay Ölçer)</option><option value="Yerden Isıtma">Yerden Isıtma</option><option value="Klima">Klima</option><option value="Soba">Soba</option></select></div>
-                        <div class="filter-group"><label>Banyo Sayısı</label><select id="detayBanyo"><option value="1">1</option><option value="2">2</option><option value="3+">3+</option></select></div>
+                        <div class="filter-group"><label>Isıtma Tipi</label><select id="detayIsitma"><option value="Doğalgaz (Kombi)">Doğalgaz (Kombi)</option><option value="Merkezi (Pay Ölçer)">Merkezi (Pay Ölçer)</option><option value="Yerden Isıtma">Yerden Isıtma</option><option value="Klima">Klima</option></select></div>
                         <div class="filter-group"><label>Balkon</label><select id="detayBalkon"><option value="Var">Var</option><option value="Yok">Yok</option></select></div>
-                        <div class="filter-group"><label>Asansör</label><select id="detayAsansor"><option value="Var">Var</option><option value="Yok">Yok</option></select></div>
-                        <div class="filter-group"><label>Otopark</label><select id="detayOtopark"><option value="Kapalı Otopark">Kapalı Otopark</option><option value="Açık Otopark">Açık Otopark</option><option value="Yok">Yok</option></select></div>
                         <div class="filter-group"><label>Eşya Durumu</label><select id="detayEsya"><option value="Eşyasız">Eşyasız</option><option value="Eşyalı">Eşyalı</option></select></div>
-                        <div class="filter-group"><label>Kullanım Durumu</label><select id="detayKullanim"><option value="Boş">Boş</option><option value="Mülk Sahibi Oturuyor">Mülk Sahibi Oturuyor</option><option value="Kiracılı">Kiracılı</option></select></div>
                         <div class="filter-group"><label>Site İçerisinde</label><select id="detaySite"><option value="Evet">Evet</option><option value="Hayır">Hayır</option></select></div>
-                        <div class="filter-group"><label>Aidat (TL)</label><input type="number" id="detayAidat" placeholder="Örn: 850"></div>
-                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapuDurumu"><option value="Kat Mülkiyetli">Kat Mülkiyetli</option><option value="Kat İrtifaklı">Kat İrtifaklı</option><option value="Arsa Tapulu">Arsa Tapulu</option></select></div>
                         <div class="filter-group"><label>Cephe</label><select id="detayCephe"><option value="Güney - Doğu">Güney - Doğu</option><option value="Güney - Batı">Güney - Batı</option><option value="Kuzey - Doğu">Kuzey - Doğu</option><option value="Kuzey - Batı">Kuzey - Batı</option></select></div>
                     `;
                 }
@@ -620,14 +651,10 @@
                     <div class="filter-group"><label>Seri / Model</label><input type="text" id="detaySeri" placeholder="Örn: Passat 1.6 TDI / 320i"></div>
                     <div class="filter-group"><label>Model Yılı</label><input type="number" id="detayYil" placeholder="Örn: 2021"></div>
                     <div class="filter-group"><label>Kilometre (KM)</label><input type="number" id="detayKm" placeholder="Örn: 145000"></div>
-                    <div class="filter-group"><label>Motor Hacmi (cc)</label><input type="text" id="detayMotorHacmi" placeholder="Örn: 1598 cc"></div>
-                    <div class="filter-group"><label>Motor Gücü (hp)</label><input type="text" id="detayMotorGucu" placeholder="Örn: 120 hp"></div>
                     <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="LPG & Benzin">LPG & Benzin</option><option value="Elektrik">Elektrik</option><option value="Hibrit">Hibrit</option></select></div>
                     <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Yarı Otomatik">Yarı Otomatik</option><option value="Manuel">Manuel</option></select></div>
-                    <div class="filter-group"><label>Kasa Tipi</label><select id="detayKasa"><option value="Sedan">Sedan</option><option value="Hatchback">Hatchback</option><option value="SUV / Crossover">SUV / Crossover</option><option value="Station Wagon">Station Wagon</option><option value="Coupe">Coupe</option></select></div>
-                    <div class="filter-group"><label>Çekiş</label><select id="detayCekis"><option value="Önden Çekiş">Önden Çekiş</option><option value="Arkadan İtiş">Arkadan İtiş</option><option value="4x4 (Sürekli / Değişken)">4x4 (Sürekli / Değişken)</option></select></div>
+                    <div class="filter-group"><label>Kasa Tipi</label><select id="detayKasa"><option value="Sedan">Sedan</option><option value="Hatchback">Hatchback</option><option value="SUV / Crossover">SUV / Crossover</option></select></div>
                     <div class="filter-group"><label>Renk</label><input type="text" id="detayRenk" placeholder="Örn: Beyaz / Siyah / Füme"></div>
-                    <div class="filter-group"><label>Garanti Durumu</label><select id="detayGaranti"><option value="Garantisi Yok">Garantisi Yok</option><option value="Garantisi Devam Ediyor">Garantisi Devam Ediyor</option></select></div>
                     <div class="filter-group"><label>Hasar Kaydı / Ekspertiz</label><select id="detayEkspertiz"><option value="Hatasız / Boyasız">Hatasız / Boyasız</option><option value="Lokal Boyalı">Lokal Boyalı</option><option value="Değişenli">Değişenli</option><option value="Ağır Hasar Kayıtlı">Ağır Hasar Kayıtlı</option></select></div>
                     <div class="filter-group"><label>Takas</label><select id="detayTakasVay"><option value="Evet">Evet</option><option value="Hayır">Hayır</option></select></div>
                 `;
@@ -702,7 +729,6 @@
                 yuklenenResimURLleri = ["https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"];
             }
 
-            /* Sahibinden Birebir Parametre Nesnesi */
             var detayObje = {};
             if (document.getElementById("detayM2Brut")) detayObje["m² (Brüt)"] = document.getElementById("detayM2Brut").value + " m²";
             if (document.getElementById("detayM2Net")) detayObje["m² (Net)"] = document.getElementById("detayM2Net").value + " m²";
@@ -744,7 +770,7 @@
             if (error) {
                 alert("Hata oluştu: " + error.message);
             } else {
-                alert("İlanınız tüm Sahibinden detay parametreleriyle birlikte yayınlandı!");
+                alert("İlanınız yayınlandı!");
                 document.getElementById("baslik").value = "";
                 document.getElementById("fiyat").value = "";
                 document.getElementById("konum").value = "";
@@ -877,7 +903,6 @@
             document.getElementById("modalBaslik").innerText = aktifIlan.baslik;
             document.getElementById("modalKonum").innerHTML = `<i class="fa-solid fa-location-dot"></i> ${aktifIlan.konum || 'Belirtilmedi'}`;
             
-            /* Sahibinden Birebir Parametre Tablosu Çizimi */
             var tabloKutusu = document.getElementById("modalParametreTablosu");
             tabloKutusu.innerHTML = "";
             
