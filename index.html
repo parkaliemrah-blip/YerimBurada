@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v21 - Özel Kurumsal İlan Stüdyosu</title>
+    <title>YerimBurada v22 - Özel Kurumsal İlan Stüdyosu</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --yb-dark: #070f1e;
+            --yb-dark: #09122c;
             --yb-card-bg: #ffffff;
-            --yb-blue: #1d4ed8;
+            --yb-blue: #2563eb;
             --yb-orange: #f59e0b;
             --yb-green: #10b981;
-            --yb-bg: #f1f5f9;
+            --yb-bg: #f8fafc;
             --yb-border: #cbd5e1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--yb-bg); color: var(--yb-dark); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
 
-        header { background: var(--yb-dark); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--yb-orange); }
+        header { background: var(--yb-dark); color: white; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--yb-orange); }
         .logo-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; }
         .logo-text span { color: var(--yb-orange); }
@@ -35,7 +35,6 @@
 
         .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 320px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* SOL PANEL AKORDİYON */
         .sidebar { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); height: fit-content; }
         .sidebar h3 { font-size: 13px; color: var(--yb-dark); margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
         
@@ -57,7 +56,7 @@
         .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--yb-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
         .filter-inputs { display: flex; gap: 8px; }
 
-        /* YERİMBURADA ÖZEL İLAN SİHRİBAZI (WIZARD v21) */
+        /* YERİMBURADA ÖZEL İLAN SİHRİBAZI (v22 - KUTUSUZ MODERN TASARIM) */
         .wizard-container { background: white; border: 2px solid var(--yb-orange); border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(245,158,11,0.15); display: none; }
         .wizard-header-brand { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
         .wizard-header-brand h2 { font-size: 18px; color: var(--yb-dark); font-weight: 900; display: flex; align-items: center; gap: 10px; }
@@ -74,11 +73,15 @@
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
-        /* YENİ NESİL KART SEÇİM MENÜLERİ (Kutulardan tamamen uzak özgün yapı) */
-        .yb-selector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
-        .yb-select-card { background: #f8fafc; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px; cursor: pointer; text-align: center; font-weight: 800; color: #334155; transition: 0.2s; }
-        .yb-select-card:hover { border-color: var(--yb-blue); background: #f0f9ff; color: var(--yb-blue); }
-        .yb-select-card.selected { border-color: var(--yb-orange); background: #fffbeb; color: var(--yb-dark); box-shadow: 0 4px 12px rgba(245,158,11,0.2); }
+        /* YENİ NESİL DİKEY AKORDEON SEÇİM ALANI (Eski yan yana kutular çöpe atıldı) */
+        .yb-modern-step-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 18px; }
+        .yb-modern-step-box h4 { font-size: 13px; font-weight: 900; color: var(--yb-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .yb-modern-step-box h4 i { color: var(--yb-blue); }
+
+        .yb-tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+        .yb-tag-pill { background: #ffffff; border: 2px solid #cbd5e1; padding: 10px 16px; border-radius: 8px; font-weight: 800; color: #334155; cursor: pointer; transition: 0.2s; font-size: 12px; }
+        .yb-tag-pill:hover { border-color: var(--yb-blue); color: var(--yb-blue); background: #f0f9ff; }
+        .yb-tag-pill.selected { border-color: var(--yb-orange); background: #fffbeb; color: var(--yb-dark); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
 
         .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 18px; }
         .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -101,7 +104,7 @@
 
         .bargain-badge { font-size: 9px; font-weight: 900; padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
         .bargain-badge.green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-        .bargain-badge.red { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .bargain-badge.red { background: #fee2e2; color: #b91c1c; border: 1px solid #ffcdd2; }
 
         .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
         .card { background: white; border: 1px solid var(--yb-border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; }
@@ -175,7 +178,6 @@
             .card-price { font-size: 16px; }
             .card-title { font-size: 11px; height: 32px; }
 
-            .yb-selector-grid { grid-template-columns: 1fr; }
             .mobile-bottom-nav { display: flex; }
         }
     </style>
@@ -199,7 +201,7 @@
 
     <div class="main-layout">
 
-        <!-- YERİMBURADA ÖZEL AKORDİYON SOL PANEL -->
+        <!-- SOL PANEL AKORDİYON -->
         <div class="sidebar" id="mainSidebar">
             <h3><span>YerimBurada Kataloğu</span> <i class="fa-solid fa-compass" style="color:var(--yb-orange);"></i></h3>
             <ul class="cat-accordion">
@@ -262,11 +264,11 @@
 
         <div class="content">
 
-            <!-- YERİMBURADA ÖZEL STÜDYO WIZARD (v21) -->
+            <!-- YERİMBURADA ÖZEL STÜDYO WIZARD (v22 - KUTUSUZ MODERN TASARIM) -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-header-brand">
                     <h2><i class="fa-solid fa-cube"></i> YerimBurada İlan Stüdyosu</h2>
-                    <span style="font-weight:800; color:var(--yb-orange); font-size:12px;">v21 Özgün Tasarım</span>
+                    <span style="font-weight:800; color:var(--yb-orange); font-size:12px;">v22 Özgün Tasarım</span>
                 </div>
 
                 <div class="wizard-stepper">
@@ -277,37 +279,42 @@
                     <div class="step-item" id="stepIndicator5"><div class="step-num">5</div><div class="step-title">Yayınlandı</div></div>
                 </div>
 
-                <!-- ADIM 1: YENİ NESİL KART SEÇİMLERİ -->
+                <!-- ADIM 1: YENİ NESİL DİKEY AKORDEON SEÇİM ALANI -->
                 <div class="wizard-step-content active" id="wizardStep1">
-                    <h3 style="margin-bottom:14px; font-size:14px; color:var(--yb-dark); font-weight:900;"><i class="fa-solid fa-compass" style="color:var(--yb-orange)"></i> 1. Kategori Seçim Sihirbazı</h3>
                     
-                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">Ana Kategori:</label>
-                    <div class="yb-selector-grid" id="gridAnaKat">
-                        <div class="yb-select-card selected" onclick="secWizAnaKat('Emlak', this)"><i class="fa-solid fa-house"></i> Emlak Portalı</div>
-                        <div class="yb-select-card" onclick="secWizAnaKat('Vasıta', this)"><i class="fa-solid fa-car"></i> Vasıta Galeri</div>
-                        <div class="yb-select-card" onclick="secWizAnaKat('Alisveris', this)"><i class="fa-solid fa-bag-shopping"></i> Alışveriş & Teknoloji</div>
+                    <div class="yb-modern-step-box">
+                        <h4><i class="fa-solid fa-layer-group"></i> 1. Ana Kategori Seçin</h4>
+                        <div class="yb-tag-cloud" id="tagAnaKat">
+                            <div class="yb-tag-pill selected" onclick="secWizAnaKat('Emlak', this)">🏠 Emlak Portalı</div>
+                            <div class="yb-tag-pill" onclick="secWizAnaKat('Vasıta', this)">🚗 Vasıta & Galeri</div>
+                            <div class="yb-tag-pill" onclick="secWizAnaKat('Alisveris', this)">🛍️ Alışveriş & Teknoloji</div>
+                        </div>
                     </div>
 
-                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">Alt Kategori:</label>
-                    <div class="yb-selector-grid" id="gridAltKat">
-                        <div class="yb-select-card selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
-                        <div class="yb-select-card" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
-                        <div class="yb-select-card" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
-                        <div class="yb-select-card" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
+                    <div class="yb-modern-step-box">
+                        <h4><i class="fa-solid fa-list-check"></i> 2. Alt Kategori Seçin</h4>
+                        <div class="yb-tag-cloud" id="tagAltKat">
+                            <div class="yb-tag-pill selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
+                            <div class="yb-tag-pill" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
+                            <div class="yb-tag-pill" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
+                            <div class="yb-tag-pill" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
+                        </div>
                     </div>
 
-                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">İşlem / Satış Tipi:</label>
-                    <div class="yb-selector-grid" id="gridIslem">
-                        <div class="yb-select-card selected" onclick="secWizIslem('Satılık', this)">Satılık</div>
-                        <div class="yb-select-card" onclick="secWizIslem('Kiralık', this)">Kiralık</div>
+                    <div class="yb-modern-step-box">
+                        <h4><i class="fa-solid fa-handshake"></i> 3. İşlem Tipi Seçin</h4>
+                        <div class="yb-tag-cloud" id="tagIslem">
+                            <div class="yb-tag-pill selected" onclick="secWizIslem('Satılık', this)">Satılık</div>
+                            <div class="yb-tag-pill" onclick="secWizIslem('Kiralık', this)">Kiralık</div>
+                        </div>
                     </div>
 
-                    <div class="form-section" style="margin-top:20px;">
+                    <div class="form-section">
                         <div class="filter-group" style="margin-bottom:0;">
                             <label>İlan Sahibi Kimliği <span style="color:#dc2626;">*</span></label>
                             <select id="kimlikTipi">
                                 <option value="Sahibinden">Sahibinden</option>
-                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Gayrimenkul Danışmanından</option>
+                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Danışman</option>
                                 <option value="İnşaat Firmasından">İnşaat Firmasından</option>
                                 <option value="Galeriden">Galeriden</option>
                                 <option value="Bankadan">Bankadan</option>
@@ -564,7 +571,7 @@
         var yuklenecekDosyalar = [];
         var mevcutAuthModu = 'giris';
         var mevcutKullanici = null;
-        var aktifIlan = null;
+        var aktifIlan = bul = null;
 
         window.onload = function() {
             ilanlariGetir();
@@ -572,7 +579,6 @@
             kullaniciOturumKontrol();
         };
 
-        /* AKORDİYON (AÇILIR-KAPANIR) SOL PANEL */
         function akordiyonAcKapat(groupId) {
             var group = document.getElementById(groupId);
             var isOpen = group.classList.contains("active-group");
@@ -597,32 +603,32 @@
             sidebar.classList.remove("mobile-open");
         }
 
-        /* YENİ NESİL KART SEÇİM FONKSİYONLARI */
+        /* YENİ NESİL KART HAP (PİLL) SEÇİM MİMARİSİ */
         function secWizAnaKat(ana, el) {
             secilenAnaKat = ana;
             var parent = el.parentElement;
-            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            parent.querySelectorAll('.yb-tag-pill').forEach(x => x.classList.remove('selected'));
             el.classList.add('selected');
 
-            var gridAlt = document.getElementById('gridAltKat');
+            var tagAlt = document.getElementById('tagAltKat');
             if (ana === 'Emlak') {
-                gridAlt.innerHTML = `
-                    <div class="yb-select-card selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
-                    <div class="yb-select-card" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
-                    <div class="yb-select-card" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
-                    <div class="yb-select-card" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
+                tagAlt.innerHTML = `
+                    <div class="yb-tag-pill selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
+                    <div class="yb-tag-pill" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
+                    <div class="yb-tag-pill" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
+                    <div class="yb-tag-pill" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
                 `;
                 secilenAltKat = "Konut / Daire";
             } else if (ana === 'Vasıta') {
-                gridAlt.innerHTML = `
-                    <div class="yb-select-card selected" onclick="secWizAltKat('Otomobil', this)">Otomobil</div>
-                    <div class="yb-select-card" onclick="secWizAltKat('SUV & Pickup', this)">Arazi, SUV & Pickup</div>
-                    <div class="yb-select-card" onclick="secWizAltKat('Motosiklet', this)">Motosiklet</div>
+                tagAlt.innerHTML = `
+                    <div class="yb-tag-pill selected" onclick="secWizAltKat('Otomobil', this)">Otomobil</div>
+                    <div class="yb-tag-pill" onclick="secWizAltKat('SUV & Pickup', this)">Arazi, SUV & Pickup</div>
+                    <div class="yb-tag-pill" onclick="secWizAltKat('Motosiklet', this)">Motosiklet</div>
                 `;
                 secilenAltKat = "Otomobil";
             } else {
-                gridAlt.innerHTML = `
-                    <div class="yb-select-card selected" onclick="secWizAltKat('Teknoloji & Eşya', this)">Teknoloji & Eşya</div>
+                tagAlt.innerHTML = `
+                    <div class="yb-tag-pill selected" onclick="secWizAltKat('Teknoloji & Eşya', this)">Teknoloji & Eşya</div>
                 `;
                 secilenAltKat = "Teknoloji & Eşya";
             }
@@ -632,7 +638,7 @@
         function secWizAltKat(alt, el) {
             secilenAltKat = alt;
             var parent = el.parentElement;
-            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            parent.querySelectorAll('.yb-tag-pill').forEach(x => x.classList.remove('selected'));
             el.classList.add('selected');
             guncelleKategoriEtiket();
         }
@@ -640,7 +646,7 @@
         function secWizIslem(islem, el) {
             secilenIslem = islem;
             var parent = el.parentElement;
-            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            parent.querySelectorAll('.yb-tag-pill').forEach(x => x.classList.remove('selected'));
             el.classList.add('selected');
             guncelleKategoriEtiket();
         }
@@ -678,7 +684,6 @@
             wizAdimGit(4);
         }
 
-        /* KATEGORİYE ÖZEL AKILLI TEKNİK PARAMETRELER */
         function detayAlanlariniGoster() {
             var kutu = document.getElementById("dinamikDetaylar");
             var tasinmazBox = document.getElementById("tasinmazNoAlani");
