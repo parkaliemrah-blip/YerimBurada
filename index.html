@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v17 - Türkiye'nin Canlı İlan Pazarı</title>
+    <title>YerimBurada v18 - Özgün Kurumsal İlan Portalı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -37,21 +37,22 @@
 
         .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 350px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* BİREBİR SAHİBİNDEN STİLİ SOL PANEL */
+        /* ÖZGÜN, TEMİZ VE İŞLEVSEL SOL PANEL */
         .sidebar { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); height: fit-content; }
-        .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; }
+        .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
         
         .cat-accordion { list-style: none; margin-bottom: 22px; }
         .cat-group { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 11px 10px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; }
-        .cat-header i.icon-left { width: 26px; color: var(--accent-gold); font-size: 16px; }
-        .cat-header .count-badge { color: #94a3b8; font-weight: 600; font-size: 11px; }
+        .cat-header { padding: 12px 10px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; transition: 0.2s; border-radius: 6px; }
+        .cat-header:hover { background: #f1f5f9; color: var(--accent-blue); }
+        .cat-header i.icon-left { width: 24px; color: var(--accent-gold); font-size: 15px; }
         
-        .cat-sublist { list-style: none; padding-left: 36px; background: #f8fafc; display: none; border-left: 3px solid var(--accent-blue); margin: 4px 0 8px 10px; border-radius: 0 6px 6px 0; }
-        .cat-sublist li { padding: 8px 10px; font-size: 12px; color: #0284c7; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; display: flex; justify-content: space-between; }
-        .cat-sublist li span.sub-count { color: #94a3b8; font-weight: 500; font-size: 11px; }
-        .cat-sublist li:hover { color: var(--accent-blue); background: #e0f2fe; }
+        .cat-sublist { list-style: none; padding-left: 32px; background: #f8fafc; display: none; border-left: 3px solid var(--accent-blue); margin: 4px 0 8px 10px; border-radius: 0 6px 6px 0; }
+        .cat-sublist li { padding: 9px 10px; font-size: 12px; color: #0284c7; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
+        .cat-sublist li:hover { color: var(--accent-blue); background: #e0f2fe; padding-left: 14px; }
         .cat-group.open .cat-sublist { display: block; }
+        .cat-group.open .chevron { transform: rotate(180deg); }
+        .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
 
         .filter-group { margin-bottom: 14px; }
         .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 5px; color: #475569; text-transform: uppercase; }
@@ -139,13 +140,11 @@
         .auth-tab div { flex: 1; text-align: center; padding: 10px; font-weight: 800; cursor: pointer; color: #64748b; }
         .auth-tab div.active { color: var(--accent-blue); border-bottom: 3px solid var(--accent-blue); }
 
-        /* BİREBİR SAHİBİNDEN FOOTER STİLİ */
         footer { background: #f8fafc; color: #475569; padding: 40px 5% 80px 5%; margin-top: 50px; font-size: 12px; border-top: 1px solid var(--card-border); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto 30px auto; }
         .footer-col h4 { color: #0f172a; font-size: 13px; margin-bottom: 12px; font-weight: 800; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 8px; color: #64748b; cursor: pointer; }
-        .footer-col ul li:hover { color: var(--accent-blue); }
         .footer-bottom { text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; color: #94a3b8; font-weight: 600; }
 
         /* MOBİL BOTTOM NAV */
@@ -188,7 +187,7 @@
             <span class="logo-text">Yerim<span>Burada</span></span>
         </div>
         <div class="header-search">
-            <input type="text" id="aramaKutusu" onkeyup="filtrele()" placeholder="Daire, konut, otomobil, telefon, traktör ara...">
+            <input type="text" id="aramaKutusu" onkeyup="filtrele()" placeholder="Daire, arsa, tarla, dükkan, otomobil, telefon ara...">
             <button onclick="filtrele()"><i class="fa-solid fa-magnifying-glass"></i> Ara</button>
         </div>
         <div class="header-nav">
@@ -200,92 +199,71 @@
 
     <div class="main-layout">
 
-        <!-- FOTOĞRAFLARDAKİ BİREBİR SAHİBİNDEN KATEGORİ MENÜSÜ -->
+        <!-- ÖZGÜN, FONKSİYONEL VE TIKLANABİLİR KATEGORİ MENÜSÜ -->
         <div class="sidebar" id="mainSidebar">
             <h3><span>Kategori Kataloğu</span> <i class="fa-solid fa-layer-group" style="color:var(--accent-gold);"></i></h3>
             <ul class="cat-accordion">
                 <li class="cat-group open">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
                         <span><i class="fa-solid fa-house icon-left"></i> Emlak</span>
-                        <span class="count-badge">(1.197.067)</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist" style="display:block;">
-                        <li onclick="kategoriSec('Konut')"><span>Konut</span> <span class="sub-count">(772.343)</span></li>
-                        <li onclick="kategoriSec('İş Yeri')"><span>İş Yeri</span> <span class="sub-count">(152.818)</span></li>
-                        <li onclick="kategoriSec('Arsa')"><span>Arsa</span> <span class="sub-count">(258.713)</span></li>
-                        <li onclick="kategoriSec('Konut Projeleri')"><span>Konut Projeleri</span> <span class="sub-count">(1.383)</span></li>
-                        <li onclick="kategoriSec('Bina')"><span>Bina</span> <span class="sub-count">(8.796)</span></li>
-                        <li onclick="kategoriSec('Devre Mülk')"><span>Devre Mülk</span> <span class="sub-count">(2.940)</span></li>
-                        <li onclick="kategoriSec('Turistik Tesis')"><span>Turistik Tesis</span> <span class="sub-count">(1.455)</span></li>
+                        <li onclick="kategoriSec('Konut')">Konut</li>
+                        <li onclick="kategoriSec('İş Yeri')">İş Yeri</li>
+                        <li onclick="kategoriSec('Arsa')">Arsa</li>
+                        <li onclick="kategoriSec('Konut Projeleri')">Konut Projeleri</li>
+                        <li onclick="kategoriSec('Bina')">Bina</li>
+                        <li onclick="kategoriSec('Devre Mülk')">Devre Mülk</li>
+                        <li onclick="kategoriSec('Turistik Tesis')">Turistik Tesis</li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
                         <span><i class="fa-solid fa-car icon-left"></i> Vasıta</span>
-                        <span class="count-badge">(810.620)</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Otomobil')"><span>Otomobil</span> <span class="sub-count">(395.965)</span></li>
-                        <li onclick="kategoriSec('Arazi, SUV & Pickup')"><span>Arazi, SUV & Pickup</span> <span class="sub-count">(112.397)</span></li>
-                        <li onclick="kategoriSec('Elektrikli Araçlar')"><span>Elektrikli Araçlar</span> <span class="sub-count">(10.750)</span></li>
-                        <li onclick="kategoriSec('Motosiklet')"><span>Motosiklet</span> <span class="sub-count">(125.948)</span></li>
-                        <li onclick="kategoriSec('Minivan & Panelvan')"><span>Minivan & Panelvan</span> <span class="sub-count">(76.784)</span></li>
-                        <li onclick="kategoriSec('Ticari Araçlar')"><span>Ticari Araçlar</span> <span class="sub-count">(51.008)</span></li>
+                        <li onclick="kategoriSec('Otomobil')">Otomobil</li>
+                        <li onclick="kategoriSec('Arazi, SUV & Pickup')">Arazi, SUV & Pickup</li>
+                        <li onclick="kategoriSec('Elektrikli Araçlar')">Elektrikli Araçlar</li>
+                        <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
+                        <li onclick="kategoriSec('Minivan & Panelvan')">Minivan & Panelvan</li>
+                        <li onclick="kategoriSec('Ticari Araçlar')">Ticari Araçlar</li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
                         <span><i class="fa-solid fa-wrench icon-left"></i> Yedek Parça & Aksesuar</span>
-                        <span class="count-badge">(3.389.893)</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Otomotiv Ekipmanları')"><span>Otomotiv Ekipmanları</span> <span class="sub-count">(3.192.804)</span></li>
-                        <li onclick="kategoriSec('Motosiklet Ekipmanları')"><span>Motosiklet Ekipmanları</span> <span class="sub-count">(177.367)</span></li>
+                        <li onclick="kategoriSec('Otomotiv Ekipmanları')">Otomotiv Ekipmanları</li>
+                        <li onclick="kategoriSec('Motosiklet Ekipmanları')">Motosiklet Ekipmanları</li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
                         <span><i class="fa-solid fa-cart-shopping icon-left"></i> İkinci El ve Sıfır Alışveriş</span>
-                        <span class="count-badge">(3.070.041)</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Bilgisayar')"><span>Bilgisayar</span> <span class="sub-count">(341.485)</span></li>
-                        <li onclick="kategoriSec('Cep Telefonu & Aksesuar')"><span>Cep Telefonu & Aksesuar</span> <span class="sub-count">(342.541)</span></li>
-                        <li onclick="kategoriSec('Ev Elektroniği')"><span>Ev Elektroniği</span> <span class="sub-count">(111.111)</span></li>
-                        <li onclick="kategoriSec('Giyim & Aksesuar')"><span>Giyim & Aksesuar</span> <span class="sub-count">(167.065)</span></li>
-                        <li onclick="kategoriSec('Bahçe & Yapı Market')"><span>Bahçe & Yapı Market</span> <span class="sub-count">(222.873)</span></li>
+                        <li onclick="kategoriSec('Bilgisayar')">Bilgisayar</li>
+                        <li onclick="kategoriSec('Cep Telefonu & Aksesuar')">Cep Telefonu & Aksesuar</li>
+                        <li onclick="kategoriSec('Ev Elektroniği')">Ev Elektroniği</li>
+                        <li onclick="kategoriSec('Giyim & Aksesuar')">Giyim & Aksesuar</li>
+                        <li onclick="kategoriSec('Bahçe & Yapı Market')">Bahçe & Yapı Market</li>
                     </ul>
                 </li>
                 <li class="cat-group">
                     <div class="cat-header" onclick="kategoriGrupAc(this)">
                         <span><i class="fa-solid fa-tractor icon-left"></i> İş Makineleri & Sanayi</span>
-                        <span class="count-badge">(134.178)</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('İş Makineleri')"><span>İş Makineleri</span> <span class="sub-count">(24.272)</span></li>
-                        <li onclick="kategoriSec('Tarım Makineleri')"><span>Tarım Makineleri</span> <span class="sub-count">(39.623)</span></li>
-                        <li onclick="kategoriSec('Sanayi')"><span>Sanayi</span> <span class="sub-count">(66.038)</span></li>
-                    </ul>
-                </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-toolbox icon-left"></i> Ustalar ve Hizmetler</span>
-                        <span class="count-badge">(10.000)</span>
-                    </div>
-                    <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Ev Tadilat & Dekorasyon')"><span>Ev Tadilat & Dekorasyon</span></li>
-                        <li onclick="kategoriSec('Nakliye')"><span>Nakliye</span></li>
-                        <li onclick="kategoriSec('Araç Servis & Bakım')"><span>Araç Servis & Bakım</span></li>
-                    </ul>
-                </li>
-                <li class="cat-group">
-                    <div class="cat-header" onclick="kategoriGrupAc(this)">
-                        <span><i class="fa-solid fa-graduation-cap icon-left"></i> Özel Ders Verenler</span>
-                        <span class="count-badge">(14.966)</span>
-                    </div>
-                    <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Lise & Üniversite')"><span>Lise & Üniversite</span> <span class="sub-count">(3.413)</span></li>
-                        <li onclick="kategoriSec('İlkokul & Ortaokul')"><span>İlkokul & Ortaokul</span> <span class="sub-count">(5.839)</span></li>
+                        <li onclick="kategoriSec('İş Makineleri')">İş Makineleri</li>
+                        <li onclick="kategoriSec('Tarım Makineleri')">Tarım Makineleri</li>
+                        <li onclick="kategoriSec('Sanayi')">Sanayi</li>
                     </ul>
                 </li>
             </ul>
@@ -572,63 +550,18 @@
         </div>
     </div>
 
-    <!-- EKAN GÖRÜNTÜSÜNDEKİ BİREBİR SAHİBİNDEN FOOTER -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <h4>Kurumsal</h4>
-                <ul>
-                    <li>Hakkımızda</li>
-                    <li>Sürdürülebilirlik</li>
-                    <li>İnsan Kaynakları</li>
-                    <li>Haberler</li>
-                    <li>Site Haritası</li>
-                    <li>İletişim</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Hizmetlerimiz</h4>
-                <ul>
-                    <li>Doping</li>
-                    <li>S - Param Güvende</li>
-                    <li>Güvenli e-Ticaret (GeT)</li>
-                    <li>Reklam</li>
-                    <li>Mobil</li>
-                    <li>Auto King</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Mağazalar</h4>
-                <ul>
-                    <li>Neden Mağaza?</li>
-                    <li>Mağaza Açmak İstiyorum</li>
-                </ul>
+                <h4>YerimBurada.com</h4>
+                <ul><li>Hakkımızda</li><li>Kurumsal İletişim</li></ul>
             </div>
             <div class="footer-col">
                 <h4>Gizlilik ve Kullanım</h4>
-                <ul>
-                    <li>Güvenli Alışverişin İpuçları</li>
-                    <li>Sözleşmeler ve Kurallar</li>
-                    <li>Hesap Sözleşmesi</li>
-                    <li>Kullanım Koşulları</li>
-                    <li>Kişisel Verilerin Korunması</li>
-                    <li>Çerez Yönetimi</li>
-                    <li>Yardım ve İşlem Rehberi</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Bizi Takip Edin</h4>
-                <ul>
-                    <li>Sahiblog</li>
-                    <li>Facebook</li>
-                    <li>X (Twitter)</li>
-                    <li>LinkedIn</li>
-                    <li>Instagram</li>
-                    <li>YouTube</li>
-                </ul>
+                <ul><li>Güvenli Alışveriş İpuçları</li><li>Kullanım Koşulları</li></ul>
             </div>
         </div>
-        <div class="footer-bottom">&copy; 2026 YerimBurada.com - Türkiye'nin Canlı İlan Portalı</div>
+        <div class="footer-bottom">&copy; 2026 YerimBurada.com - Türkiye'nin Özgün İlan Pazarı</div>
     </footer>
 
     <script>
@@ -741,7 +674,6 @@
                     <div class="cat-column-item selected" onclick="wizAltKatSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
                     <div class="cat-column-item" onclick="wizAltKatSec('Arazi, SUV & Pickup', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
                     <div class="cat-column-item" onclick="wizAltKatSec('Motosiklet', this)">Motosiklet <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Minivan & Panelvan', this)">Minivan & Panelvan <i class="fa-solid fa-chevron-right"></i></div>
                 `;
                 colIslem.innerHTML = `
                     <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
@@ -1137,7 +1069,7 @@
             
             if (temizTelefon.startsWith("0")) temizTelefon = "90" + temizTelefon.substring(1);
             var waMesaj = encodeURIComponent(`Merhaba, YerimBurada üzerindeki "${aktifIlan.baslik}" ilanınız hakkında bilgi almak istiyorum.`);
-            document.getElementById("modalWhatsapp").href = `https://wa.me/${temizTelefon}?text=${encodeURIComponent(waMesaj)}`;
+            document.getElementById("modalWhatsapp").href = `https://wa.me/${temizTelefon}?text=${waMesaj}`;
 
             document.getElementById("btnSil").onclick = function() { ilanSil(aktifIlan.id); };
             document.getElementById("detayModal").style.display = "flex";
