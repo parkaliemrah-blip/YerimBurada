@@ -3,160 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v20 - Özgün ve Modern İlan Portalı</title>
+    <title>YerimBurada v21 - Özel Kurumsal İlan Stüdyosu</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --yb-navy: #0b132b;
-            --yb-slate: #1c2541;
-            --yb-blue: #3a86ff;
-            --yb-orange: #ff9f1c;
-            --yb-green: #2ec4b6;
-            --yb-light: #f4f6f8;
-            --yb-border: #d8e2dc;
+            --yb-dark: #070f1e;
+            --yb-card-bg: #ffffff;
+            --yb-blue: #1d4ed8;
+            --yb-orange: #f59e0b;
+            --yb-green: #10b981;
+            --yb-bg: #f1f5f9;
+            --yb-border: #cbd5e1;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--yb-light); color: var(--yb-navy); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--yb-bg); color: var(--yb-dark); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
 
-        /* ÖZGÜN ÜST MENÜ */
-        header { background: var(--yb-navy); color: white; padding: 15px 6%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 25px rgba(11,19,43,0.2); position: sticky; top: 0; z-index: 100; border-bottom: 4px solid var(--yb-orange); }
+        header { background: var(--yb-dark); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--yb-orange); }
         .logo-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px; }
+        .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; }
         .logo-text span { color: var(--yb-orange); }
 
-        .header-search { display: flex; flex: 1; max-width: 600px; margin: 0 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 10px; overflow: hidden; }
-        .header-search input { width: 100%; padding: 13px 20px; border: none; background: #ffffff; outline: none; font-size: 13px; color: #000; font-weight: 600; }
-        .header-search input::placeholder { color: #8d99ae; font-weight: 500; }
-        .header-search button { background: var(--yb-orange); color: #000; border: none; padding: 13px 26px; cursor: pointer; font-weight: 800; font-size: 13px; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
-        .header-search button:hover { background: #f39200; }
+        .header-search { display: flex; flex: 1; max-width: 600px; margin: 0 25px; box-shadow: 0 3px 12px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden; }
+        .header-search input { width: 100%; padding: 12px 18px; border: none; background: #ffffff; outline: none; font-size: 13px; color: #000; font-weight: 600; }
+        .header-search button { background: var(--yb-orange); color: #000; border: none; padding: 12px 24px; cursor: pointer; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 6px; }
 
-        .header-nav { display: flex; align-items: center; gap: 20px; }
-        .nav-item { color: #cbd5e1; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; cursor: pointer; transition: 0.2s; }
-        .nav-item:hover { color: var(--yb-orange); }
-        .btn-add { background: linear-gradient(135deg, var(--yb-orange), #f39200); color: #0b132b; border: none; padding: 12px 22px; cursor: pointer; border-radius: 10px; font-weight: 900; font-size: 13px; box-shadow: 0 4px 15px rgba(255,159,28,0.3); transition: 0.2s; }
-        .btn-add:hover { transform: translateY(-2px); }
+        .header-nav { display: flex; align-items: center; gap: 18px; }
+        .nav-item { color: #cbd5e1; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; cursor: pointer; }
+        .btn-add { background: linear-gradient(135deg, var(--yb-orange), #d97706); color: var(--yb-dark); border: none; padding: 11px 20px; cursor: pointer; border-radius: 10px; font-weight: 900; font-size: 13px; box-shadow: 0 4px 15px rgba(245,158,11,0.3); }
 
         .main-layout { max-width: 1450px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 320px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* ÖZGÜN SOL PANEL (AKORDİYON) */
-        .sidebar { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); height: fit-content; }
-        .sidebar h3 { font-size: 13px; color: var(--yb-navy); margin-bottom: 16px; border-bottom: 2px solid #edf2f4; padding-bottom: 10px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
+        /* SOL PANEL AKORDİYON */
+        .sidebar { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); height: fit-content; }
+        .sidebar h3 { font-size: 13px; color: var(--yb-dark); margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; text-transform: uppercase; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
         
-        .cat-accordion { list-style: none; margin-bottom: 25px; }
+        .cat-accordion { list-style: none; margin-bottom: 20px; }
         .cat-group { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 13px 12px; font-weight: 800; color: #2b2d42; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; transition: 0.2s; border-radius: 8px; }
-        .cat-header:hover { background: #edf2f4; color: var(--yb-blue); }
+        .cat-header { padding: 12px 10px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; border-radius: 8px; transition: 0.2s; }
+        .cat-header:hover { background: #f8fafc; color: var(--yb-blue); }
         .cat-header i.icon-left { width: 24px; color: var(--yb-orange); font-size: 15px; }
         
-        .cat-sublist { list-style: none; padding-left: 35px; background: #fafbfc; display: none; border-left: 3px solid var(--yb-blue); margin: 4px 0 10px 10px; border-radius: 0 8px 8px 0; }
-        .cat-sublist li { padding: 10px 12px; font-size: 12px; color: #1d3557; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
-        .cat-sublist li:hover { color: var(--yb-blue); background: #e2eafc; padding-left: 16px; }
+        .cat-sublist { list-style: none; padding-left: 32px; background: #f8fafc; display: none; border-left: 3px solid var(--yb-blue); margin: 4px 0 8px 10px; border-radius: 0 8px 8px 0; }
+        .cat-sublist li { padding: 9px 10px; font-size: 12px; color: #1e293b; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 700; transition: 0.2s; }
+        .cat-sublist li:hover { color: var(--yb-blue); background: #e0f2fe; padding-left: 14px; }
         .cat-group.active-group .cat-sublist { display: block; }
         .cat-group.active-group .chevron { transform: rotate(180deg); }
-        .chevron { transition: transform 0.2s; font-size: 11px; color: #8d99ae; }
+        .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
 
-        .filter-group { margin-bottom: 15px; }
-        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 6px; color: #4a4e69; text-transform: uppercase; }
-        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 11px 14px; border: 1px solid var(--yb-border); border-radius: 10px; font-size: 12px; outline: none; background: #fff; }
+        .filter-group { margin-bottom: 14px; }
+        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 5px; color: #475569; text-transform: uppercase; }
+        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--yb-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
         .filter-inputs { display: flex; gap: 8px; }
 
-        /* ÖZGÜN WIZARD (SİHRİBAZ) */
-        .wizard-container { background: white; border: 1px solid var(--yb-border); border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: none; }
-        .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 35px; }
-        .wizard-stepper::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 3px; background: #edf2f4; z-index: 1; }
-        .step-item { position: relative; z-index: 2; background: white; padding: 0 12px; text-align: center; }
-        .step-num { width: 40px; height: 40px; border-radius: 50%; background: #edf2f4; color: #8d99ae; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 14px; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .step-item.active .step-num { background: var(--yb-navy); color: var(--yb-orange); }
+        /* YERİMBURADA ÖZEL İLAN SİHRİBAZI (WIZARD v21) */
+        .wizard-container { background: white; border: 2px solid var(--yb-orange); border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(245,158,11,0.15); display: none; }
+        .wizard-header-brand { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
+        .wizard-header-brand h2 { font-size: 18px; color: var(--yb-dark); font-weight: 900; display: flex; align-items: center; gap: 10px; }
+        .wizard-header-brand h2 i { color: var(--yb-orange); }
+
+        .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
+        .wizard-stepper::before { content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1; }
+        .step-item { position: relative; z-index: 2; background: white; padding: 0 10px; text-align: center; }
+        .step-num { width: 36px; height: 36px; border-radius: 50%; background: #e2e8f0; color: #64748b; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px auto; font-size: 13px; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .step-item.active .step-num { background: var(--yb-dark); color: var(--yb-orange); }
         .step-item.completed .step-num { background: var(--yb-green); color: white; }
-        .step-title { font-size: 11px; font-weight: 800; color: #8d99ae; }
+        .step-title { font-size: 11px; font-weight: 800; color: #64748b; }
 
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
-        .category-columns { display: flex; gap: 15px; margin-bottom: 20px; }
-        .cat-column { flex: 1; background: #fff; border: 1px solid var(--yb-border); border-radius: 10px; height: 280px; overflow-y: auto; }
-        .cat-column-header { background: #edf2f4; padding: 12px 14px; font-weight: 900; color: var(--yb-navy); border-bottom: 1px solid var(--yb-border); font-size: 11px; text-transform: uppercase; }
-        .cat-column-item { padding: 12px 14px; border-bottom: 1px solid #f8fafc; cursor: pointer; font-weight: 700; font-size: 12px; color: #2b2d42; display: flex; justify-content: space-between; }
-        .cat-column-item:hover, .cat-column-item.selected { background: #e2eafc; color: var(--yb-blue); font-weight: 900; }
+        /* YENİ NESİL KART SEÇİM MENÜLERİ (Kutulardan tamamen uzak özgün yapı) */
+        .yb-selector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .yb-select-card { background: #f8fafc; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px; cursor: pointer; text-align: center; font-weight: 800; color: #334155; transition: 0.2s; }
+        .yb-select-card:hover { border-color: var(--yb-blue); background: #f0f9ff; color: var(--yb-blue); }
+        .yb-select-card.selected { border-color: var(--yb-orange); background: #fffbeb; color: var(--yb-dark); box-shadow: 0 4px 12px rgba(245,158,11,0.2); }
 
-        .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #edf2f4; padding-top: 18px; }
-        .btn-wiz-prev { background: #8d99ae; color: white; border: none; padding: 11px 22px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .btn-wiz-next { background: var(--yb-navy); color: var(--yb-orange); border: none; padding: 11px 28px; border-radius: 10px; font-weight: 900; cursor: pointer; }
+        .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 18px; }
+        .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-wiz-next { background: var(--yb-dark); color: var(--yb-orange); border: none; padding: 11px 30px; border-radius: 8px; font-weight: 900; cursor: pointer; }
 
-        .showcase-container { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 20px; margin-bottom: 25px; }
-        .showcase-title { font-size: 14px; font-weight: 900; color: var(--yb-navy); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #edf2f4; padding-bottom: 10px; }
-        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 15px; }
-        .showcase-card { background: #fff; border: 1px solid #ffe8d6; border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; transition: 0.2s; box-shadow: 0 4px 12px rgba(255,159,28,0.1); }
-        .showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,159,28,0.25); }
-        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--yb-orange); color: #000; font-size: 9px; font-weight: 900; padding: 3px 8px; border-radius: 6px; }
-        .showcase-img { height: 120px; width: 100%; object-fit: cover; }
+        .showcase-container { background: white; border: 1px solid var(--yb-border); border-radius: 14px; padding: 18px; margin-bottom: 22px; }
+        .showcase-title { font-size: 14px; font-weight: 900; color: var(--yb-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+        .showcase-card { background: #fff; border: 1px solid #fef08a; border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; transition: 0.2s; }
+        .showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(245,158,11,0.25); }
+        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--yb-orange); color: #000; font-size: 9px; font-weight: 900; padding: 3px 7px; border-radius: 4px; }
+        .showcase-img { height: 115px; width: 100%; object-fit: cover; }
         .showcase-body { padding: 10px; }
-        .showcase-price { font-size: 16px; font-weight: 900; color: #d90429; }
-        .showcase-text { font-size: 12px; font-weight: 800; color: var(--yb-navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .showcase-price { font-size: 15px; font-weight: 900; color: #dc2626; }
+        .showcase-text { font-size: 12px; font-weight: 800; color: var(--yb-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .content-header { background: white; padding: 16px 22px; border: 1px solid var(--yb-border); border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .content-header h2 { font-size: 15px; color: var(--yb-navy); font-weight: 900; }
-        .sort-select { padding: 9px 14px; border: 1px solid var(--yb-border); border-radius: 8px; font-size: 12px; background: #fff; font-weight: 700; }
+        .content-header { background: white; padding: 14px 20px; border: 1px solid var(--yb-border); border-radius: 10px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+        .content-header h2 { font-size: 15px; color: var(--yb-dark); font-weight: 900; }
+        .sort-select { padding: 8px 12px; border: 1px solid var(--yb-border); border-radius: 6px; font-size: 12px; background: #fff; font-weight: 700; }
 
-        .bargain-badge { font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
-        .bargain-badge.green { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-        .bargain-badge.red { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+        .bargain-badge { font-size: 9px; font-weight: 900; padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
+        .bargain-badge.green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .bargain-badge.red { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
 
-        .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        .card { background: white; border: 1px solid var(--yb-border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
-        .card:hover { border-color: var(--yb-blue); transform: translateY(-4px); box-shadow: 0 12px 28px rgba(58,134,255,0.12); }
-        .card-img-wrapper { height: 175px; width: 100%; position: relative; background: #edf2f4; }
+        .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+        .card { background: white; border: 1px solid var(--yb-border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; }
+        .card:hover { border-color: var(--yb-blue); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .card-img-wrapper { height: 165px; width: 100%; position: relative; background: #e2e8f0; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(11,19,43,0.9); color: var(--yb-orange); font-size: 10px; padding: 4px 10px; border-radius: 6px; font-weight: 900; backdrop-filter: blur(2px); }
+        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(7,15,30,0.9); color: var(--yb-orange); font-size: 10px; padding: 4px 8px; border-radius: 6px; font-weight: 900; }
         .card-bargain-pos { position: absolute; top: 10px; right: 10px; }
         .card-body { padding: 14px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-price { font-size: 18px; color: #d90429; font-weight: 900; margin-bottom: 4px; }
-        .card-title { font-size: 13px; font-weight: 800; color: var(--yb-navy); margin-bottom: 8px; height: 36px; overflow: hidden; line-height: 1.4; }
-        .card-details-badge { font-size: 11px; color: #1d3557; background: #e2eafc; padding: 5px 9px; border-radius: 6px; margin-bottom: 8px; font-weight: 800; border: 1px solid #bde0fe; }
-        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between; font-weight: 700; }
-        .btn-inspect { background: var(--yb-blue); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 900; margin-top: auto; cursor: pointer; text-align: center; font-size: 12px; transition: 0.2s; }
-        .btn-inspect:hover { background: #27496d; }
+        .card-price { font-size: 17px; color: #dc2626; font-weight: 900; margin-bottom: 4px; }
+        .card-title { font-size: 12px; font-weight: 800; color: var(--yb-dark); margin-bottom: 6px; height: 32px; overflow: hidden; line-height: 1.3; }
+        .card-details-badge { font-size: 10px; color: #1e40af; background: #eff6ff; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; font-weight: 800; border: 1px solid #dbeafe; }
+        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; display: flex; justify-content: space-between; font-weight: 700; }
+        .btn-inspect { background: var(--yb-blue); color: white; border: none; padding: 9px; border-radius: 8px; font-weight: 900; margin-top: auto; cursor: pointer; text-align: center; font-size: 11px; }
 
-        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 10px; margin-bottom: 16px; }
-        .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-        .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+        .form-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 10px; margin-bottom: 14px; }
+        .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 
-        .file-upload-box { border: 2px dashed var(--yb-blue); background: #e2eafc; padding: 24px; border-radius: 10px; text-align: center; cursor: pointer; }
-        .btn-submit { background: var(--yb-green); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; }
+        .file-upload-box { border: 2px dashed var(--yb-blue); background: #eff6ff; padding: 22px; border-radius: 10px; text-align: center; cursor: pointer; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,19,43,0.85); justify-content: center; align-items: center; padding: 20px; z-index: 1000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; max-width: 850px; width: 100%; border-radius: 16px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-        .modal-body { padding: 26px; }
-        .modal-price { font-size: 28px; color: #d90429; font-weight: 900; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .modal-contact { background: #f8fafc; padding: 18px; border: 1px solid var(--yb-border); border-radius: 10px; margin-top: 18px; }
-        .btn-close { position: absolute; top: 14px; right: 14px; background: #d90429; color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .btn-submit { background: var(--yb-green); color: white; border: none; padding: 13px; border-radius: 8px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; }
 
-        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; background: #edf2f4; padding: 16px; border-radius: 10px; margin-bottom: 18px; }
-        .spec-item { font-size: 12px; color: #2b2d42; }
-        .spec-item strong { color: var(--yb-navy); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7,15,30,0.85); justify-content: center; align-items: center; padding: 15px; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-content { background: white; max-width: 820px; width: 100%; border-radius: 16px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; }
+        .modal-body { padding: 22px; }
+        .modal-price { font-size: 26px; color: #dc2626; font-weight: 900; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-contact { background: #f8fafc; padding: 16px; border: 1px solid var(--yb-border); border-radius: 10px; margin-top: 16px; }
+        .btn-close { position: absolute; top: 12px; right: 12px; background: #dc2626; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px; }
 
-        .offer-box { background: #fff3e0; border: 2px dashed var(--yb-orange); padding: 18px; border-radius: 12px; margin-top: 18px; }
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; background: #f1f5f9; padding: 14px; border-radius: 10px; margin-bottom: 16px; }
+        .spec-item { font-size: 11px; color: #334155; }
+        .spec-item strong { color: var(--yb-dark); }
 
-        .auth-tab { display: flex; margin-bottom: 18px; border-bottom: 2px solid #edf2f4; }
-        .auth-tab div { flex: 1; text-align: center; padding: 12px; font-weight: 900; cursor: pointer; color: #8d99ae; }
+        .offer-box { background: #fff7ed; border: 2px dashed var(--yb-orange); padding: 16px; border-radius: 10px; margin-top: 16px; }
+
+        .auth-tab { display: flex; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; }
+        .auth-tab div { flex: 1; text-align: center; padding: 10px; font-weight: 900; cursor: pointer; color: #64748b; }
         .auth-tab div.active { color: var(--yb-blue); border-bottom: 3px solid var(--yb-blue); }
 
-        footer { background: var(--yb-navy); color: #8d99ae; padding: 40px 6% 80px 6%; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--yb-orange); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto 25px auto; }
-        .footer-col h4 { color: white; font-size: 14px; margin-bottom: 12px; font-weight: 900; }
+        footer { background: var(--yb-dark); color: #94a3b8; padding: 35px 5% 80px 5%; margin-top: 40px; font-size: 12px; border-top: 3px solid var(--yb-orange); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto 20px auto; }
+        .footer-col h4 { color: white; font-size: 13px; margin-bottom: 10px; font-weight: 900; }
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
-        .footer-col ul li:hover { color: var(--yb-orange); }
-        .footer-bottom { text-align: center; border-top: 1px solid #1c2541; padding-top: 20px; color: #8d99ae; font-weight: 700; }
+        .footer-col ul li { margin-bottom: 6px; }
+        .footer-bottom { text-align: center; border-top: 1px solid #1e293b; padding-top: 15px; color: #94a3b8; font-weight: 700; }
 
         /* MOBİL BOTTOM NAV */
-        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--yb-navy); border-top: 2px solid var(--yb-orange); box-shadow: 0 -4px 15px rgba(0,0,0,0.2); z-index: 999; justify-content: space-around; padding: 8px 0; }
-        .mobile-nav-item { color: #8d99ae; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; gap: 3px; cursor: pointer; flex: 1; }
+        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--yb-dark); border-top: 2px solid var(--yb-orange); box-shadow: 0 -4px 15px rgba(0,0,0,0.2); z-index: 999; justify-content: space-around; padding: 8px 0; }
+        .mobile-nav-item { color: #94a3b8; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; gap: 3px; cursor: pointer; flex: 1; }
         .mobile-nav-item i { font-size: 18px; }
         .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--yb-orange); }
-        .mobile-nav-add-btn { background: linear-gradient(135deg, var(--yb-orange), #f39200); color: #0b132b; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: -20px; border: 3px solid var(--yb-navy); box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 20px; }
+        .mobile-nav-add-btn { background: linear-gradient(135deg, var(--yb-orange), #d97706); color: var(--yb-dark); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: -20px; border: 3px solid var(--yb-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 20px; }
 
         @media (max-width: 768px) {
             body { padding-bottom: 70px; }
@@ -177,9 +175,7 @@
             .card-price { font-size: 16px; }
             .card-title { font-size: 11px; height: 32px; }
 
-            .category-columns { flex-direction: column; gap: 10px; }
-            .cat-column { height: 160px; }
-
+            .yb-selector-grid { grid-template-columns: 1fr; }
             .mobile-bottom-nav { display: flex; }
         }
     </style>
@@ -203,7 +199,7 @@
 
     <div class="main-layout">
 
-        <!-- ÖZGÜN AKORDİYON SOL PANEL -->
+        <!-- YERİMBURADA ÖZEL AKORDİYON SOL PANEL -->
         <div class="sidebar" id="mainSidebar">
             <h3><span>YerimBurada Kataloğu</span> <i class="fa-solid fa-compass" style="color:var(--yb-orange);"></i></h3>
             <ul class="cat-accordion">
@@ -266,8 +262,13 @@
 
         <div class="content">
 
-            <!-- ÖZGÜN WIZARD (SİHRİBAZ) -->
+            <!-- YERİMBURADA ÖZEL STÜDYO WIZARD (v21) -->
             <div class="wizard-container" id="ilanFormu">
+                <div class="wizard-header-brand">
+                    <h2><i class="fa-solid fa-cube"></i> YerimBurada İlan Stüdyosu</h2>
+                    <span style="font-weight:800; color:var(--yb-orange); font-size:12px;">v21 Özgün Tasarım</span>
+                </div>
+
                 <div class="wizard-stepper">
                     <div class="step-item active" id="stepIndicator1"><div class="step-num">1</div><div class="step-title">Kategori</div></div>
                     <div class="step-item" id="stepIndicator2"><div class="step-num">2</div><div class="step-title">Teknik</div></div>
@@ -276,35 +277,37 @@
                     <div class="step-item" id="stepIndicator5"><div class="step-num">5</div><div class="step-title">Yayınlandı</div></div>
                 </div>
 
-                <!-- ADIM 1 -->
+                <!-- ADIM 1: YENİ NESİL KART SEÇİMLERİ -->
                 <div class="wizard-step-content active" id="wizardStep1">
-                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-layer-group" style="color:var(--yb-orange)"></i> 1. Kategori Seçimi</h3>
+                    <h3 style="margin-bottom:14px; font-size:14px; color:var(--yb-dark); font-weight:900;"><i class="fa-solid fa-compass" style="color:var(--yb-orange)"></i> 1. Kategori Seçim Sihirbazı</h3>
                     
-                    <div class="category-columns">
-                        <div class="cat-column">
-                            <div class="cat-column-header">1. Ana Kategori</div>
-                            <div class="cat-column-item selected" onclick="wizAnaKatSec('Emlak', this)">Emlak <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAnaKatSec('Vasıta', this)">Vasıta <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAnaKatSec('Alisveris', this)">Alışveriş <i class="fa-solid fa-chevron-right"></i></div>
-                        </div>
-
-                        <div class="cat-column">
-                            <div class="cat-column-header">2. Alt Kategori</div>
-                            <div id="colAltKategoriler"></div>
-                        </div>
-
-                        <div class="cat-column">
-                            <div class="cat-column-header">3. İşlem Tipi</div>
-                            <div id="colIslemTipleri"></div>
-                        </div>
+                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">Ana Kategori:</label>
+                    <div class="yb-selector-grid" id="gridAnaKat">
+                        <div class="yb-select-card selected" onclick="secWizAnaKat('Emlak', this)"><i class="fa-solid fa-house"></i> Emlak Portalı</div>
+                        <div class="yb-select-card" onclick="secWizAnaKat('Vasıta', this)"><i class="fa-solid fa-car"></i> Vasıta Galeri</div>
+                        <div class="yb-select-card" onclick="secWizAnaKat('Alisveris', this)"><i class="fa-solid fa-bag-shopping"></i> Alışveriş & Teknoloji</div>
                     </div>
 
-                    <div class="form-section">
+                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">Alt Kategori:</label>
+                    <div class="yb-selector-grid" id="gridAltKat">
+                        <div class="yb-select-card selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
+                        <div class="yb-select-card" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
+                        <div class="yb-select-card" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
+                        <div class="yb-select-card" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
+                    </div>
+
+                    <label style="font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:6px; display:block;">İşlem / Satış Tipi:</label>
+                    <div class="yb-selector-grid" id="gridIslem">
+                        <div class="yb-select-card selected" onclick="secWizIslem('Satılık', this)">Satılık</div>
+                        <div class="yb-select-card" onclick="secWizIslem('Kiralık', this)">Kiralık</div>
+                    </div>
+
+                    <div class="form-section" style="margin-top:20px;">
                         <div class="filter-group" style="margin-bottom:0;">
-                            <label>İlan Sahibi Kimliği <span class="req">*</span></label>
+                            <label>İlan Sahibi Kimliği <span style="color:#dc2626;">*</span></label>
                             <select id="kimlikTipi">
                                 <option value="Sahibinden">Sahibinden</option>
-                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Danışman</option>
+                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Gayrimenkul Danışmanından</option>
                                 <option value="İnşaat Firmasından">İnşaat Firmasından</option>
                                 <option value="Galeriden">Galeriden</option>
                                 <option value="Bankadan">Bankadan</option>
@@ -312,23 +315,23 @@
                         </div>
                     </div>
 
-                    <div style="background:#e2eafc; padding:12px; border-radius:10px; font-weight:bold; color:var(--yb-blue); font-size:12px; margin-bottom:15px; border:1px solid #bde0fe;">
-                        Seçilen Kategori Akışı: <span id="secilenKategoriEtiketi" style="color:var(--yb-navy);">Emlak > Konut > Satılık</span>
+                    <div style="background:#e2eafc; padding:12px; border-radius:10px; font-weight:800; color:var(--yb-blue); font-size:12px; margin-bottom:15px; border:1px solid #bde0fe;">
+                        Seçilen Stüdyo Akışı: <span id="secilenKategoriEtiketi" style="color:var(--yb-dark);">Emlak > Konut / Daire > Satılık</span>
                     </div>
 
                     <div class="wizard-buttons">
                         <div></div>
-                        <button class="btn-wiz-next" id="btnStep1Devam" onclick="wizAdim1KontrolEt()">İlerle <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" onclick="wizAdim1KontrolEt()">Teknik Detaylara Geç <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- ADIM 2: KATEGORİYE ÖZEL AKILLI TEKNİK PARAMETRELER -->
+                <!-- ADIM 2: TEKNİK PARAMETRELER -->
                 <div class="wizard-step-content" id="wizardStep2">
-                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-sliders" style="color:var(--yb-blue)"></i> 2. Seçtiğiniz Kategoriye Özel Özellikler</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-dark); font-weight:900;"><i class="fa-solid fa-sliders" style="color:var(--yb-blue)"></i> 2. Seçtiğiniz Kategoriye Özel Özellikler</h3>
                     
                     <div id="tasinmazNoAlani" class="form-section" style="background:#fff3e0; border:1px solid #ffe8d6; display:none;">
                         <div class="filter-group" style="margin-bottom:0;">
-                            <label style="color:#b25e00;"><i class="fa-solid fa-shield-halved" style="color:var(--yb-orange);"></i> Taşınmaz No (E-Devlet Tapu / EİDS Doğrulama) <span class="req">* (ZORUNLU)</span></label>
+                            <label style="color:#b25e00;"><i class="fa-solid fa-shield-halved" style="color:var(--yb-orange);"></i> Taşınmaz No (E-Devlet Tapu / EİDS Doğrulama) <span style="color:#dc2626;">* (ZORUNLU)</span></label>
                             <input type="text" id="tasinmazNo" placeholder="Örn: 10293847" style="border-color:#ff9f1c;">
                         </div>
                     </div>
@@ -337,47 +340,47 @@
 
                     <div class="wizard-buttons">
                         <button class="btn-wiz-prev" onclick="wizAdimGit(1)"><i class="fa-solid fa-arrow-left"></i> Geri</button>
-                        <button class="btn-wiz-next" onclick="wizAdim2KontrolEt()">İlerle <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" onclick="wizAdim2KontrolEt()">Görsellere Geç <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
                 <!-- ADIM 3 -->
                 <div class="wizard-step-content" id="wizardStep3">
-                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-camera" style="color:var(--yb-green)"></i> 3. Görsel, Fiyat & Pazarlık Durumu</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-dark); font-weight:900;"><i class="fa-solid fa-camera" style="color:var(--yb-green)"></i> 3. Görsel, Fiyat & İletişim</h3>
                     <div class="form-section">
                         <div class="file-upload-box" onclick="document.getElementById('dosyaSecici').click()">
                             <i class="fa-solid fa-cloud-arrow-up" style="font-size:36px; color:var(--yb-blue); margin-bottom:8px;"></i>
-                            <p style="font-weight:900; color:var(--yb-navy);">Cihazınızdan Fotoğraf Ekleyin</p>
+                            <p style="font-weight:900; color:var(--yb-dark);">Cihazınızdan Fotoğraf Ekleyin</p>
                             <input type="file" id="dosyaSecici" multiple accept="image/*" style="display:none;" onchange="dosyalariHazirla(this)">
                         </div>
-                        <div id="yuklenenResimlerListesi" style="margin-top:10px; font-weight:bold; color:var(--yb-navy); font-size:12px;"></div>
+                        <div id="yuklenenResimlerListesi" style="margin-top:10px; font-weight:bold; color:var(--yb-dark); font-size:12px;"></div>
                     </div>
                     <div class="form-grid-2">
                         <div class="filter-group">
-                            <label>İlan Başlığı <span class="req">*</span></label>
+                            <label>İlan Başlığı <span style="color:#dc2626;">*</span></label>
                             <input type="text" id="baslik" placeholder="Örn: YERİMBURADA GÜVENCESİYLE 3+1 LÜKS DAİRE">
                         </div>
                         <div class="filter-group">
-                            <label>Fiyat (TL) <span class="req">*</span></label>
+                            <label>Fiyat (TL) <span style="color:#dc2626;">*</span></label>
                             <input type="text" id="fiyat" class="fiyat-input" placeholder="Örn: 4.500.000">
                         </div>
                         <div class="filter-group">
-                            <label>Pazarlık Şartı <span class="req">*</span></label>
+                            <label>Pazarlık Şartı <span style="color:#dc2626;">*</span></label>
                             <select id="pazarlikDurumu">
                                 <option value="Pazarlıklı">Pazarlık Var (Yeşil Rozet)</option>
                                 <option value="Pazarlıksız">Son Fiyat / Pazarlık Yok (Kırmızı Rozet)</option>
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Konum (İl / İlçe) <span class="req">*</span></label>
+                            <label>Konum (İl / İlçe) <span style="color:#dc2626;">*</span></label>
                             <input type="text" id="konum" placeholder="Örn: İstanbul / Başakşehir">
                         </div>
                         <div class="filter-group">
-                            <label>Telefon Numarası <span class="req">*</span></label>
+                            <label>Telefon Numarası <span style="color:#dc2626;">*</span></label>
                             <input type="text" id="telefon" placeholder="Örn: 05551112233">
                         </div>
                     </div>
-                    <div class="filter-group" style="margin-top:10px;">
+                    <div class="filter-group" style="margin-top:8px;">
                         <label>Açıklama</label>
                         <textarea id="aciklama" rows="3" placeholder="İlan detayları, avantajlar..."></textarea>
                     </div>
@@ -389,10 +392,10 @@
 
                 <!-- ADIM 4 -->
                 <div class="wizard-step-content" id="wizardStep4">
-                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-navy); font-weight:900;"><i class="fa-solid fa-eye" style="color:var(--yb-blue)"></i> 4. İlan Önizleme</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--yb-dark); font-weight:900;"><i class="fa-solid fa-eye" style="color:var(--yb-blue)"></i> 4. İlan Önizleme</h3>
                     <div style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #d8e2dc;">
-                        <h2 id="wizOzetBaslik" style="font-size:18px; color:var(--yb-navy); margin-bottom:8px; font-weight:900;"></h2>
-                        <div id="wizOzetFiyat" style="font-size:24px; font-weight:900; color:#d90429; margin-bottom:10px;"></div>
+                        <h2 id="wizOzetBaslik" style="font-size:18px; color:var(--yb-dark); margin-bottom:8px; font-weight:900;"></h2>
+                        <div id="wizOzetFiyat" style="font-size:24px; font-weight:900; color:#dc2626; margin-bottom:10px;"></div>
                         <div id="wizOzetKonum" style="color:var(--text-muted); font-weight:800;"></div>
                     </div>
                     <div class="wizard-buttons">
@@ -404,7 +407,7 @@
                 <!-- ADIM 5 -->
                 <div class="wizard-step-content" id="wizardStep5" style="text-align:center; padding:35px 15px;">
                     <i class="fa-solid fa-circle-check" style="font-size:60px; color:var(--yb-green); margin-bottom:15px;"></i>
-                    <h2 style="font-size:22px; color:var(--yb-navy); margin-bottom:8px; font-weight:900;">Tebrikler! İlanınız Başarıyla Yayınlandı.</h2>
+                    <h2 style="font-size:22px; color:var(--yb-dark); margin-bottom:8px; font-weight:900;">Tebrikler! İlanınız Başarıyla Yayınlandı.</h2>
                     <p style="color:var(--text-muted); font-weight:700; margin-bottom:20px;">İlanınız YerimBurada veri tabanına kaydedildi.</p>
                     <button class="btn-wiz-next" onclick="formuAcKapa(); location.reload();">Ana Sayfaya Dön</button>
                 </div>
@@ -483,7 +486,7 @@
                 </div>
 
                 <button class="btn-submit" id="btnAuthAction" onclick="kullaniciIslemi()"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
-                <button class="btn-submit" id="btnCikisYap" onclick="cikisYap()" style="background:#d90429; display:none; margin-top:10px;"><i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat</button>
+                <button class="btn-submit" id="btnCikisYap" onclick="cikisYap()" style="background:#dc2626; display:none; margin-top:10px;"><i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat</button>
             </div>
         </div>
     </div>
@@ -499,7 +502,7 @@
                     <span id="modalFiyat"></span>
                     <span id="modalPazarlikRozet"></span>
                 </div>
-                <h2 id="modalBaslik" style="font-size:19px; margin-bottom:8px; color:var(--yb-navy); font-weight:900;"></h2>
+                <h2 id="modalBaslik" style="font-size:19px; margin-bottom:8px; color:var(--yb-dark); font-weight:900;"></h2>
                 <div id="modalKonum" style="color:var(--text-muted); margin-bottom:14px; font-weight:700;"></div>
                 
                 <div class="specs-grid" id="modalParametreTablosu"></div>
@@ -512,18 +515,18 @@
                         <input type="text" id="teklifFiyati" class="fiyat-input" placeholder="Teklifiniz (TL)">
                         <input type="text" id="teklifNotu" placeholder="Satıcıya Kısa Not">
                     </div>
-                    <button class="btn-submit" onclick="teklifGonder()" style="background:var(--yb-orange); color:#0b132b; margin-top:10px;"><i class="fa-solid fa-paper-plane"></i> Teklifi WhatsApp İle İlet</button>
+                    <button class="btn-submit" onclick="teklifGonder()" style="background:var(--yb-orange); color:var(--yb-dark); margin-top:10px;"><i class="fa-solid fa-paper-plane"></i> Teklifi WhatsApp İle İlet</button>
                 </div>
 
                 <div class="modal-contact">
-                    <strong style="color:var(--yb-navy);"><i class="fa-solid fa-user-check"></i> İlan Sahibi:</strong> <span id="modalSatici"></span><br>
-                    <strong style="color:var(--yb-navy);"><i class="fa-solid fa-phone"></i> İletişim:</strong> <span id="modalTelefon"></span>
-                    <div style="margin-top:14px; display:flex; gap:12px;">
-                        <a href="#" id="modalArama" style="background:var(--yb-navy); color:white; padding:11px 18px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-solid fa-phone"></i> Ara</a>
-                        <a href="#" id="modalWhatsapp" target="_blank" style="background:#25D366; color:white; padding:11px 18px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    <strong style="color:var(--yb-dark);"><i class="fa-solid fa-user-check"></i> İlan Sahibi:</strong> <span id="modalSatici"></span><br>
+                    <strong style="color:var(--yb-dark);"><i class="fa-solid fa-phone"></i> İletişim:</strong> <span id="modalTelefon"></span>
+                    <div style="margin-top:12px; display:flex; gap:10px;">
+                        <a href="#" id="modalArama" style="background:var(--yb-dark); color:white; padding:10px 16px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-solid fa-phone"></i> Ara</a>
+                        <a href="#" id="modalWhatsapp" target="_blank" style="background:#25D366; color:white; padding:10px 16px; text-decoration:none; border-radius:8px; font-weight:bold; flex:1; text-align:center;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
                     </div>
                 </div>
-                <button onclick="" id="btnSil" style="background:#d90429; color:white; border:none; padding:12px; width:100%; margin-top:16px; cursor:pointer; font-weight:bold; border-radius:8px;"><i class="fa-solid fa-trash-can"></i> İlanı Veritabanından Sil</button>
+                <button onclick="" id="btnSil" style="background:#dc2626; color:white; border:none; padding:12px; width:100%; margin-top:16px; cursor:pointer; font-weight:bold; border-radius:8px;"><i class="fa-solid fa-trash-can"></i> İlanı Veritabanından Sil</button>
             </div>
         </div>
     </div>
@@ -555,7 +558,7 @@
         var seciliKategori = "";
         
         var secilenAnaKat = "Emlak";
-        var secilenAltKat = "Konut";
+        var secilenAltKat = "Konut / Daire";
         var secilenIslem = "Satılık";
         
         var yuklenecekDosyalar = [];
@@ -566,7 +569,6 @@
         window.onload = function() {
             ilanlariGetir();
             fiyatFormatlayicilariBaslat();
-            wizKategoriArayuzunuGuncelle();
             kullaniciOturumKontrol();
         };
 
@@ -593,6 +595,58 @@
         function mobilFiltreKapat() {
             var sidebar = document.getElementById("mainSidebar");
             sidebar.classList.remove("mobile-open");
+        }
+
+        /* YENİ NESİL KART SEÇİM FONKSİYONLARI */
+        function secWizAnaKat(ana, el) {
+            secilenAnaKat = ana;
+            var parent = el.parentElement;
+            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+
+            var gridAlt = document.getElementById('gridAltKat');
+            if (ana === 'Emlak') {
+                gridAlt.innerHTML = `
+                    <div class="yb-select-card selected" onclick="secWizAltKat('Konut / Daire', this)">Konut / Daire</div>
+                    <div class="yb-select-card" onclick="secWizAltKat('Müstakil Ev & Villa', this)">Müstakil Ev & Villa</div>
+                    <div class="yb-select-card" onclick="secWizAltKat('İş Yeri & Dükkan', this)">İş Yeri & Dükkan</div>
+                    <div class="yb-select-card" onclick="secWizAltKat('Arsa / Tarla', this)">Arsa / Tarla</div>
+                `;
+                secilenAltKat = "Konut / Daire";
+            } else if (ana === 'Vasıta') {
+                gridAlt.innerHTML = `
+                    <div class="yb-select-card selected" onclick="secWizAltKat('Otomobil', this)">Otomobil</div>
+                    <div class="yb-select-card" onclick="secWizAltKat('SUV & Pickup', this)">Arazi, SUV & Pickup</div>
+                    <div class="yb-select-card" onclick="secWizAltKat('Motosiklet', this)">Motosiklet</div>
+                `;
+                secilenAltKat = "Otomobil";
+            } else {
+                gridAlt.innerHTML = `
+                    <div class="yb-select-card selected" onclick="secWizAltKat('Teknoloji & Eşya', this)">Teknoloji & Eşya</div>
+                `;
+                secilenAltKat = "Teknoloji & Eşya";
+            }
+            guncelleKategoriEtiket();
+        }
+
+        function secWizAltKat(alt, el) {
+            secilenAltKat = alt;
+            var parent = el.parentElement;
+            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+            guncelleKategoriEtiket();
+        }
+
+        function secWizIslem(islem, el) {
+            secilenIslem = islem;
+            var parent = el.parentElement;
+            parent.querySelectorAll('.yb-select-card').forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+            guncelleKategoriEtiket();
+        }
+
+        function guncelleKategoriEtiket() {
+            document.getElementById('secilenKategoriEtiketi').innerText = `${secilenAnaKat} > ${secilenAltKat} > ${secilenIslem}`;
         }
 
         function wizAdim1KontrolEt() { wizAdimGit(2); }
@@ -624,69 +678,6 @@
             wizAdimGit(4);
         }
 
-        function wizAnaKatSec(ana, el) {
-            secilenAnaKat = ana;
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-            wizKategoriArayuzunuGuncelle();
-        }
-
-        function wizAltKatSec(alt, el) {
-            secilenAltKat = alt;
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-            wizKategoriArayuzunuGuncelle();
-        }
-
-        function wizIslemSec(islem, el) {
-            secilenIslem = islem;
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('secilenKategoriEtiketi').innerText = `${secilenAnaKat} > ${secilenAltKat} > ${secilenIslem}`;
-        }
-
-        function wizKategoriArayuzunuGuncelle() {
-            var colAlt = document.getElementById('colAltKategoriler');
-            var colIslem = document.getElementById('colIslemTipleri');
-
-            if (secilenAnaKat === 'Emlak') {
-                colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Müstakil Ev', this)">Müstakil Ev & Villa <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri', this)">İş Yeri & Dükkan <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa', this)">Arsa & Tarla <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Devremülk', this)">Devremülk <i class="fa-solid fa-chevron-right"></i></div>
-                `;
-                colIslem.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
-                    <div class="cat-column-item" onclick="wizIslemSec('Kiralık', this)">Kiralık</div>
-                `;
-            } else if (secilenAnaKat === 'Vasıta') {
-                colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('SUV', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKatSec('Motosiklet', this)">Motosiklet <i class="fa-solid fa-chevron-right"></i></div>
-                `;
-                colIslem.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
-                    <div class="cat-column-item" onclick="wizIslemSec('Kiralık', this)">Kiralık</div>
-                `;
-            } else {
-                colAlt.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKatSec('Teknoloji', this)">Teknoloji & Eşya <i class="fa-solid fa-chevron-right"></i></div>
-                `;
-                colIslem.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
-                `;
-            }
-
-            document.getElementById('secilenKategoriEtiketi').innerText = `${secilenAnaKat} > ${secilenAltKat} > ${secilenIslem}`;
-            detayAlanlariniGoster();
-        }
-
         /* KATEGORİYE ÖZEL AKILLI TEKNİK PARAMETRELER */
         function detayAlanlariniGoster() {
             var kutu = document.getElementById("dinamikDetaylar");
@@ -698,31 +689,25 @@
 
                 if (secilenAltKat.includes("Arsa")) {
                     kutu.innerHTML = `
-                        <div class="filter-group"><label>Metrekare (m²) <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 1000"></div>
-                        <div class="filter-group"><label>İmar Durumu <span class="req">*</span></label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Tarla / Bağ / Bahçe">Tarla / Bağ / Bahçe</option></select></div>
+                        <div class="filter-group"><label>Metrekare (m²) <span style="color:#dc2626;">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 1000"></div>
+                        <div class="filter-group"><label>İmar Durumu <span style="color:#dc2626;">*</span></label><select id="detayImar"><option value="Konut İmarlı">Konut İmarlı</option><option value="Ticari İmarlı">Ticari İmarlı</option><option value="Tarla / Bağ / Bahçe">Tarla / Bağ / Bahçe</option></select></div>
                         <div class="filter-group"><label>Kaks (Emsal)</label><input type="text" id="detayEmsal" placeholder="Örn: 0.50 / 1.50"></div>
                         <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Müstakil Parsel">Müstakil Parsel</option><option value="Hisseli Tapu">Hisseli Tapu</option></select></div>
                     `;
-                } else if (secilenAltKat.includes("Devre")) {
-                    kutu.innerHTML = `
-                        <div class="filter-group"><label>Dönem / Sezon <span class="req">*</span></label><input type="text" id="detayDonem" placeholder="Örn: Ağustos Ayı (15 Günlük)"></div>
-                        <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+1">1+1 Suit</option><option value="2+1">2+1 Aile</option></select></div>
-                        <div class="filter-group"><label>Tapu Durumu</label><select id="detayTapu"><option value="Devremülk Tapulu">Devremülk Tapulu</option><option value="Kullanım Haklı">Kullanım Haklı</option></select></div>
-                    `;
                 } else {
                     kutu.innerHTML = `
-                        <div class="filter-group"><label>Net m² <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 135"></div>
-                        <div class="filter-group"><label>Oda Sayısı <span class="req">*</span></label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
-                        <div class="filter-group"><label>Bina Yaşı <span class="req">*</span></label><select id="detayBinaYasi"><option value="0 (Sıfır)">0 (Sıfır)</option><option value="1-5 Yaş">1-5 Yaş</option><option value="6-10 Yaş">6-10 Yaş</option><option value="11+ Yaş">11+ Yaş</option></select></div>
+                        <div class="filter-group"><label>Net m² <span style="color:#dc2626;">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 135"></div>
+                        <div class="filter-group"><label>Oda Sayısı <span style="color:#dc2626;">*</span></label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
+                        <div class="filter-group"><label>Bina Yaşı <span style="color:#dc2626;">*</span></label><select id="detayBinaYasi"><option value="0 (Sıfır)">0 (Sıfır)</option><option value="1-5 Yaş">1-5 Yaş</option><option value="6-10 Yaş">6-10 Yaş</option><option value="11+ Yaş">11+ Yaş</option></select></div>
                         <div class="filter-group"><label>Bulunduğu Kat</label><input type="text" id="detayKat" placeholder="Örn: 3. Kat"></div>
                     `;
                 }
             } else if (secilenAnaKat === "Vasıta") {
                 tasinmazBox.style.display = "none";
                 kutu.innerHTML = `
-                    <div class="filter-group"><label>Marka / Seri <span class="req">*</span></label><input type="text" id="detayMarka" placeholder="Örn: BMW 3.20i"></div>
-                    <div class="filter-group"><label>Model Yılı <span class="req">*</span></label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
-                    <div class="filter-group"><label>Kilometre (KM) <span class="req">*</span></label><input type="number" id="detayKm" placeholder="Örn: 85000"></div>
+                    <div class="filter-group"><label>Marka / Seri <span style="color:#dc2626;">*</span></label><input type="text" id="detayMarka" placeholder="Örn: BMW 3.20i"></div>
+                    <div class="filter-group"><label>Model Yılı <span style="color:#dc2626;">*</span></label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
+                    <div class="filter-group"><label>Kilometre (KM) <span style="color:#dc2626;">*</span></label><input type="number" id="detayKm" placeholder="Örn: 85000"></div>
                     <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Manuel">Manuel</option></select></div>
                     <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="Elektrik">Elektrik</option></select></div>
                 `;
@@ -742,6 +727,10 @@
             }
             document.getElementById('wizardStep'+adim).classList.add('active');
             document.getElementById('stepIndicator'+adim).classList.add('active');
+
+            if (adim === 2) {
+                detayAlanlariniGoster();
+            }
 
             if(adim === 4) {
                 document.getElementById('wizOzetBaslik').innerText = document.getElementById('baslik').value || 'İlan Başlığı Belirtilmedi';
@@ -1042,8 +1031,8 @@
             
             var pazarlikVarMi = (aktifIlan.durum || "").includes("Pazarlıklı");
             document.getElementById("modalPazarlikRozet").innerHTML = pazarlikVarMi 
-                ? `<span class="bargain-badge green" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-handshake"></i> Pazarlık Var</span>`
-                : `<span class="bargain-badge red" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-ban"></i> Son Fiyat</span>`;
+                ? `<span class="bargain-badge green" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-handshake"></i> Pazarlıklı İlan</span>`
+                : `<span class="bargain-badge red" style="font-size:11px; padding:4px 10px;"><i class="fa-solid fa-ban"></i> Pazarlıksız (Son Fiyat)</span>`;
 
             document.getElementById("modalBaslik").innerText = aktifIlan.baslik;
             document.getElementById("modalKonum").innerHTML = `<i class="fa-solid fa-location-dot" style="color:var(--yb-orange)"></i> ${aktifIlan.konum || 'Belirtilmedi'}`;
