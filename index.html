@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada v8 - Türkiye'nin Canlı İlan Pazarı</title>
+    <title>YerimBurada v9 - Türkiye'nin Canlı İlan Pazarı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -34,6 +34,7 @@
 
         .main-layout { max-width: 1400px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 310px 1fr; gap: 20px; flex: 1; width: 100%; }
 
+        /* Ana Sayfa Sol Akordiyon Kategori Stili */
         .sidebar { background: white; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); height: fit-content; }
         .sidebar h3 { font-size: 12px; color: var(--shb-blue); margin-bottom: 12px; border-bottom: 2px solid var(--shb-blue); padding-bottom: 6px; text-transform: uppercase; font-weight: 800; }
         
@@ -43,13 +44,13 @@
         .cat-header:hover { background: #eff6ff; color: var(--shb-blue); }
         .cat-header i.icon-left { width: 22px; color: var(--brand-orange); font-size: 14px; }
         .cat-sublist { list-style: none; padding-left: 30px; background: #f8fafc; display: none; border-left: 2px solid #e2e8f0; margin-left: 10px; }
-        .cat-sublist li { padding: 6px 8px; font-size: 11px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; display: flex; justify-content: space-between; }
+        .cat-sublist li { padding: 7px 8px; font-size: 11px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; }
         .cat-sublist li:hover { color: var(--shb-blue); font-weight: 800; background: #eff6ff; }
         .cat-group.open .cat-sublist { display: block; }
         .cat-group.open .chevron { transform: rotate(180deg); }
         .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
 
-        /* YERİMBURADA ADIM ADIM İLAN SİHRİBAZI (WIZARD) STİLLERİ */
+        /* İLAN SİHRİBAZI (WIZARD) STİLLERİ */
         .wizard-container { background: white; border: 1px solid var(--border-color); border-radius: 10px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: none; }
         .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; }
         .wizard-stepper::before { content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1; }
@@ -63,15 +64,12 @@
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
-        /* Yan Yana Sütunlu Kategori Seçim Alanı */
-        .category-columns { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px; }
-        .cat-column { flex: 1; min-width: 200px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; max-height: 250px; overflow-y: auto; }
+        /* Doğru Çalışan Yan Yana 3 Sütunlu Kategori Seçim Mimarisi */
+        .category-columns { display: flex; gap: 12px; margin-bottom: 20px; }
+        .cat-column { flex: 1; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; height: 260px; overflow-y: auto; }
+        .cat-column-header { background: #f1f5f9; padding: 8px 12px; font-weight: 800; color: #0f172a; border-bottom: 1px solid #cbd5e1; font-size: 11px; text-transform: uppercase; }
         .cat-column-item { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-weight: 600; font-size: 12px; color: #334155; display: flex; justify-content: space-between; align-items: center; }
         .cat-column-item:hover, .cat-column-item.selected { background: #eff6ff; color: var(--shb-blue); font-weight: 800; }
-
-        .quick-cats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .btn-quick-cat { background: #fff; border: 1px solid var(--shb-blue); color: var(--shb-blue); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 11px; }
-        .btn-quick-cat:hover { background: var(--shb-blue); color: white; }
 
         .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
         .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
@@ -154,6 +152,7 @@
         @media (max-width: 768px) {
             .main-layout { grid-template-columns: 1fr; }
             .header-search, .header-nav { display: none; }
+            .category-columns { flex-direction: column; }
         }
     </style>
 </head>
@@ -176,6 +175,7 @@
 
     <div class="main-layout">
 
+        <!-- ANA SAYFA SOL KATEGORİ KATALOĞU -->
         <div class="sidebar">
             <h3>Kategori Kataloğu</h3>
             <ul class="cat-accordion">
@@ -185,11 +185,10 @@
                         <i class="fa-solid fa-chevron-down chevron"></i>
                     </div>
                     <ul class="cat-sublist">
-                        <li onclick="kategoriSec('Daire')"><span>Konut / Daire</span></li>
-                        <li onclick="kategoriSec('Müstakil Ev')"><span>Müstakil Ev & Villa</span></li>
-                        <li onclick="kategoriSec('İş Yeri')"><span>İş Yeri / Dükkan / Depo</span></li>
-                        <li onclick="kategoriSec('Arsa')"><span>Arsa & Tarla</span></li>
-                        <li onclick="kategoriSec('Proje')"><span>Konut Projeleri</span></li>
+                        <li onclick="kategoriSec('Konut / Daire')"><span>Konut / Daire</span></li>
+                        <li onclick="kategoriSec('Müstakil Ev / Villa')"><span>Müstakil Ev & Villa</span></li>
+                        <li onclick="kategoriSec('İş Yeri / Dükkan')"><span>İş Yeri / Dükkan / Depo</span></li>
+                        <li onclick="kategoriSec('Arsa / Tarla')"><span>Arsa & Tarla</span></li>
                     </ul>
                 </li>
                 <li class="cat-group">
@@ -199,9 +198,21 @@
                     </div>
                     <ul class="cat-sublist">
                         <li onclick="kategoriSec('Otomobil')"><span>Otomobil</span></li>
-                        <li onclick="kategoriSec('SUV')"><span>Arazi, SUV & Pickup</span></li>
-                        <li onclick="kategoriSec('Elektrikli')"><span>Elektrikli Araçlar</span></li>
+                        <li onclick="kategoriSec('Arazi & SUV')"><span>Arazi, SUV & Pickup</span></li>
+                        <li onclick="kategoriSec('Ticari Araç')"><span>Ticari Araçlar (Kamyon/Tır)</span></li>
                         <li onclick="kategoriSec('Motosiklet')"><span>Motosiklet</span></li>
+                    </ul>
+                </li>
+                <li class="cat-group">
+                    <div class="cat-header" onclick="kategoriGrupAc(this)">
+                        <span><i class="fa-solid fa-tv icon-left"></i> Elektronik & Ev Eşyası</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </div>
+                    <ul class="cat-sublist">
+                        <li onclick="kategoriSec('Cep Telefonu')"><span>Cep Telefonu & Aksesuar</span></li>
+                        <li onclick="kategoriSec('Bilgisayar & Tablet')"><span>Bilgisayar & Tablet</span></li>
+                        <li onclick="kategoriSec('Beyaz Eşya')"><span>Beyaz Eşya & Ev Elektroniği</span></li>
+                        <li onclick="kategoriSec('TV & Ses Systems')"><span>TV & Ses Sistemleri</span></li>
                     </ul>
                 </li>
             </ul>
@@ -223,7 +234,7 @@
 
         <div class="content">
 
-            <!-- ADIM ADIM İLAN SİHRİBAZI (YERİMBURADA PRO WIZARD) -->
+            <!-- ADIM ADIM İLAN SİHRİBAZI (WIZARD) -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-stepper">
                     <div class="step-item active" id="stepIndicator1">
@@ -232,11 +243,11 @@
                     </div>
                     <div class="step-item" id="stepIndicator2">
                         <div class="step-num">2</div>
-                        <div class="step-title">İlan Detayları</div>
+                        <div class="step-title">Teknik Özellikler</div>
                     </div>
                     <div class="step-item" id="stepIndicator3">
                         <div class="step-num">3</div>
-                        <div class="step-title">Fotoğraf & Metin</div>
+                        <div class="step-title">Fotoğraf & Detay</div>
                     </div>
                     <div class="step-item" id="stepIndicator4">
                         <div class="step-num">4</div>
@@ -248,40 +259,47 @@
                     </div>
                 </div>
 
-                <!-- Adım 1: Sütunlu Kategori Seçimi -->
+                <!-- ADIM 1: DÜZGÜN BAĞLANTILI KATEGORİ SÜTUNLARI -->
                 <div class="wizard-step-content active" id="wizardStep1">
-                    <h3 style="margin-bottom:12px; font-size:14px; color:#0f172a;"><i class="fa-solid fa-list"></i> Adım Adım Kategori Seçin</h3>
+                    <h3 style="margin-bottom:12px; font-size:14px; color:#0f172a;"><i class="fa-solid fa-sitemap"></i> Adım Adım Kategori Seçin</h3>
+                    
                     <div class="category-columns">
+                        <!-- Sütun 1: Ana Kategori -->
                         <div class="cat-column">
-                            <div class="cat-column-item selected" onclick="wizAnaKategoriSec('Emlak', this)">Emlak <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAnaKategoriSec('Vasıta', this)">Vasıta <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAnaKategoriSec('Elektronik', this)">Elektronik <i class="fa-solid fa-chevron-right"></i></div>
+                            <div class="cat-column-header">1. Ana Kategori</div>
+                            <div class="cat-column-item selected" onclick="wizAnaKatSec('Emlak', this)">Emlak <i class="fa-solid fa-chevron-right"></i></div>
+                            <div class="cat-column-item" onclick="wizAnaKatSec('Vasıta', this)">Vasıta <i class="fa-solid fa-chevron-right"></i></div>
+                            <div class="cat-column-item" onclick="wizAnaKatSec('Elektronik', this)">Elektronik & Ev Eşyası <i class="fa-solid fa-chevron-right"></i></div>
                         </div>
-                        <div class="cat-column" id="colSub1">
-                            <div class="cat-column-item selected" onclick="wizAltKategoriSec('Konut / Daire', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAltKategoriSec('Müstakil Ev / Villa', this)">Müstakil Ev / Villa <i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="cat-column-item" onclick="wizAltKategoriSec('Arsa / Tarla', this)">Arsa / Tarla <i class="fa-solid fa-chevron-right"></i></div>
+
+                        <!-- Sütun 2: Alt Kategori -->
+                        <div class="cat-column">
+                            <div class="cat-column-header">2. Alt Kategori</div>
+                            <div id="colAltKategoriler">
+                                <!-- Dinamik dolacak -->
+                            </div>
                         </div>
-                        <div class="cat-column" id="colSub2">
-                            <div class="cat-column-item selected" onclick="wizIslemSec('Satılık Daire', this)">Satılık Daire</div>
-                            <div class="cat-column-item" onclick="wizIslemSec('Kiralık Daire', this)">Kiralık Daire</div>
+
+                        <!-- Sütun 3: İşlem Tipi -->
+                        <div class="cat-column">
+                            <div class="cat-column-header">3. İşlem Tipi / Durum</div>
+                            <div id="colIslemTipleri">
+                                <!-- Dinamik dolacak -->
+                            </div>
                         </div>
                     </div>
 
-                    <h4 style="font-size:12px; color:#475569; margin-bottom:6px;"><i class="fa-solid fa-bolt" style="color:var(--brand-orange)"></i> Hızlı Kategori Seçimi</h4>
-                    <div class="quick-cats">
-                        <button class="btn-quick-cat" onclick="hizliKategori('Satılık Daire')">Satılık Daire</button>
-                        <button class="btn-quick-cat" onclick="hizliKategori('Satılık Arsa')">Satılık Arsa</button>
-                        <button class="btn-quick-cat" onclick="hizliKategori('Satılık Otomobil')">Satılık Otomobil</button>
+                    <div style="background:#eff6ff; padding:10px; border-radius:6px; font-weight:bold; color:var(--shb-blue); font-size:12px; margin-bottom:15px;">
+                        Seçilen Kategori: <span id="secilenKategoriEtiketi" style="color:#0f172a;">Emlak > Konut / Daire > Satılık</span>
                     </div>
 
                     <div class="wizard-buttons">
                         <div></div>
-                        <button class="btn-wiz-next" onclick="wizAdimGit(2)">Devam Et <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" id="btnStep1Devam" onclick="wizAdimGit(2)">Devam Et <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- Adım 2: Teknik Özellikler -->
+                <!-- ADIM 2: TEKNİK ÖZELLİKLER -->
                 <div class="wizard-step-content" id="wizardStep2">
                     <h3 style="margin-bottom:12px; font-size:14px; color:#0f172a;"><i class="fa-solid fa-sliders"></i> Teknik Parametreler & Nitelikler</h3>
                     <div class="form-grid-3" id="dinamikDetaylar"></div>
@@ -291,7 +309,7 @@
                     </div>
                 </div>
 
-                <!-- Adım 3: Görseller & Başlık Metinleri -->
+                <!-- ADIM 3: GÖRSELLER & BİLGİLER -->
                 <div class="wizard-step-content" id="wizardStep3">
                     <h3 style="margin-bottom:12px; font-size:14px; color:#0f172a;"><i class="fa-solid fa-camera"></i> Fotoğraf & İlan Bilgileri</h3>
                     <div class="form-section">
@@ -330,7 +348,7 @@
                     </div>
                 </div>
 
-                <!-- Adım 4: Önizleme -->
+                <!-- ADIM 4: ÖNİZLEME -->
                 <div class="wizard-step-content" id="wizardStep4">
                     <h3 style="margin-bottom:12px; font-size:14px; color:#0f172a;"><i class="fa-solid fa-eye"></i> İlanınız Yayınlanmadan Önce Önizleyin</h3>
                     <div style="background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #e2e8f0;">
@@ -344,11 +362,11 @@
                     </div>
                 </div>
 
-                <!-- Adım 5: Yayınlandı Onay Ekranı -->
+                <!-- ADIM 5: ONAY EKRANI -->
                 <div class="wizard-step-content" id="wizardStep5" style="text-align:center; padding:30px;">
                     <i class="fa-solid fa-circle-check" style="font-size:60px; color:#16a34a; margin-bottom:15px;"></i>
                     <h2 style="font-size:22px; color:#0f172a; margin-bottom:8px;">Tebrikler! İlanınız Başarıyla Yayınlandı.</h2>
-                    <p style="color:#64748b; font-weight:600; margin-bottom:20px;">İlanınız YerimBurada veritabanına kaydedildi ve anında aramada görünecek.</p>
+                    <p style="color:#64748b; font-weight:600; margin-bottom:20px;">İlanınız YerimBurada veritabanına kaydedildi.</p>
                     <button class="btn-wiz-next" onclick="formuAcKapa(); location.reload();">Ana Sayfaya Dön</button>
                 </div>
 
@@ -470,7 +488,12 @@
 
         var tumIlanlar = [];
         var seciliKategori = "";
-        var seciliWizKategori = "Satılık Daire";
+        
+        /* Hiyerarşik Kategori Mantık Değişkenleri */
+        var secilenAnaKat = "Emlak";
+        var secilenAltKat = "Konut / Daire";
+        var secilenIslem = "Satılık";
+        
         var yuklenecekDosyalar = [];
         var mevcutAuthModu = 'giris';
         var mevcutKullanici = null;
@@ -479,9 +502,81 @@
         window.onload = function() {
             ilanlariGetir();
             fiyatFormatlayicilariBaslat();
-            detayAlanlariniGoster();
+            wizKategoriArayuzunuGuncelle();
             kullaniciOturumKontrol();
         };
+
+        /* Mantıklı Kategori Seçim Fonksiyonları */
+        function wizAnaKatSec(ana, el) {
+            secilenAnaKat = ana;
+            var items = el.parentElement.querySelectorAll('.cat-column-item');
+            items.forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+
+            wizKategoriArayuzunuGuncelle();
+        }
+
+        function wizAltKatSec(alt, el) {
+            secilenAltKat = alt;
+            var items = el.parentElement.querySelectorAll('.cat-column-item');
+            items.forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+
+            wizKategoriArayuzunuGuncelle();
+        }
+
+        function wizIslemSec(islem, el) {
+            secilenIslem = islem;
+            var items = el.parentElement.querySelectorAll('.cat-column-item');
+            items.forEach(x => x.classList.remove('selected'));
+            el.classList.add('selected');
+
+            document.getElementById('secilenKategoriEtiketi').innerText = `${secilenAnaKat} > ${secilenAltKat} > ${secilenIslem}`;
+        }
+
+        function wizKategoriArayuzunuGuncelle() {
+            var colAlt = document.getElementById('colAltKategoriler');
+            var colIslem = document.getElementById('colIslemTipleri');
+
+            if (secilenAnaKat === 'Emlak') {
+                colAlt.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Konut / Daire', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Müstakil Ev / Villa', this)">Müstakil Ev / Villa <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Arsa / Tarla', this)">Arsa / Tarla <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('İş Yeri / Dükkan', this)">İş Yeri / Dükkan <i class="fa-solid fa-chevron-right"></i></div>
+                `;
+                colIslem.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
+                    <div class="cat-column-item" onclick="wizIslemSec('Kiralık', this)">Kiralık</div>
+                    <div class="cat-column-item" onclick="wizIslemSec('Devren', this)">Devren</div>
+                `;
+            } else if (secilenAnaKat === 'Vasıta') {
+                colAlt.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Arazi & SUV', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Ticari Araç', this)">Ticari Araçlar (Kamyon/Tır) <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Motosiklet', this)">Motosiklet <i class="fa-solid fa-chevron-right"></i></div>
+                `;
+                colIslem.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizIslemSec('Satılık', this)">Satılık</div>
+                    <div class="cat-column-item" onclick="wizIslemSec('Kiralık', this)">Kiralık</div>
+                `;
+            } else if (secilenAnaKat === 'Elektronik') {
+                colAlt.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizAltKatSec('Cep Telefonu', this)">Cep Telefonu & Aksesuar <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Bilgisayar & Tablet', this)">Bilgisayar & Tablet <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('Beyaz Eşya', this)">Beyaz Eşya & Ev Elektroniği <i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="cat-column-item" onclick="wizAltKatSec('TV & Ses Systems', this)">TV & Ses Sistemleri <i class="fa-solid fa-chevron-right"></i></div>
+                `;
+                colIslem.innerHTML = `
+                    <div class="cat-column-item selected" onclick="wizIslemSec('Sıfır / Kapalı Kutu', this)">Sıfır / Kapalı Kutu</div>
+                    <div class="cat-column-item" onclick="wizIslemSec('İkinci El', this)">İkinci El</div>
+                `;
+            }
+
+            document.getElementById('secilenKategoriEtiketi').innerText = `${secilenAnaKat} > ${secilenAltKat} > ${secilenIslem}`;
+            detayAlanlariniGoster();
+        }
 
         function wizAdimGit(adim) {
             for(let i=1; i<=5; i++) {
@@ -496,46 +591,6 @@
                 document.getElementById('wizOzetFiyat').innerText = (document.getElementById('fiyat').value || '0') + ' TL';
                 document.getElementById('wizOzetKonum').innerText = document.getElementById('konum').value || 'Konum Belirtilmedi';
             }
-        }
-
-        function wizAnaKategoriSec(ana, el) {
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-
-            var colSub1 = document.getElementById('colSub1');
-            if(ana === 'Emlak') {
-                colSub1.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKategoriSec('Konut / Daire', this)">Konut / Daire <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKategoriSec('Müstakil Ev / Villa', this)">Müstakil Ev / Villa <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKategoriSec('Arsa / Tarla', this)">Arsa / Tarla <i class="fa-solid fa-chevron-right"></i></div>
-                `;
-            } else if(ana === 'Vasıta') {
-                colSub1.innerHTML = `
-                    <div class="cat-column-item selected" onclick="wizAltKategoriSec('Otomobil', this)">Otomobil <i class="fa-solid fa-chevron-right"></i></div>
-                    <div class="cat-column-item" onclick="wizAltKategoriSec('SUV', this)">Arazi, SUV & Pickup <i class="fa-solid fa-chevron-right"></i></div>
-                `;
-            }
-        }
-
-        function wizAltKategoriSec(alt, el) {
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function wizIslemSec(kat, el) {
-            var items = el.parentElement.querySelectorAll('.cat-column-item');
-            items.forEach(x => x.classList.remove('selected'));
-            el.classList.add('selected');
-            seciliWizKategori = kat;
-            detayAlanlariniGoster();
-        }
-
-        function hizliKategori(kat) {
-            seciliWizKategori = kat;
-            detayAlanlariniGoster();
-            wizAdimGit(2);
         }
 
         function kategoriGrupAc(header) {
@@ -619,20 +674,25 @@
             var kutu = document.getElementById("dinamikDetaylar");
             kutu.innerHTML = "";
 
-            if (seciliWizKategori.includes("Otomobil") || seciliWizKategori.includes("Vasıta")) {
+            if (secilenAnaKat === "Vasıta") {
                 kutu.innerHTML = `
-                    <div class="filter-group"><label>Marka</label><input type="text" id="detayMarka" placeholder="Örn: BMW / Ford"></div>
+                    <div class="filter-group"><label>Marka</label><input type="text" id="detayMarka" placeholder="Örn: BMW / Volkswagen"></div>
                     <div class="filter-group"><label>Model Yılı</label><input type="number" id="detayYil" placeholder="Örn: 2021"></div>
                     <div class="filter-group"><label>Kilometre (KM)</label><input type="number" id="detayKm" placeholder="Örn: 145000"></div>
-                    <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option></select></div>
+                    <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="LPG">LPG</option><option value="Elektrik">Elektrik</option></select></div>
                     <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Manuel">Manuel</option></select></div>
                 `;
-            } else {
+            } else if (secilenAnaKat === "Emlak") {
                 kutu.innerHTML = `
                     <div class="filter-group"><label>m² (Net)</label><input type="number" id="detayM2Net" placeholder="Örn: 120"></div>
                     <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option></select></div>
-                    <div class="filter-group"><label>Bina Yaşı</label><select id="detayBinaYasi"><option value="0 (Yeni)">0 (Yeni)</option><option value="1-5 arası">1-5 arası</option></select></div>
+                    <div class="filter-group"><label>Bina Yaşı</label><select id="detayBinaYasi"><option value="0 (Yeni)">0 (Yeni)</option><option value="1-5 arası">1-5 arası</option><option value="6-10 arası">6-10 arası</option></select></div>
                     <div class="filter-group"><label>Bulunduğu Kat</label><input type="text" id="detayKat" placeholder="Örn: 4. Kat"></div>
+                `;
+            } else {
+                kutu.innerHTML = `
+                    <div class="filter-group"><label>Marka / Model</label><input type="text" id="detayMarka" placeholder="Örn: Apple / Samsung / Bosch"></div>
+                    <div class="filter-group"><label>Garanti Durumu</label><select id="detayGaranti"><option value="Garantili">Garantili</option><option value="Garantisi Yok">Garantisi Yok</option></select></div>
                 `;
             }
         }
@@ -704,10 +764,11 @@
             if (document.getElementById("detayYil")) detayObje["Model Yılı"] = document.getElementById("detayYil").value;
 
             var teknikOzet = Object.entries(detayObje).map(([k, v]) => `${k}: ${v}`).join(' | ');
+            var tamKategoriMetni = `${secilenIslem} ${secilenAltKat}`;
 
             const { data, error } = await db.from('ilanlar').insert([
                 {
-                    kategori: seciliWizKategori,
+                    kategori: tamKategoriMetni,
                     baslik: baslik,
                     fiyat: fiyat,
                     durum: teknikOzet,
