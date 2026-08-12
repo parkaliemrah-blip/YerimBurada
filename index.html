@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada v11 - EİDS Destekli Kurumsal İlan Portalı</title>
+    <title>YerimBurada v12 - Kurumsal İlan Portalı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -89,12 +89,18 @@
         .content-header h2 { font-size: 15px; color: var(--primary-navy); font-weight: 800; }
         .sort-select { padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 6px; font-size: 12px; background: #fff; font-weight: 600; }
 
+        /* Pazarlık Rozetleri Stili */
+        .bargain-badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; }
+        .bargain-badge.green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .bargain-badge.red { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
         .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
         .card { background: white; border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--accent-blue); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
         .card-img-wrapper { height: 170px; width: 100%; position: relative; background: #e2e8f0; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.9); color: var(--accent-gold); font-size: 10px; padding: 4px 9px; border-radius: 5px; font-weight: 800; }
+        .card-bargain-pos { position: absolute; top: 10px; right: 10px; }
         .card-body { padding: 14px; display: flex; flex-direction: column; flex-grow: 1; }
         .card-price { font-size: 18px; color: #dc2626; font-weight: 900; margin-bottom: 4px; }
         .card-title { font-size: 13px; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px; height: 36px; overflow: hidden; }
@@ -114,7 +120,7 @@
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); justify-content: center; align-items: center; padding: 20px; z-index: 1000; backdrop-filter: blur(4px); }
         .modal-content { background: white; max-width: 850px; width: 100%; border-radius: 12px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; }
         .modal-body { padding: 26px; }
-        .modal-price { font-size: 28px; color: #dc2626; font-weight: 900; margin-bottom: 10px; }
+        .modal-price { font-size: 28px; color: #dc2626; font-weight: 900; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         .modal-contact { background: #f8fafc; padding: 18px; border: 1px solid var(--card-border); border-radius: 8px; margin-top: 18px; }
         .btn-close { position: absolute; top: 14px; right: 14px; background: #dc2626; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 18px; }
 
@@ -290,17 +296,16 @@
                     </div>
                 </div>
 
-                <!-- ADIM 2: YASAL EİDS & TEKNİK DETAYLAR -->
+                <!-- ADIM 2 -->
                 <div class="wizard-step-content" id="wizardStep2">
                     <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sliders" style="color:var(--accent-blue)"></i> 2. Mülk / Araç Teknik Detayları</h3>
                     
-                    <!-- Yasal Taşınmaz Numarası Uyarısı ve Zorunlu Alanı -->
                     <div id="tasinmazNoAlani" class="form-section" style="background:#fefce8; border:1px solid #fef08a;">
                         <div class="filter-group" style="margin-bottom:0;">
-                            <label style="color:#854d0e;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Yasal EİDS Taşınmaz Numarası <span class="req">* (ZORUNLU)</span></label>
-                            <input type="text" id="tasinmazNo" placeholder="E-Devlet EİDS Taşınmaz Numarası (Örn: 10293847)" style="border-color:#fde047;">
+                            <label style="color:#854d0e;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Taşınmaz Numarası (E-Devlet Tapu / EİDS Numarası) <span class="req">* (ZORUNLU)</span></label>
+                            <input type="text" id="tasinmazNo" placeholder="Örn: 10293847" style="border-color:#fde047;">
                             <span style="font-size:11px; color:#a16207; font-weight:bold; margin-top:4px; display:block;">
-                                Ticaret Bakanlığı mevzuatı gereğince Emlak ilanlarında Taşınmaz Numarası girilmesi kanunen zorunludur.
+                                Ticaret Bakanlığı mevzuatı gereğince Emlak ilanlarında E-Devlet Taşınmaz Numarası girilmesi kanunen zorunludur.
                             </span>
                         </div>
                     </div>
@@ -315,7 +320,7 @@
 
                 <!-- ADIM 3 -->
                 <div class="wizard-step-content" id="wizardStep3">
-                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-camera" style="color:#16a34a"></i> 3. Fotoğraf Yükleme & Fiyatlandırma</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-camera" style="color:#16a34a"></i> 3. Fotoğraf, Fiyat & Pazarlık Şartı</h3>
                     <div class="form-section">
                         <div class="file-upload-box" onclick="document.getElementById('dosyaSecici').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -332,6 +337,13 @@
                         <div class="filter-group">
                             <label>Fiyat (TL) <span class="req">*</span></label>
                             <input type="text" id="fiyat" class="fiyat-input" placeholder="Örn: 4.500.000">
+                        </div>
+                        <div class="filter-group">
+                            <label>Pazarlık Durumu <span class="req">*</span></label>
+                            <select id="pazarlikDurumu">
+                                <option value="Pazarlıklı">Pazarlık Var (Yeşil Rozet)</option>
+                                <option value="Pazarlıksız">Son Fiyat / Pazarlık Yok (Kırmızı Rozet)</option>
+                            </select>
                         </div>
                         <div class="filter-group">
                             <label>Konum (İl / İlçe / Mahalle) <span class="req">*</span></label>
@@ -437,7 +449,10 @@
             <img id="modalResim" src="" style="width:100%; height:380px; object-fit:cover;">
             <div class="gallery-thumbs" id="modalGaleri"></div>
             <div class="modal-body">
-                <div class="modal-price" id="modalFiyat"></div>
+                <div class="modal-price">
+                    <span id="modalFiyat"></span>
+                    <span id="modalPazarlikRozet"></span>
+                </div>
                 <h2 id="modalBaslik" style="font-size:20px; margin-bottom:8px; color:var(--primary-navy); font-weight:800;"></h2>
                 <div id="modalKonum" style="color:var(--text-muted); margin-bottom:14px; font-weight:600;"></div>
                 
@@ -509,18 +524,16 @@
             kullaniciOturumKontrol();
         };
 
-        /* KONTROL VE ZORUNLU ALAN MEVZUAT DOĞRULAMA DÖNGÜSÜ */
         function wizAdim1KontrolEt() {
             wizAdimGit(2);
         }
 
         function wizAdim2KontrolEt() {
-            // Eğer Emlak ilanı ise Taşınmaz Numarası kesinlikle zorunludur!
             if (secilenAnaKat === "Emlak") {
                 var tasinmazNo = document.getElementById("tasinmazNo").value.trim();
                 if (!tasinmazNo) {
                     document.getElementById("tasinmazNo").classList.add("error-border");
-                    alert("YASAL UYARI: Ticaret Bakanlığı Elektronik İlan Doğrulama Sistemi (EİDS) gereğince Emlak ilanlarında Taşınmaz Numarası girilmesi ZORUNLUDUR! Lütfen taşınmaz numaranızı girin.");
+                    alert("YASAL UYARI: Emlak ilanlarında E-Devlet Taşınmaz Numarası girilmesi ZORUNLUDUR!");
                     return;
                 } else {
                     document.getElementById("tasinmazNo").classList.remove("error-border");
@@ -771,6 +784,7 @@
             var baslik = document.getElementById("baslik").value;
             var hamFiyat = document.getElementById("fiyat").value;
             var fiyat = sayiyaCevir(hamFiyat);
+            var pazarlik = document.getElementById("pazarlikDurumu").value;
             var kimlik = document.getElementById("kimlikTipi").value;
             var konum = document.getElementById("konum").value;
             var satici = (mevcutKullanici ? mevcutKullanici.email.split('@')[0] : "Satıcı") + ` (${kimlik})`;
@@ -799,8 +813,9 @@
             }
 
             var detayObje = {};
+            detayObje["Pazarlık"] = pazarlik;
             if (secilenAnaKat === "Emlak") {
-                detayObje["EİDS Taşınmaz No"] = document.getElementById("tasinmazNo").value;
+                detayObje["Taşınmaz No"] = document.getElementById("tasinmazNo").value;
             }
             if (document.getElementById("detayM2Net") && document.getElementById("detayM2Net").value) detayObje["m² (Net)"] = document.getElementById("detayM2Net").value + " m²";
             if (document.getElementById("detayOda")) detayObje["Oda Sayısı"] = document.getElementById("detayOda").value;
@@ -882,11 +897,18 @@
             liste.forEach(function(ilan) {
                 var formatliFiyat = Number(ilan.fiyat).toLocaleString('tr-TR') + " TL";
                 var anaResim = (ilan.resimler && ilan.resimler.length > 0) ? ilan.resimler[0] : "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800";
+                
+                // Pazarlık Durumuna Göre Yeşil / Kırmızı Rozet
+                var pazarlikVarMi = (ilan.durum || "").includes("Pazarlıklı");
+                var pazarlikBadgeHTML = pazarlikVarMi 
+                    ? `<span class="bargain-badge green"><i class="fa-solid fa-handshake"></i> Pazarlıklı</span>`
+                    : `<span class="bargain-badge red"><i class="fa-solid fa-ban"></i> Son Fiyat</span>`;
 
                 var card = `
                     <div class="card" onclick="detayAc(${ilan.id})">
                         <div class="card-img-wrapper">
                             <span class="card-badge">${ilan.kategori}</span>
+                            <div class="card-bargain-pos">${pazarlikBadgeHTML}</div>
                             <img src="${anaResim}">
                         </div>
                         <div class="card-body">
@@ -948,6 +970,12 @@
 
             document.getElementById("modalResim").src = resimler[0];
             document.getElementById("modalFiyat").innerText = Number(aktifIlan.fiyat).toLocaleString('tr-TR') + " TL";
+            
+            var pazarlikVarMi = (aktifIlan.durum || "").includes("Pazarlıklı");
+            document.getElementById("modalPazarlikRozet").innerHTML = pazarlikVarMi 
+                ? `<span class="bargain-badge green" style="font-size:12px; padding:6px 12px;"><i class="fa-solid fa-handshake"></i> Pazarlıklı İlan</span>`
+                : `<span class="bargain-badge red" style="font-size:12px; padding:6px 12px;"><i class="fa-solid fa-ban"></i> Pazarlıksız (Son Fiyat)</span>`;
+
             document.getElementById("modalBaslik").innerText = aktifIlan.baslik;
             document.getElementById("modalKonum").innerHTML = `<i class="fa-solid fa-location-dot" style="color:var(--accent-gold)"></i> ${aktifIlan.konum || 'Belirtilmedi'}`;
             
