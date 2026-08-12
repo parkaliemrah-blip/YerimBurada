@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada v10 - Kurumsal İlan Portalı</title>
+    <title>YerimBurada v11 - EİDS Destekli Kurumsal İlan Portalı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -13,130 +13,110 @@
             --accent-gold: #f59e0b;
             --accent-blue: #2563eb;
             --light-bg: #f8fafc;
-            --card-border: #e2e8f0;
+            --card-border: #cbd5e1;
             --text-dark: #020617;
             --text-muted: #64748b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-dark); font-size: 13px; display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* Header Tasarımı */
         header { background: var(--primary-navy); color: white; padding: 14px 6%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--accent-gold); }
         .logo-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px; }
+        .logo-text { font-size: 26px; font-weight: 900; color: #ffffff; }
         .logo-text span { color: var(--accent-gold); }
 
-        .header-search { display: flex; flex: 1; max-width: 550px; margin: 0 30px; position: relative; }
-        .header-search input { width: 100%; padding: 11px 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.07); border-radius: 8px 0 0 8px; outline: none; font-size: 13px; color: white; transition: 0.3s; }
-        .header-search input::placeholder { color: #94a3b8; }
-        .header-search input:focus { background: rgba(255,255,255,0.15); border-color: var(--accent-gold); }
-        .header-search button { background: var(--accent-gold); color: #000; border: none; padding: 11px 22px; border-radius: 0 8px 8px 0; cursor: pointer; font-weight: 800; transition: 0.2s; }
-        .header-search button:hover { background: #d97706; }
+        .header-search { display: flex; flex: 1; max-width: 550px; margin: 0 30px; }
+        .header-search input { width: 100%; padding: 11px 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.07); border-radius: 8px 0 0 8px; outline: none; font-size: 13px; color: white; }
+        .header-search button { background: var(--accent-gold); color: #000; border: none; padding: 11px 22px; border-radius: 0 8px 8px 0; cursor: pointer; font-weight: 800; }
 
         .header-nav { display: flex; align-items: center; gap: 18px; }
-        .nav-item { color: #cbd5e1; text-decoration: none; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; cursor: pointer; transition: 0.2s; }
-        .nav-item:hover { color: var(--accent-gold); }
-        .btn-add { background: linear-gradient(135deg, var(--accent-gold), #eab308); color: #0f172a; border: none; padding: 11px 20px; cursor: pointer; border-radius: 8px; font-weight: 800; font-size: 13px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); transition: 0.2s; }
-        .btn-add:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4); }
+        .nav-item { color: #cbd5e1; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; cursor: pointer; }
+        .btn-add { background: linear-gradient(135deg, var(--accent-gold), #eab308); color: #0f172a; border: none; padding: 11px 20px; cursor: pointer; border-radius: 8px; font-weight: 800; font-size: 13px; }
 
         .main-layout { max-width: 1400px; margin: 25px auto; padding: 0 20px; display: grid; grid-template-columns: 300px 1fr; gap: 25px; flex: 1; width: 100%; }
 
-        /* Sol Sidebar Kurumsal Filtre */
         .sidebar { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: fit-content; }
-        .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; }
+        .sidebar h3 { font-size: 13px; color: var(--primary-navy); margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; text-transform: uppercase; font-weight: 800; display: flex; justify-content: space-between; }
         
         .cat-accordion { list-style: none; margin-bottom: 22px; }
         .cat-group { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 11px 10px; font-weight: 700; color: #334155; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 13px; border-radius: 6px; transition: 0.2s; }
-        .cat-header:hover { background: #f1f5f9; color: var(--accent-blue); }
-        .cat-header i.icon-left { width: 22px; color: var(--accent-gold); font-size: 15px; }
+        .cat-header { padding: 11px 10px; font-weight: 700; color: #334155; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .cat-sublist { list-style: none; padding-left: 32px; background: #f8fafc; display: none; border-left: 2px solid var(--accent-blue); margin: 4px 0 8px 12px; border-radius: 0 6px 6px 0; }
-        .cat-sublist li { padding: 8px 10px; font-size: 12px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; transition: 0.2s; }
+        .cat-sublist li { padding: 8px 10px; font-size: 12px; color: #475569; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 600; }
         .cat-sublist li:hover { color: var(--accent-blue); font-weight: 800; background: #e0f2fe; }
         .cat-group.open .cat-sublist { display: block; }
-        .cat-group.open .chevron { transform: rotate(180deg); }
-        .chevron { transition: transform 0.2s; font-size: 10px; color: #94a3b8; }
 
         .filter-group { margin-bottom: 14px; }
-        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 5px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; }
-        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--card-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; transition: 0.2s; }
-        .filter-group input:focus, .filter-group select:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-        .filter-inputs { display: flex; gap: 8px; }
+        .filter-group label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 5px; color: #475569; text-transform: uppercase; }
+        .filter-group label span.req { color: #dc2626; font-weight: bold; font-size: 14px; }
+        .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--card-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
+        .filter-group input.error-border, .filter-group select.error-border { border-color: #dc2626 !important; background: #fef2f2; }
 
-        /* WIZARD / SİHRİBAZ TASARIMI */
         .wizard-container { background: white; border: 1px solid var(--card-border); border-radius: 14px; padding: 28px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: none; }
         .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 35px; }
         .wizard-stepper::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1; }
         .step-item { position: relative; z-index: 2; background: white; padding: 0 12px; text-align: center; }
-        .step-num { width: 40px; height: 40px; border-radius: 50%; background: #f1f5f9; color: #64748b; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 15px; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .step-item.active .step-num { background: var(--primary-navy); color: var(--accent-gold); font-weight: 900; }
+        .step-num { width: 40px; height: 40px; border-radius: 50%; background: #f1f5f9; color: #64748b; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 15px; border: 3px solid white; }
+        .step-item.active .step-num { background: var(--primary-navy); color: var(--accent-gold); }
         .step-item.completed .step-num { background: #16a34a; color: white; }
         .step-title { font-size: 11px; font-weight: 700; color: #64748b; }
-        .step-item.active .step-title { color: var(--primary-navy); font-weight: 800; }
 
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
         .category-columns { display: flex; gap: 15px; margin-bottom: 20px; }
-        .cat-column { flex: 1; background: #fff; border: 1px solid var(--card-border); border-radius: 8px; height: 270px; overflow-y: auto; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
-        .cat-column-header { background: #f1f5f9; padding: 10px 14px; font-weight: 800; color: var(--primary-navy); border-bottom: 1px solid var(--card-border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .cat-column-item { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-weight: 600; font-size: 12px; color: #334155; display: flex; justify-content: space-between; align-items: center; transition: 0.15s; }
+        .cat-column { flex: 1; background: #fff; border: 1px solid var(--card-border); border-radius: 8px; height: 270px; overflow-y: auto; }
+        .cat-column-header { background: #f1f5f9; padding: 10px 14px; font-weight: 800; color: var(--primary-navy); border-bottom: 1px solid var(--card-border); font-size: 11px; text-transform: uppercase; }
+        .cat-column-item { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-weight: 600; font-size: 12px; color: #334155; display: flex; justify-content: space-between; }
         .cat-column-item:hover, .cat-column-item.selected { background: #eff6ff; color: var(--accent-blue); font-weight: 800; }
 
         .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 18px; }
         .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-wiz-next { background: var(--primary-navy); color: var(--accent-gold); border: none; padding: 11px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; transition: 0.2s; }
-        .btn-wiz-next:hover { background: var(--secondary-navy); }
+        .btn-wiz-next { background: var(--primary-navy); color: var(--accent-gold); border: none; padding: 11px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; }
 
-        /* Vitrin & Kartlar */
-        .showcase-container { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; margin-bottom: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .showcase-container { background: white; border: 1px solid var(--card-border); border-radius: 12px; padding: 18px; margin-bottom: 22px; }
         .showcase-title { font-size: 14px; font-weight: 800; color: var(--primary-navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
         .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
-        .showcase-card { background: #fff; border: 1px solid #fef08a; border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.2s; position: relative; box-shadow: 0 4px 12px rgba(234, 179, 8, 0.1); }
-        .showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(234, 179, 8, 0.25); }
-        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--accent-gold); color: #000; font-size: 9px; font-weight: 900; padding: 3px 7px; border-radius: 4px; z-index: 2; }
+        .showcase-card { background: #fff; border: 1px solid #fef08a; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; }
+        .showcase-badge { position: absolute; top: 8px; left: 8px; background: var(--accent-gold); color: #000; font-size: 9px; font-weight: 900; padding: 3px 7px; border-radius: 4px; }
         .showcase-img { height: 120px; width: 100%; object-fit: cover; }
         .showcase-body { padding: 10px; }
         .showcase-price { font-size: 15px; font-weight: 900; color: #dc2626; }
-        .showcase-text { font-size: 12px; font-weight: 700; color: var(--primary-navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+        .showcase-text { font-size: 12px; font-weight: 700; color: var(--primary-navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .content-header { background: white; padding: 14px 20px; border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
-        .content-header h2 { font-size: 15px; color: var(--primary-navy); display: flex; align-items: center; gap: 8px; font-weight: 800; }
-        .sort-select { padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 6px; outline: none; font-size: 12px; background: #fff; font-weight: 600; }
+        .content-header h2 { font-size: 15px; color: var(--primary-navy); font-weight: 800; }
+        .sort-select { padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 6px; font-size: 12px; background: #fff; font-weight: 600; }
 
         .listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
-        .card { background: white; border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .card { background: white; border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--accent-blue); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
         .card-img-wrapper { height: 170px; width: 100%; position: relative; background: #e2e8f0; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.9); color: var(--accent-gold); font-size: 10px; padding: 4px 9px; border-radius: 5px; font-weight: 800; backdrop-filter: blur(2px); }
+        .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.9); color: var(--accent-gold); font-size: 10px; padding: 4px 9px; border-radius: 5px; font-weight: 800; }
         .card-body { padding: 14px; display: flex; flex-direction: column; flex-grow: 1; }
         .card-price { font-size: 18px; color: #dc2626; font-weight: 900; margin-bottom: 4px; }
-        .card-title { font-size: 13px; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px; height: 36px; overflow: hidden; line-height: 1.4; }
+        .card-title { font-size: 13px; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px; height: 36px; overflow: hidden; }
         .card-details-badge { font-size: 11px; color: #1e40af; background: #eff6ff; padding: 5px 9px; border-radius: 6px; margin-bottom: 8px; font-weight: 700; border: 1px solid #dbeafe; }
-        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
-        .btn-inspect { background: var(--accent-blue); color: white; border: none; padding: 9px; border-radius: 6px; font-weight: 800; margin-top: auto; cursor: pointer; text-align: center; font-size: 12px; transition: 0.2s; }
-        .btn-inspect:hover { background: #1d4ed8; }
+        .card-location { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between; font-weight: 600; }
+        .btn-inspect { background: var(--accent-blue); color: white; border: none; padding: 9px; border-radius: 6px; font-weight: 800; margin-top: auto; cursor: pointer; text-align: center; font-size: 12px; }
 
         .form-section { background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 10px; margin-bottom: 16px; }
         .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
         .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 
-        .file-upload-box { border: 2px dashed var(--accent-blue); background: #eff6ff; padding: 24px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .file-upload-box:hover { background: #dbeafe; }
+        .file-upload-box { border: 2px dashed var(--accent-blue); background: #eff6ff; padding: 24px; border-radius: 10px; text-align: center; cursor: pointer; }
         .file-upload-box i { font-size: 36px; color: var(--accent-blue); margin-bottom: 10px; }
-        .file-upload-box p { font-weight: 800; color: #1e3a8a; }
 
-        .btn-submit { background: #16a34a; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; transition: 0.2s; }
-        .btn-submit:hover { background: #15803d; }
+        .btn-submit { background: #16a34a; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); justify-content: center; align-items: center; padding: 20px; z-index: 1000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; max-width: 850px; width: 100%; border-radius: 12px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .modal-content { background: white; max-width: 850px; width: 100%; border-radius: 12px; overflow: hidden; position: relative; max-height: 92vh; overflow-y: auto; }
         .modal-body { padding: 26px; }
         .modal-price { font-size: 28px; color: #dc2626; font-weight: 900; margin-bottom: 10px; }
         .modal-contact { background: #f8fafc; padding: 18px; border: 1px solid var(--card-border); border-radius: 8px; margin-top: 18px; }
-        .btn-close { position: absolute; top: 14px; right: 14px; background: #dc2626; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; z-index: 10; font-size: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .btn-close { position: absolute; top: 14px; right: 14px; background: #dc2626; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 18px; }
 
         .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 18px; }
         .spec-item { font-size: 12px; color: #334155; }
@@ -153,8 +133,7 @@
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto 25px auto; }
         .footer-col h4 { color: white; font-size: 15px; margin-bottom: 12px; font-weight: 800; }
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
-        .footer-col ul li:hover { color: var(--accent-gold); }
+        .footer-col ul li { margin-bottom: 8px; cursor: pointer; }
         .footer-bottom { text-align: center; border-top: 1px solid #334155; padding-top: 20px; color: #64748b; font-weight: 600; }
 
         @media (max-width: 768px) {
@@ -183,7 +162,6 @@
 
     <div class="main-layout">
 
-        <!-- SOL KATEGORİ PANELİ -->
         <div class="sidebar">
             <h3><span>Kategori Kataloğu</span> <i class="fa-solid fa-layer-group" style="color:var(--accent-gold);"></i></h3>
             <ul class="cat-accordion">
@@ -241,7 +219,7 @@
 
         <div class="content">
 
-            <!-- KURUMSAL ADIM ADIM İLAN SİHRİBAZI (WIZARD) -->
+            <!-- ADIM ADIM İLAN SİHRİBAZI -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-stepper">
                     <div class="step-item active" id="stepIndicator1">
@@ -266,7 +244,7 @@
                     </div>
                 </div>
 
-                <!-- ADIM 1: KATEGORİ SÜTUNLARI -->
+                <!-- ADIM 1 -->
                 <div class="wizard-step-content active" id="wizardStep1">
                     <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sitemap" style="color:var(--accent-gold)"></i> 1. Kategori & İlan Sahibi Seçimi</h3>
                     
@@ -291,7 +269,7 @@
 
                     <div class="form-section">
                         <div class="filter-group" style="margin-bottom:0;">
-                            <label>İlan Sahibi / Satıcı Kimliği</label>
+                            <label>İlan Sahibi / Satıcı Kimliği <span class="req">*</span></label>
                             <select id="kimlikTipi">
                                 <option value="Sahibinden">Sahibinden</option>
                                 <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Gayrimenkul Danışmanından</option>
@@ -308,21 +286,34 @@
 
                     <div class="wizard-buttons">
                         <div></div>
-                        <button class="btn-wiz-next" id="btnStep1Devam" onclick="wizAdimGit(2)">Teknik Detaylara Geç <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" id="btnStep1Devam" onclick="wizAdim1KontrolEt()">Teknik Detaylara Geç <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- ADIM 2: EKSİKSİZ TEKNİK ÖZELLİKLER -->
+                <!-- ADIM 2: YASAL EİDS & TEKNİK DETAYLAR -->
                 <div class="wizard-step-content" id="wizardStep2">
                     <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-sliders" style="color:var(--accent-blue)"></i> 2. Mülk / Araç Teknik Detayları</h3>
+                    
+                    <!-- Yasal Taşınmaz Numarası Uyarısı ve Zorunlu Alanı -->
+                    <div id="tasinmazNoAlani" class="form-section" style="background:#fefce8; border:1px solid #fef08a;">
+                        <div class="filter-group" style="margin-bottom:0;">
+                            <label style="color:#854d0e;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Yasal EİDS Taşınmaz Numarası <span class="req">* (ZORUNLU)</span></label>
+                            <input type="text" id="tasinmazNo" placeholder="E-Devlet EİDS Taşınmaz Numarası (Örn: 10293847)" style="border-color:#fde047;">
+                            <span style="font-size:11px; color:#a16207; font-weight:bold; margin-top:4px; display:block;">
+                                Ticaret Bakanlığı mevzuatı gereğince Emlak ilanlarında Taşınmaz Numarası girilmesi kanunen zorunludur.
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="form-grid-3" id="dinamikDetaylar"></div>
+
                     <div class="wizard-buttons">
                         <button class="btn-wiz-prev" onclick="wizAdimGit(1)"><i class="fa-solid fa-arrow-left"></i> Geri</button>
-                        <button class="btn-wiz-next" onclick="wizAdimGit(3)">Fotoğraf & Bilgilere Geç <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" onclick="wizAdim2KontrolEt()">Fotoğraf & Bilgilere Geç <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- ADIM 3: FOTOĞRAF & BAŞLIK & METİN -->
+                <!-- ADIM 3 -->
                 <div class="wizard-step-content" id="wizardStep3">
                     <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-camera" style="color:#16a34a"></i> 3. Fotoğraf Yükleme & Fiyatlandırma</h3>
                     <div class="form-section">
@@ -335,36 +326,36 @@
                     </div>
                     <div class="form-grid-2">
                         <div class="filter-group">
-                            <label>İlan Başlığı</label>
+                            <label>İlan Başlığı <span class="req">*</span></label>
                             <input type="text" id="baslik" placeholder="Örn: T-LIFE ARMONİ 3+1 SATILIK SIFIR DAİRE">
                         </div>
                         <div class="filter-group">
-                            <label>Fiyat (TL)</label>
+                            <label>Fiyat (TL) <span class="req">*</span></label>
                             <input type="text" id="fiyat" class="fiyat-input" placeholder="Örn: 4.500.000">
                         </div>
                         <div class="filter-group">
-                            <label>Konum (İl / İlçe / Mahalle)</label>
+                            <label>Konum (İl / İlçe / Mahalle) <span class="req">*</span></label>
                             <input type="text" id="konum" placeholder="Örn: İstanbul / Başakşehir / Güvercintepe">
                         </div>
                         <div class="filter-group">
-                            <label>Telefon Numarası</label>
+                            <label>Telefon Numarası <span class="req">*</span></label>
                             <input type="text" id="telefon" placeholder="Örn: 05551112233">
                         </div>
                     </div>
                     <div class="filter-group" style="margin-top:10px;">
                         <label>Açıklama</label>
-                        <textarea id="aciklama" rows="4" placeholder="İlan hakkında öne çıkan detaylar, ulaşım imkanları vb..."></textarea>
+                        <textarea id="aciklama" rows="4" placeholder="İlan hakkında detaylar..."></textarea>
                     </div>
                     <div class="wizard-buttons">
                         <button class="btn-wiz-prev" onclick="wizAdimGit(2)"><i class="fa-solid fa-arrow-left"></i> Geri</button>
-                        <button class="btn-wiz-next" onclick="wizAdimGit(4)">Önizlemeye Geç <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-wiz-next" onclick="wizAdim3KontrolEt()">Önizlemeye Geç <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- ADIM 4: ÖNİZLEME -->
+                <!-- ADIM 4 -->
                 <div class="wizard-step-content" id="wizardStep4">
                     <h3 style="margin-bottom:14px; font-size:15px; color:var(--primary-navy); font-weight:800;"><i class="fa-solid fa-eye" style="color:var(--accent-blue)"></i> 4. İlan Önizleme & Onay</h3>
-                    <div style="background:#f8fafc; padding:22px; border-radius:10px; border:1px solid #e2e8f0; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02);">
+                    <div style="background:#f8fafc; padding:22px; border-radius:10px; border:1px solid #e2e8f0;">
                         <h2 id="wizOzetBaslik" style="font-size:20px; color:var(--primary-navy); margin-bottom:8px; font-weight:800;"></h2>
                         <div id="wizOzetFiyat" style="font-size:24px; font-weight:900; color:#dc2626; margin-bottom:10px;"></div>
                         <div id="wizOzetKonum" style="color:var(--text-muted); font-weight:700;"></div>
@@ -375,7 +366,7 @@
                     </div>
                 </div>
 
-                <!-- ADIM 5: ONAY EKRANI -->
+                <!-- ADIM 5 -->
                 <div class="wizard-step-content" id="wizardStep5" style="text-align:center; padding:40px 20px;">
                     <i class="fa-solid fa-circle-check" style="font-size:65px; color:#16a34a; margin-bottom:18px;"></i>
                     <h2 style="font-size:24px; color:var(--primary-navy); margin-bottom:10px; font-weight:900;">Tebrikler! İlanınız Başarıyla Yayınlandı.</h2>
@@ -385,7 +376,6 @@
 
             </div>
 
-            <!-- VİTRİN ALANI -->
             <div class="showcase-container" id="vitrinAlani">
                 <div class="showcase-title"><i class="fa-solid fa-star" style="color:var(--accent-gold);"></i> Günün Vitrin İlanları</div>
                 <div class="showcase-grid" id="vitrinKutusu">
@@ -519,6 +509,39 @@
             kullaniciOturumKontrol();
         };
 
+        /* KONTROL VE ZORUNLU ALAN MEVZUAT DOĞRULAMA DÖNGÜSÜ */
+        function wizAdim1KontrolEt() {
+            wizAdimGit(2);
+        }
+
+        function wizAdim2KontrolEt() {
+            // Eğer Emlak ilanı ise Taşınmaz Numarası kesinlikle zorunludur!
+            if (secilenAnaKat === "Emlak") {
+                var tasinmazNo = document.getElementById("tasinmazNo").value.trim();
+                if (!tasinmazNo) {
+                    document.getElementById("tasinmazNo").classList.add("error-border");
+                    alert("YASAL UYARI: Ticaret Bakanlığı Elektronik İlan Doğrulama Sistemi (EİDS) gereğince Emlak ilanlarında Taşınmaz Numarası girilmesi ZORUNLUDUR! Lütfen taşınmaz numaranızı girin.");
+                    return;
+                } else {
+                    document.getElementById("tasinmazNo").classList.remove("error-border");
+                }
+            }
+            wizAdimGit(3);
+        }
+
+        function wizAdim3KontrolEt() {
+            var baslik = document.getElementById("baslik").value.trim();
+            var fiyat = document.getElementById("fiyat").value.trim();
+            var konum = document.getElementById("konum").value.trim();
+            var telefon = document.getElementById("telefon").value.trim();
+
+            if (!baslik || !fiyat || !konum || !telefon) {
+                alert("Lütfen İlan Başlığı, Fiyat, Konum ve Telefon Numarası zorunlu alanlarını doldurun!");
+                return;
+            }
+            wizAdimGit(4);
+        }
+
         function wizAnaKatSec(ana, el) {
             secilenAnaKat = ana;
             var items = el.parentElement.querySelectorAll('.cat-column-item');
@@ -586,16 +609,17 @@
             detayAlanlariniGoster();
         }
 
-        /* Bina Yaşı & Yapım Aşaması Eksiksiz Kutuları */
         function detayAlanlariniGoster() {
             var kutu = document.getElementById("dinamikDetaylar");
+            var tasinmazBox = document.getElementById("tasinmazNoAlani");
             kutu.innerHTML = "";
 
             if (secilenAnaKat === "Emlak") {
+                tasinmazBox.style.display = "block";
                 kutu.innerHTML = `
-                    <div class="filter-group"><label>Metrekare (m² Net)</label><input type="number" id="detayM2Net" placeholder="Örn: 125"></div>
-                    <div class="filter-group"><label>Oda Sayısı</label><select id="detayOda"><option value="1+0 (Stüdyo)">1+0 (Stüdyo)</option><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option><option value="5+1 ve üzeri">5+1 ve üzeri</option></select></div>
-                    <div class="filter-group"><label>Bina Yaşı & Durumu</label><select id="detayBinaYasi">
+                    <div class="filter-group"><label>Metrekare (m² Net) <span class="req">*</span></label><input type="number" id="detayM2Net" placeholder="Örn: 125"></div>
+                    <div class="filter-group"><label>Oda Sayısı <span class="req">*</span></label><select id="detayOda"><option value="1+0 (Stüdyo)">1+0 (Stüdyo)</option><option value="1+1">1+1</option><option value="2+1">2+1</option><option value="3+1">3+1</option><option value="4+1">4+1</option><option value="5+1 ve üzeri">5+1 ve üzeri</option></select></div>
+                    <div class="filter-group"><label>Bina Yaşı & Durumu <span class="req">*</span></label><select id="detayBinaYasi">
                         <option value="0 (Yeni Yapı - Sıfır)">0 (Yeni Yapı - Sıfır)</option>
                         <option value="Yapım Aşamasında / Projeden">Yapım Aşamasında / Projeden Satış</option>
                         <option value="1-5 Yaşında">1 - 5 Yaşında</option>
@@ -609,14 +633,16 @@
                     <div class="filter-group"><label>Balkon</label><select id="detayBalkon"><option value="Var">Var</option><option value="Yok">Yok</option></select></div>
                 `;
             } else if (secilenAnaKat === "Vasıta") {
+                tasinmazBox.style.display = "none";
                 kutu.innerHTML = `
-                    <div class="filter-group"><label>Marka / Seri</label><input type="text" id="detayMarka" placeholder="Örn: BMW 3.20i / Volkswagen Passat"></div>
-                    <div class="filter-group"><label>Model Yılı</label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
-                    <div class="filter-group"><label>Kilometre (KM)</label><input type="number" id="detayKm" placeholder="Örn: 120000"></div>
+                    <div class="filter-group"><label>Marka / Seri <span class="req">*</span></label><input type="text" id="detayMarka" placeholder="Örn: BMW 3.20i / Volkswagen Passat"></div>
+                    <div class="filter-group"><label>Model Yılı <span class="req">*</span></label><input type="number" id="detayYil" placeholder="Örn: 2022"></div>
+                    <div class="filter-group"><label>Kilometre (KM) <span class="req">*</span></label><input type="number" id="detayKm" placeholder="Örn: 120000"></div>
                     <div class="filter-group"><label>Yakıt Tipi</label><select id="detayYakit"><option value="Dizel">Dizel</option><option value="Benzin">Benzin</option><option value="LPG & Benzin">LPG & Benzin</option><option value="Elektrik">Elektrik</option><option value="Hibrit">Hibrit</option></select></div>
                     <div class="filter-group"><label>Vites Tipi</label><select id="detayVites"><option value="Otomatik">Otomatik</option><option value="Manuel">Manuel</option></select></div>
                 `;
             } else {
+                tasinmazBox.style.display = "none";
                 kutu.innerHTML = `
                     <div class="filter-group"><label>Marka / Model</label><input type="text" id="detayMarka" placeholder="Örn: Apple iPhone 15 / Bosch"></div>
                     <div class="filter-group"><label>Garanti Durumu</label><select id="detayGaranti"><option value="Garantisi Devam Ediyor">Garantisi Devam Ediyor</option><option value="Garantisi Yok">Garantisi Yok</option></select></div>
@@ -751,11 +777,6 @@
             var telefon = document.getElementById("telefon").value || "";
             var aciklama = document.getElementById("aciklama").value || "";
 
-            if (!baslik || !fiyat) {
-                alert("Lütfen ilan başlığı ve fiyatı girin!");
-                return;
-            }
-
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Yayınlanıyor...';
 
@@ -778,6 +799,9 @@
             }
 
             var detayObje = {};
+            if (secilenAnaKat === "Emlak") {
+                detayObje["EİDS Taşınmaz No"] = document.getElementById("tasinmazNo").value;
+            }
             if (document.getElementById("detayM2Net") && document.getElementById("detayM2Net").value) detayObje["m² (Net)"] = document.getElementById("detayM2Net").value + " m²";
             if (document.getElementById("detayOda")) detayObje["Oda Sayısı"] = document.getElementById("detayOda").value;
             if (document.getElementById("detayBinaYasi")) detayObje["Bina Yaşı / Durumu"] = document.getElementById("detayBinaYasi").value;
