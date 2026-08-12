@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YerimBurada v22 - Özel Kurumsal İlan Stüdyosu</title>
+    <title>YerimBurada v24 - Saf ve Özgün Kurumsal İlan Stüdyosu</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --yb-dark: #09122c;
+            --yb-dark: #050b14;
             --yb-card-bg: #ffffff;
-            --yb-blue: #2563eb;
+            --yb-blue: #1d4ed8;
             --yb-orange: #f59e0b;
             --yb-green: #10b981;
             --yb-bg: #f8fafc;
@@ -56,8 +56,8 @@
         .filter-group input, .filter-group select, .filter-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--yb-border); border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
         .filter-inputs { display: flex; gap: 8px; }
 
-        /* YERİMBURADA ÖZEL İLAN SİHRİBAZI (v22 - KUTUSUZ MODERN TASARIM) */
-        .wizard-container { background: white; border: 2px solid var(--yb-orange); border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(245,158,11,0.15); display: none; }
+        /* YERİMBURADA YENİ İLAN STÜDYOSU (v24 - TAMAMEN DİKEY ÖZGÜN TASARIM) */
+        .wizard-container { background: white; border: 3px solid var(--yb-orange); border-radius: 18px; padding: 30px; margin-bottom: 25px; box-shadow: 0 20px 40px rgba(245,158,11,0.18); display: none; }
         .wizard-header-brand { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
         .wizard-header-brand h2 { font-size: 18px; color: var(--yb-dark); font-weight: 900; display: flex; align-items: center; gap: 10px; }
         .wizard-header-brand h2 i { color: var(--yb-orange); }
@@ -73,15 +73,15 @@
         .wizard-step-content { display: none; }
         .wizard-step-content.active { display: block; }
 
-        /* YENİ NESİL DİKEY AKORDEON SEÇİM ALANI (Eski yan yana kutular çöpe atıldı) */
+        /* ÖZGÜN DİKEY KART SEÇİM ALANI */
         .yb-modern-step-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 18px; }
         .yb-modern-step-box h4 { font-size: 13px; font-weight: 900; color: var(--yb-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .yb-modern-step-box h4 i { color: var(--yb-blue); }
 
-        .yb-tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-        .yb-tag-pill { background: #ffffff; border: 2px solid #cbd5e1; padding: 10px 16px; border-radius: 8px; font-weight: 800; color: #334155; cursor: pointer; transition: 0.2s; font-size: 12px; }
+        .yb-tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+        .yb-tag-pill { background: #ffffff; border: 2px solid #cbd5e1; padding: 12px 20px; border-radius: 10px; font-weight: 800; color: #334155; cursor: pointer; transition: 0.2s; font-size: 13px; }
         .yb-tag-pill:hover { border-color: var(--yb-blue); color: var(--yb-blue); background: #f0f9ff; }
-        .yb-tag-pill.selected { border-color: var(--yb-orange); background: #fffbeb; color: var(--yb-dark); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+        .yb-tag-pill.selected { border-color: var(--yb-orange); background: #fffbeb; color: var(--yb-dark); box-shadow: 0 4px 15px rgba(245,158,11,0.25); }
 
         .wizard-buttons { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 18px; }
         .btn-wiz-prev { background: #64748b; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -264,11 +264,11 @@
 
         <div class="content">
 
-            <!-- YERİMBURADA ÖZEL STÜDYO WIZARD (v22 - KUTUSUZ MODERN TASARIM) -->
+            <!-- YERİMBURADA İLAN STÜDYOSU (v24 - DİKEY PİLL TASARIMI) -->
             <div class="wizard-container" id="ilanFormu">
                 <div class="wizard-header-brand">
                     <h2><i class="fa-solid fa-cube"></i> YerimBurada İlan Stüdyosu</h2>
-                    <span style="font-weight:800; color:var(--yb-orange); font-size:12px;">v22 Özgün Tasarım</span>
+                    <span style="font-weight:800; color:var(--yb-orange); font-size:12px;">v24 Özgün Tasarım</span>
                 </div>
 
                 <div class="wizard-stepper">
@@ -279,7 +279,7 @@
                     <div class="step-item" id="stepIndicator5"><div class="step-num">5</div><div class="step-title">Yayınlandı</div></div>
                 </div>
 
-                <!-- ADIM 1: YENİ NESİL DİKEY AKORDEON SEÇİM ALANI -->
+                <!-- ADIM 1: YENİ NESİL DİKEY PİLL / ETİKET SEÇİMİ -->
                 <div class="wizard-step-content active" id="wizardStep1">
                     
                     <div class="yb-modern-step-box">
@@ -314,7 +314,7 @@
                             <label>İlan Sahibi Kimliği <span style="color:#dc2626;">*</span></label>
                             <select id="kimlikTipi">
                                 <option value="Sahibinden">Sahibinden</option>
-                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Danışman</option>
+                                <option value="Emlak Ofisinden / Danışman">Emlak Ofisinden / Gayrimenkul Danışmanından</option>
                                 <option value="İnşaat Firmasından">İnşaat Firmasından</option>
                                 <option value="Galeriden">Galeriden</option>
                                 <option value="Bankadan">Bankadan</option>
@@ -571,7 +571,7 @@
         var yuklenecekDosyalar = [];
         var mevcutAuthModu = 'giris';
         var mevcutKullanici = null;
-        var aktifIlan = bul = null;
+        var aktifIlan = null;
 
         window.onload = function() {
             ilanlariGetir();
@@ -603,7 +603,7 @@
             sidebar.classList.remove("mobile-open");
         }
 
-        /* YENİ NESİL KART HAP (PİLL) SEÇİM MİMARİSİ */
+        /* YENİ NESİL PİLL (ETİKET) SEÇİM FONKSİYONLARI */
         function secWizAnaKat(ana, el) {
             secilenAnaKat = ana;
             var parent = el.parentElement;
