@@ -11,9 +11,9 @@
             --yb-card-bg: #ffffff;
             --yb-turuncu: #ff3b00;
             --yb-turuncu-hover: #e03400;
-            --yb-bg: #f3f4f6;
-            --yb-siniri: #e2e8f0;
-            --yb-golge: 0 20px 40px -15px rgba(9, 13, 22, 0.12);
+            --yb-bg: #f1f5f9;
+            --yb-siniri: #cbd5e1;
+            --yb-golge: 0 15px 35px -10px rgba(9, 13, 22, 0.08);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
         body { background-color: var(--yb-bg); color: var(--yb-karanlik); min-height: 100vh; display: flex; flex-direction: column; }
@@ -28,7 +28,7 @@
         .search-container input { width: 100%; padding: 12px 18px; border: none; outline: none; font-size: 14px; }
         .search-container button { background: var(--yb-turuncu); color: white; border: none; padding: 0 22px; cursor: pointer; font-weight: 700; font-size: 14px; }
 
-        /* HEADER BUTTON STYLES */
+        /* HEADER DÜĞMELERİ */
         .nav-actions { display: flex; gap: 10px; align-items: center; position: relative; }
         .btn { padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; transition: all 0.25s ease; }
         
@@ -91,30 +91,76 @@
 
         .main-layout { max-width: 1520px; margin: 30px auto; padding: 0 30px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; align-items: start; }
         
-        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; box-shadow: var(--yb-golge); max-height: 85vh; overflow-y: auto; }
+        /* SOL KATALOG PANELİ REFRESH */
+        .sidebar { 
+            background: var(--yb-card-bg); 
+            border: 1px solid #e2e8f0; 
+            border-top: 4px solid var(--yb-turuncu); 
+            border-radius: 14px; 
+            padding: 22px; 
+            box-shadow: var(--yb-golge); 
+            max-height: 85vh; 
+            overflow-y: auto; 
+        }
         .sidebar h3 { font-size: 12px; color: var(--yb-turuncu); margin-bottom: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         
         .cat-item { border-bottom: 1px solid #f1f5f9; }
         .cat-header { padding: 11px 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--yb-karanlik); border-radius: 8px; transition: background 0.2s; }
         .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
-        .cat-sub { display: none; padding-left: 12px; list-style: none; background: #fafafa; border-radius: 8px; margin-bottom: 5px; }
-        .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
-        .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 700; background: #fff; }
+        .cat-sub { display: none; padding-left: 12px; list-style: none; background: #f8fafc; border-radius: 8px; margin-bottom: 5px; }
+        .cat-sub li { padding: 9px 12px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; transition: all 0.2s; }
+        .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 700; background: #fff; border-radius: 6px; padding-left: 16px; }
 
-        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 16px; padding: 35px; min-height: 700px; box-shadow: var(--yb-golge); }
+        /* SAĞ İÇERİK & FİLTRE PANELİ RENK YENİLEMESİ */
+        .content-area { background: transparent; min-height: 700px; }
         .panel-section { display: none; }
         .panel-section.active { display: block; }
 
-        .filter-box { background: #fafafa; border: 1.5px solid var(--yb-siniri); border-radius: 12px; padding: 25px; margin-bottom: 25px; }
-        .filter-title { font-size: 16px; font-weight: 800; color: var(--yb-karanlik); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        /* PREMİUM DİNAMİK FİLTRE KUTUSU */
+        .filter-box { 
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); 
+            border: 1px solid #e2e8f0; 
+            border-top: 4px solid var(--yb-turuncu); 
+            border-radius: 14px; 
+            padding: 28px; 
+            margin-bottom: 25px; 
+            box-shadow: var(--yb-golge); 
+        }
+        .filter-title { font-size: 17px; font-weight: 800; color: var(--yb-karanlik); display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
         
-        .form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-        .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px; }
+        .form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+        .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
         .form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
         
-        .form-group label { display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--yb-siniri); border-radius: 10px; outline: none; background: #fff; font-size: 14px; transition: all 0.2s ease; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--yb-turuncu); box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.1); }
+        .form-group label { display: block; font-size: 11.5px; font-weight: 800; color: #475569; margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; 
+            padding: 12px 16px; 
+            border: 1.5px solid #cbd5e1; 
+            border-radius: 10px; 
+            outline: none; 
+            background: #ffffff; 
+            font-size: 13.5px; 
+            color: #0f172a; 
+            font-weight: 500; 
+            transition: all 0.25s ease; 
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); 
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
+            border-color: var(--yb-turuncu); 
+            background: #ffffff; 
+            box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.12); 
+        }
+
+        /* VİTRİN KARTLARI RENK MODERNİZASYONU */
+        .vitrin-card-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
 
         .esnaf-hero-card, .mutaahhit-hero-card {
             background: linear-gradient(135deg, #090d16 0%, #1a233a 100%);
@@ -397,11 +443,11 @@
                     <button onclick="alert('Filtreleme uygulandı!')" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 10px;">Filtrelere Göre İlanları Listele</button>
                 </div>
 
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; margin-bottom: 20px; background: #fff;">
+                <div class="vitrin-card-box">
                     <h3 style="font-size: 15px; color: var(--yb-karanlik);"><i class="fa fa-star" style="color: #eab308;"></i> Özel Vitrin İlanları</h3>
                 </div>
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 30px; background: #fff; text-align: center;">
-                    <h3 style="font-size: 15px; color: var(--yb-karanlik); margin-bottom: 10px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
+                <div class="vitrin-card-box" style="text-align: center; padding: 35px;">
+                    <h3 style="font-size: 15px; color: var(--yb-karanlik); margin-bottom: 10px;"><i class="fa fa-layer-group" style="color: #2563eb;"></i> Canlı İlan Vitrini (0)</h3>
                     <p style="color: #64748b; font-size: 13px;">Seçtiğiniz filtrelerde henüz ilan bulunmuyor.</p>
                 </div>
             </div>
@@ -545,7 +591,7 @@
             <!-- İLAN VER PANELİ -->
             <div id="page-ilanver" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan veya Hizmet Ekleyin</h2>
-                <div style="background: var(--yb-bg); padding: 25px; border-radius: 12px; border: 1.5px solid var(--yb-siniri); margin-top: 15px;">
+                <div style="background: #fff; padding: 28px; border-radius: 14px; border: 1px solid #e2e8f0; border-top: 4px solid var(--yb-turuncu); margin-top: 15px; box-shadow: var(--yb-golge);">
                     <div class="form-grid-2">
                         <div class="form-group" style="grid-column: span 2;"><label>İlan Başlığı</label><input type="text" id="ilan-baslik" placeholder="Örn: Sefaköy Merkezde Satılık 2+1 Lüks Daire / Başakşehir Su Tesisatçısı Usta"></div>
                         <div class="form-group"><label>Fiyat (TL)</label><input type="text" id="ilan-fiyat" placeholder="5.000.000" oninput="fiyatFormatla(this)"></div>
@@ -639,7 +685,7 @@
             if (value !== '') { input.value = Number(value).toLocaleString('tr-TR'); }
         }
 
-        // KUSURSUZ AKILLI KATEGORİ VE FİLTRE SENKRONİZASYON MOTORU
+        // AKILLI ESNEK KATEGORİ VE FİLTRE SENKRONİZASYON MOTORU
         function kategoriSec(katAdi) {
             showPage('vitrin');
             document.getElementById('secilen-kat-baslik').innerText = katAdi;
@@ -647,7 +693,6 @@
             const kimdenSelect = document.getElementById('kimden-select');
             const k = katAdi.toLowerCase();
 
-            // Sektöre göre "Kimden" seçeneklerini ayarla
             if (k.includes('konut') || k.includes('iş yeri') || k.includes('arsa') || k.includes('bina') || k.includes('emlak')) {
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Emlak Ofisinden</option><option>İnşaat Firmasından</option>';
             } else if (k.includes('otomobil') || k.includes('suv') || k.includes('pick-up') || k.includes('jeep') || k.includes('karavan') || k.includes('panelvan') || k.includes('motosiklet') || k.includes('vasıta') || k.includes('ticari araç')) {
@@ -662,7 +707,6 @@
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Mağazadan / İşletmeden</option>';
             }
 
-            // Kategoriye göre dinamik filtre panelleri
             if (k.includes('konut') || k.includes('bina')) {
                 alan.innerHTML = `
                     <div class="form-grid-4">
@@ -934,7 +978,11 @@
             if(!ilce) return;
             let mahalleler = ilceMahalleleri[ilce] || [ilce + " Merkez Mah.", "Fatih Mah.", "Atatürk Mah.", "Cumhuriyet Mah.", "Yeni Mah."];
             mahalleler.sort().forEach(mahalle => {
-                let opt = document.createElement('option'); opt.value = mahalle; opt.innerHTML = mahalle; mahalleSelect.appendChild(opt);
+                let opt = document.getElementById('mahalle-sec');
+                let option = document.createElement('option');
+                option.value = mahalle;
+                option.text = mahalle;
+                mahalleSelect.add(option);
             });
         }
 
