@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada | Türkiye'nin Profesyonel İlan ve Ticaret Ağı</title>
+    <title>YerimBurada | Türkiye'nin En Kapsamlı Ticaret, İlan ve Esnaf Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -83,7 +83,7 @@
         <div class="nav-container">
             <a href="#" onclick="location.reload()" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="İlan no, mahalle, araç markası, telefon veya ürün arayın...">
+                <input type="text" placeholder="İlan no, mahalle, araç, toptan ürün veya usta arayın...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions" id="header-auth-area">
@@ -123,10 +123,11 @@
 
     <div class="main-layout">
         
-        <!-- SOL KATALOG (Eksiksiz Tüm Alt Kategoriler) -->
+        <!-- SOL KATALOG (Geliştirilmiş & Genişletilmiş) -->
         <div class="sidebar">
             <h3>YERİMBURADA KATEGORİLER</h3>
             
+            <!-- 1. EMLAK -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('emlak-sub')"><span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> 1. Emlak</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="emlak-sub">
@@ -138,28 +139,52 @@
                 </ul>
             </div>
 
+            <!-- 2. VASITA (SUV, Pick-up, Jeep, Karavan, Panelvan, Çadır eklendi) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('vasita-sub')"><span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> 2. Vasıta</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="vasita-sub">
                     <li onclick="kategoriSec('Otomobil')">Otomobil</li>
-                    <li onclick="kategoriSec('Arazi, SUV & Pick-up')">Arazi, SUV & Pick-up</li>
+                    <li onclick="kategoriSec('SUV')">SUV</li>
+                    <li onclick="kategoriSec('Pick-up')">Pick-up</li>
+                    <li onclick="kategoriSec('Jeep / 4x4')">Jeep / 4x4 Arazi Aracı</li>
+                    <li onclick="kategoriSec('Karavan')">Karavan (Çekme & Motokaravan)</li>
+                    <li onclick="kategoriSec('Panelvan')">Panelvan & Minibüs</li>
                     <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
-                    <li onclick="kategoriSec('Ticari Araçlar')">Ticari Araçlar</li>
-                    <li onclick="kategoriSec('Deniz & Hava Araçları')">Deniz & Hava Araçları</li>
+                    <li onclick="kategoriSec('Çadır & Kamp')">Çadır & Kamp Malzemeleri</li>
+                    <li onclick="kategoriSec('Ticari Araçlar')">Ticari Araçlar (Kamyon, Tır)</li>
                 </ul>
             </div>
 
+            <!-- 3. TOPTANCILAR & TOPTAN ALIM -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('parca-sub')"><span><i class="fa fa-cogs" style="color:var(--yb-turuncu); width:20px;"></i> 3. Yedek Parça & Tuning</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
-                <ul class="cat-sub" id="parca-sub">
-                    <li onclick="kategoriSec('Otomotiv Ekipmanları')">Otomotiv Ekipmanları</li>
-                    <li onclick="kategoriSec('Motosiklet Ekipmanları')">Motosiklet Ekipmanları</li>
-                    <li onclick="kategoriSec('Jant & Lastik')">Jant & Lastik</li>
+                <div class="cat-header" onclick="toggleSub('toptan-sub')"><span><i class="fa fa-boxes" style="color:var(--yb-turuncu); width:20px;"></i> 3. Toptancılar & Toptan Ticaret</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <ul class="cat-sub" id="toptan-sub">
+                    <li onclick="kategoriSec('Toptan Gıda & Bakliyat')">Toptan Gıda & Bakliyat</li>
+                    <li onclick="kategoriSec('Toptan Tekstil & Kumaş')">Toptan Tekstil & Kumaş</li>
+                    <li onclick="kategoriSec('Toptan İnşaat Malzemeleri')">Toptan İnşaat Malzemeleri</li>
+                    <li onclick="kategoriSec('Toptan Elektronik & Telefon')">Toptan Elektronik & Aksesuar</li>
+                    <li onclick="kategoriSec('Toptan Temizlik & Kozmetik')">Toptan Temizlik & Kozmetik</li>
+                    <li onclick="kategoriSec('Diğer Toptan Ürünler')">Diğer Toptan Ürünler</li>
                 </ul>
             </div>
 
+            <!-- 4. TAMİRAT, TADİLAT VE USTALAR -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('alisveris-sub')"><span><i class="fa fa-shopping-bag" style="color:var(--yb-turuncu); width:20px;"></i> 4. Alışveriş</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('usta-sub')"><span><i class="fa fa-hammer" style="color:var(--yb-turuncu); width:20px;"></i> 4. Tamirat, Tadilat & Ustalar</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <ul class="cat-sub" id="usta-sub">
+                    <li onclick="kategoriSec('Anahtar Teslim Tadilat')">Anahtar Teslim Komple Tadilat</li>
+                    <li onclick="kategoriSec('Su Tesisatçısı & Tesisat')">Su Tesisatçısı & Sıhhi Tesisat</li>
+                    <li onclick="kategoriSec('Elektrikçi & Elektrik')">Elektrikçi & Aydınlatma</li>
+                    <li onclick="kategoriSec('Boya & Badana Ustası')">Boya & Badana Ustası</li>
+                    <li onclick="kategoriSec('Alçıpan & Kartonpiyer')">Alçıpan & Asma Tavan</li>
+                    <li onclick="kategoriSec('Marangoz & Mobilya')">Marangoz & Mobilya Montaj</li>
+                    <li onclick="kategoriSec('Çatı & İzolasyon Ustası')">Çatı & Su İzolasyon</li>
+                </ul>
+            </div>
+
+            <!-- 5. ALIŞVERİŞ -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('alisveris-sub')"><span><i class="fa fa-shopping-bag" style="color:var(--yb-turuncu); width:20px;"></i> 5. Alışveriş</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="alisveris-sub">
                     <li onclick="kategoriSec('Bilgisayar & Laptop')">Bilgisayar & Laptop</li>
                     <li onclick="kategoriSec('Cep Telefonu & Aksesuar')">Cep Telefonu & Aksesuar</li>
@@ -168,53 +193,49 @@
                 </ul>
             </div>
 
+            <!-- 6. İŞ İLANLARI -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('is-sub')"><span><i class="fa fa-briefcase" style="color:var(--yb-turuncu); width:20px;"></i> 5. İş İlanları</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('is-sub')"><span><i class="fa fa-briefcase" style="color:var(--yb-turuncu); width:20px;"></i> 6. İş İlanları</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="is-sub">
                     <li onclick="kategoriSec('Sektörel İş İlanları')">Sektörel İş İlanları</li>
-                    <li onclick="kategoriSec('Part-Time / Stajyer')">Part-Time / Stajyer</li>
+                    <li onclick="kategoriSec('Part-Time / Stajyer')">Part-Time / Stajyer Usta/Eleman</li>
                 </ul>
             </div>
 
+            <!-- 7. HİZMETLER -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('hizmet-sub')"><span><i class="fa fa-concierge-bell" style="color:var(--yb-turuncu); width:20px;"></i> 6. Hizmetler</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('hizmet-sub')"><span><i class="fa fa-concierge-bell" style="color:var(--yb-turuncu); width:20px;"></i> 7. Hizmetler</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="hizmet-sub">
-                    <li onclick="kategoriSec('Nakliye Hizmeti')">Nakliye & Taşıma</li>
-                    <li onclick="kategoriSec('Tamirat & Tadilat')">Tamirat & Tadilat</li>
+                    <li onclick="kategoriSec('Nakliye Hizmeti')">Nakliye & Evden Eve Taşıma</li>
                     <li onclick="kategoriSec('Temizlik Hizmeti')">Temizlik Hizmeti</li>
                 </ul>
             </div>
 
+            <!-- 8. İŞ MAKİNELERİ & SANAYİ -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('makine-sub')"><span><i class="fa fa-industry" style="color:var(--yb-turuncu); width:20px;"></i> 7. İş Makineleri & Sanayi</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('makine-sub')"><span><i class="fa fa-industry" style="color:var(--yb-turuncu); width:20px;"></i> 8. İş Makineleri & Sanayi</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="makine-sub">
                     <li onclick="kategoriSec('İş Makineleri')">İş Makineleri (Kepçe, Ekskavatör)</li>
-                    <li onclick="kategoriSec('Tarım Makineleri')">Tarım Makineleri</li>
+                    <li onclick="kategoriSec('Tarım Makineleri')">Tarım Makineleri & Traktör</li>
                     <li onclick="kategoriSec('Sanayi Ekipmanları')">Sanayi (CNC, Torna, Kaynak)</li>
                 </ul>
             </div>
 
+            <!-- 9. EVCİL HAYVAN -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('hayvan-sub')"><span><i class="fa fa-paw" style="color:var(--yb-turuncu); width:20px;"></i> 8. Evcil Hayvan</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('hayvan-sub')"><span><i class="fa fa-paw" style="color:var(--yb-turuncu); width:20px;"></i> 9. Evcil Hayvan</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="hayvan-sub">
                     <li onclick="kategoriSec('Evcil Hayvanlar')">Evcil Hayvan Sahiplendirme</li>
                     <li onclick="kategoriSec('Mama & Aksesuar')">Mama & Aksesuar</li>
                 </ul>
             </div>
 
+            <!-- 10. ÖZEL DERS & YARDIMCI -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('ders-sub')"><span><i class="fa fa-chalkboard-teacher" style="color:var(--yb-turuncu); width:20px;"></i> 9. Özel Ders Verenler</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
+                <div class="cat-header" onclick="toggleSub('ders-sub')"><span><i class="fa fa-chalkboard-teacher" style="color:var(--yb-turuncu); width:20px;"></i> 10. Özel Ders & Yardımcı</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="ders-sub">
-                    <li onclick="kategoriSec('Lise & Üniversite Takviye')">Lise & Üniversite Takviye</li>
-                    <li onclick="kategoriSec('Yabancı Dil Eğitmeni')">Yabancı Dil Eğitmeni</li>
-                </ul>
-            </div>
-
-            <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('yardimci-sub')"><span><i class="fa fa-hands-helping" style="color:var(--yb-turuncu); width:20px;"></i> 10. Yardımcı Arayanlar</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
-                <ul class="cat-sub" id="yardimci-sub">
-                    <li onclick="kategoriSec('Bakıcı')">Bebek & Çocuk Bakıcısı</li>
-                    <li onclick="kategoriSec('Temizlikçi')">Ev İşlerine Yardımcı</li>
+                    <li onclick="kategoriSec('Lise & Üniversite Takviye')">Özel Ders Verenler</li>
+                    <li onclick="kategoriSec('Bakıcı')">Bakıcı & Ev Yardımcısı</li>
                 </ul>
             </div>
         </div>
@@ -228,7 +249,7 @@
                         <i class="fa fa-filter" style="color:var(--yb-turuncu);"></i>
                         Detaylı Filtreleme Paneli: <span id="secilen-kat-baslik" style="color:var(--yb-turuncu);">Konut</span>
                     </div>
-                    <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Sol menüden tıkladığınız kategoriye özel profesyonel nitelikler aşağıda yüklenmiştir.</p>
+                    <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Sol menüden tıkladığınız kategoriye özel profesyonel nitelikler ve özellikler aşağıda yüklenmiştir.</p>
                     
                     <div class="form-grid-3">
                         <div class="form-group">
@@ -240,7 +261,7 @@
                             <input type="text" placeholder="Max TL" oninput="fiyatFormatla(this)">
                         </div>
                         <div class="form-group" id="kimden-container">
-                            <label>Kimden</label>
+                            <label>Kimden / Satıcı</label>
                             <select id="kimden-select">
                                 <option>Tümü</option>
                                 <option>Sahibinden</option>
@@ -251,7 +272,7 @@
                         </div>
                     </div>
 
-                    <!-- DİNAMİK FİLTRE ALANI -->
+                    <!-- DİNAMİK FİLTRE ALANI (SUV, Pick-up, Jeep, Karavan, Toptancı, Usta vb. Detaylı Özellikler) -->
                     <div id="dinamik-alan"></div>
 
                     <button onclick="alert('Filtreleme uygulandı!')" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 14px;">Filtrelere Göre İlanları Listele</button>
@@ -268,25 +289,25 @@
 
             <!-- ESNAFIM PANELİ -->
             <div id="page-esnaf" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy Ağı</h2>
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Toptancı Ağı</h2>
                 <div style="background: var(--yb-bg); padding: 22px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); margin-top: 18px;">
                     <div class="form-grid-2">
-                        <div class="form-group"><label>Ad Soyad / Firma Ünvanı</label><input type="text" id="esnaf-isim" placeholder="Örn: Kaya Gayrimenkul"></div>
+                        <div class="form-group"><label>Ad Soyad / Firma Ünvanı</label><input type="text" id="esnaf-isim" placeholder="Örn: Kaya Toptan Ticaret / Başakşehir Usta"></div>
                         <div class="form-group"><label>İl Seçin</label><select id="il-sec" onchange="ilDegisti()"><option value="">İl Seçiniz</option></select></div>
                         <div class="form-group" id="yaka-container" style="display:none;"><label>İstanbul Yakası</label><select id="yaka-sec" onchange="yakaDegisti()"><option value="">Yaka Seçiniz</option><option value="Avrupa">Avrupa Yakası</option><option value="Anadolu">Anadolu Yakası</option></select></div>
                         <div class="form-group"><label>İlçe Seçin</label><select id="ilce-sec" onchange="ilceDegisti()"><option value="">Önce İl Seçiniz</option></select></div>
                         <div class="form-group"><label>Semt / Mahalle Seçin</label><select id="mahalle-sec"><option value="">Önce İlçe Seçiniz</option></select></div>
                     </div>
-                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 18px; width: 100%; justify-content: center; padding: 12px;">Bölge Esnaf Odasına Bağlan</button>
+                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 18px; width: 100%; justify-content: center; padding: 12px;">Bölge Esnaf / Toptancı Odasına Bağlan</button>
                 </div>
                 <div id="chat-container" style="display:none; margin-top:20px;">
                     <h3 id="room-title" style="margin-bottom: 10px; font-size: 14px; color: var(--yb-karanlik);">📢 Odaya Bağlanıldı</h3>
                     <div style="border: 1.5px solid var(--yb-siniri); border-radius: 10px; overflow: hidden; background: #fff;">
                         <div id="chat-messages" style="height: 280px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
-                            <div style="background: var(--yb-bg); padding: 10px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;"><b>Sistem:</b> Bölge odasına hoş geldiniz!</div>
+                            <div style="background: var(--yb-bg); padding: 10px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;"><b>Sistem:</b> Toptancılar ve Ustalar bölge odasına hoş geldiniz!</div>
                         </div>
                         <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1.5px solid var(--yb-siniri); gap: 10px;">
-                            <input type="text" id="mesaj-input" placeholder="Mesajınızı yazın..." style="flex: 1; padding: 10px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff;">
+                            <input type="text" id="mesaj-input" placeholder="Toptan fiyat veya usta hizmet teklifi yazın..." style="flex: 1; padding: 10px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff;">
                             <button onclick="mesajGonder()" class="btn btn-orange">Gönder</button>
                         </div>
                     </div>
@@ -295,11 +316,11 @@
 
             <!-- İLAN VER PANELİ -->
             <div id="page-ilanver" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan & Hizmet Ekleyin</h2>
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan, Toptan Ürün veya Usta Profili Ekleyin</h2>
                 <div style="background: var(--yb-bg); padding: 22px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); margin-top: 15px;">
                     <div class="form-grid-2">
-                        <div class="form-group" style="grid-column: span 2;"><label>İlan Başlığı</label><input type="text" id="ilan-baslik" placeholder="Örn: Sefaköy Merkezde Satılık 2+1 Lüks Daire"></div>
-                        <div class="form-group"><label>Fiyat (TL)</label><input type="text" id="ilan-fiyat" placeholder="5.000.000" oninput="fiyatFormatla(this)"></div>
+                        <div class="form-group" style="grid-column: span 2;"><label>İlan Başlığı</label><input type="text" id="ilan-baslik" placeholder="Örn: Toptan Gıda Satışı / Başakşehir Su Tesisatçısı Usta"></div>
+                        <div class="form-group"><label>Fiyat / Toptan Birim Fiyatı (TL)</label><input type="text" id="ilan-fiyat" placeholder="25.000" oninput="fiyatFormatla(this)"></div>
                         <div class="form-group"><label>İletişim Telefonu</label><input type="text" id="ilan-tel" placeholder="05XX XXX XX XX"></div>
                     </div>
                     <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 18px; width: 100%; justify-content: center; padding: 12px;">Hemen İlanı Yayınla</button>
@@ -311,8 +332,8 @@
 
     <footer>
         <div class="footer-content">
-            <div><h4 style="color:#fff; margin-bottom:10px;">YerimBurada.com</h4><p>Türkiye'nin bağımsız ilan ve bölgesel esnaf ağı.</p></div>
-            <div><h4 style="color:#fff; margin-bottom:10px;">Hızlı Bağlantılar</h4><p>Ücretsiz İlan Ver | Esnaf Odası | Destek</p></div>
+            <div><h4 style="color:#fff; margin-bottom:10px;">YerimBurada.com</h4><p>Türkiye'nin bağımsız ilan, toptancı ve bölgesel esnaf ağı.</p></div>
+            <div><h4 style="color:#fff; margin-bottom:10px;">Hızlı Bağlantılar</h4><p>Ücretsiz İlan Ver | Toptancılar | Ustalar | Destek</p></div>
             <div><h4 style="color:#fff; margin-bottom:10px;">İletişim</h4><p>Güvercintepe Mah. Başakşehir / İstanbul</p></div>
         </div>
     </footer>
@@ -389,19 +410,21 @@
             if (value !== '') { input.value = Number(value).toLocaleString('tr-TR'); }
         }
 
-        // KESİN VE EKSİKSİZ KATEGORİ EŞLEŞTİRME MOTORU (SAHİBİNDEN.COM STANDARTLARI)
+        // DEV VE KUSURSUZ FİLTRE MOTORU (SUV, Pick-up, Jeep, Karavan, Toptancı, Ustalar Dahil)
         function kategoriSec(katAdi) {
             document.getElementById('secilen-kat-baslik').innerText = katAdi;
             const alan = document.getElementById('dinamik-alan');
             const kimdenSelect = document.getElementById('kimden-select');
 
-            // Sektöre göre "Kimden" seçeneklerini akıllıca değiştir
+            // "Kimden" seçeneklerini sektöre göre akıllıca ayarla
             if (katAdi === 'Konut' || katAdi === 'İş Yeri' || katAdi === 'Arsa & Arazi' || katAdi === 'Konut Projeleri' || katAdi === 'Bina & Devremülk') {
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Emlak Ofisinden</option><option>İnşaat Firmasından</option>';
-            } else if (katAdi === 'Otomobil' || katAdi === 'Arazi, SUV & Pick-up' || katAdi === 'Motosiklet' || katAdi === 'Ticari Araçlar') {
+            } else if (['Otomobil', 'SUV', 'Pick-up', 'Jeep / 4x4', 'Karavan', 'Panelvan', 'Motosiklet', 'Ticari Araçlar'].includes(katAdi)) {
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Galeriden</option><option>Yetkili Bayiden</option>';
-            } else if (katAdi.includes('Nakliye')) {
-                kimdenSelect.innerHTML = '<option>Tümü</option><option>Nakliye Firmasından</option><option>Nakliyeciden (Şahıs)</option>';
+            } else if (katAdi.includes('Toptan')) {
+                kimdenSelect.innerHTML = '<option>Tümü</option><option>Ana Toptancı / Üretici</option><option>Distribütör Firma</option>';
+            } else if (katAdi.includes('Tadilat') || katAdi.includes('Tesisatçısı') || katAdi.includes('Elektrikçi') || katAdi.includes('Ustası') || katAdi.includes('Marangoz') || katAdi.includes('Çatı')) {
+                kimdenSelect.innerHTML = '<option>Tümü</option><option>Uzman / Usta (Şahıs)</option><option>Yetkili Tadilat Firması</option>';
             } else {
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Mağazadan / İşletmeden</option>';
             }
@@ -419,25 +442,7 @@
                         <div class="form-group"><label>Eşyalı</label><select><option>Tümü</option><option>Evet</option><option>Hayır</option></select></div>
                     </div>
                 `;
-            } else if (katAdi === 'İş Yeri') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Bölüm / Oda Sayısı</label><select><option>Tümü</option><option>1-3 arası</option><option>4-8 arası</option><option>9 ve üzeri</option></select></div>
-                        <div class="form-group"><label>m² (Min)</label><input type="text" placeholder="Min m²"></div>
-                        <div class="form-group"><label>Devren mi?</label><select><option>Tümü</option><option>Evet</option><option>Hayır</option></select></div>
-                        <div class="form-group"><label>Kat Sayısı</label><select><option>Tümü</option><option>Zemin</option><option>Asma Katlı</option><option>Plaza Katı</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'Arsa & Arazi') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>İmar Durumu</label><select><option>Tümü</option><option>Konut İmarlı</option><option>Ticari İmarlı</option><option>Sanayi İmarlı</option><option>Tarla / Tarım</option><option>Bağ & Bahçe</option></select></div>
-                        <div class="form-group"><label>m² (Min)</label><input type="text" placeholder="Min m²"></div>
-                        <div class="form-group"><label>m² (Max)</label><input type="text" placeholder="Max m²"></div>
-                        <div class="form-group"><label>Kredi Durumu</label><select><option>Tümü</option><option>Uygun</option><option>Değil</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'Otomobil' || katAdi === 'Arazi, SUV & Pick-up') {
+            } else if (katAdi === 'Otomobil') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
                         <div class="form-group"><label>Marka / Model</label><input type="text" placeholder="Örn: BMW, Renault"></div>
@@ -446,88 +451,107 @@
                         <div class="form-group"><label>Max Kilometre (KM)</label><input type="text" placeholder="150.000"></div>
                         <div class="form-group"><label>Vites Tipi</label><select><option>Tümü</option><option>Manuel</option><option>Otomatik</option></select></div>
                         <div class="form-group"><label>Yakıt Türü</label><select><option>Tümü</option><option>Benzin</option><option>Dizel</option><option>LPG</option><option>Elektrik</option><option>Hibrit</option></select></div>
-                        <div class="form-group"><label>Kasa Tipi</label><select><option>Tümü</option><option>Sedan</option><option>Hatchback</option><option>SUV</option></select></div>
+                        <div class="form-group"><label>Kasa Tipi</label><select><option>Sedan</option><option>Hatchback</option></select></div>
                         <div class="form-group"><label>Araç Durumu</label><select><option>Tümü</option><option>İkinci El</option><option>Sıfır</option></select></div>
                     </div>
                 `;
-            } else if (katAdi === 'Motosiklet') {
+            } else if (katAdi === 'SUV') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Motor Hacmi (cc)</label><select><option>Tümü</option><option>50 cc altı</option><option>125 cc</option><option>250 cc</option><option>500 cc üstü</option></select></div>
-                        <div class="form-group"><label>Motor Türü</label><select><option>Tümü</option><option>Scooter</option><option>Commuter</option><option>Touring</option><option>Cross</option></select></div>
-                        <div class="form-group"><label>Min Yıl</label><input type="text" placeholder="2018"></div>
-                        <div class="form-group"><label>Durumu</label><select><option>Tümü</option><option>İkinci El</option><option>Sıfır</option></select></div>
+                        <div class="form-group"><label>Çekiş (4x4 / 4x2)</label><select><option>Tümü</option><option>4x4 (Sürekli)</option><option>4x2 (Önden Çeker)</option><option>AWD</option></select></div>
+                        <div class="form-group"><label>Min Yıl</label><input type="text" placeholder="2016"></div>
+                        <div class="form-group"><label>Max Kilometre</label><input type="text" placeholder="120.000"></div>
+                        <div class="form-group"><label>Vites</label><select><option>Otomatik</option><option>Manuel</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Pick-up') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Kasa Tipi</label><select><option>Tek Kabin</option><option>Çift Kabin (Double Cab)</option></select></div>
+                        <div class="form-group"><label>Çekiş Sistemi</label><select><option>4x4</option><option>4x2</option></select></div>
+                        <div class="form-group"><label>Motor Gücü (HP)</label><select><option>150 HP altı</option><option>150-200 HP</option><option>200 HP üzeri</option></select></div>
+                        <div class="form-group"><label>Vites</label><select><option>Otomatik</option><option>Manuel</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Jeep / 4x4') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Arazi Kabiliyeti</label><select><option>Profesyonel Off-Road Donanımlı</option><option>Standart 4x4</option><option>Kilitli Diferansiyel</option></select></div>
+                        <div class="form-group"><label>Yükseltme Kiti</label><select><option>Var</option><option>Yok (Orjinal)</option></select></div>
+                        <div class="form-group"><label>Vinç / Ekipman</label><select><option>Var</option><option>Yok</option></select></div>
+                        <div class="form-group"><label>Vites</label><select><option>Manuel</option><option>Otomatik</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Karavan') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Karavan Tipi</label><select><option>Çekme Karavan</option><option>Motokaravan</option><option>Tiny House</option><option>Araç Üstü Çadır</option></select></div>
+                        <div class="form-group"><label>Yatak Kapasitesi</label><select><oops>2 Kişilik</option><option>3-4 Kişilik</option><option>5 Kişilik ve Üzeri</option></select></div>
+                        <div class="form-group"><label>Güneş Paneli / Enerji</label><select><option>Var</option><option>Yok</option></select></div>
+                        <div class="form-group"><label>Tuvalet / Banyo</label><select><option>Var</option><option>Yok</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Panelvan') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Hacim / Boyut</label><select><option>Kısa Şasi</option><option>Orta Şasi</option><option>Uzun Şasi (Maxi)</option></select></div>
+                        <div class="form-group"><label>Min Yıl</label><input type="text" placeholder="2017"></div>
+                        <div class="form-group"><label>Max KM</label><input type="text" placeholder="180.000"></div>
+                        <div class="form-group"><label>Vites</label><select><option>Manuel</option><option>Otomatik</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Çadır & Kamp') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Malzeme Türü</label><select><option>Kamp Çadırı</option><option>Uyku Tulumu</option><option>Kamp Ocağı & Mutfak</option><option>Kamp Sandalyesi & Masa</option><option>Şişme Yatak & Mat</option></select></div>
+                        <div class="form-group"><label>Kişi Kapasitesi</label><select><option>1-2 Kişilik</option><option>3-4 Kişilik</option><option>6 Kişilik ve Üzeri</option></select></div>
+                        <div class="form-group"><label>Mevsim</label><select><option>3 Mevsim</option><option>4 Mevsim (Zorlu Şartlar)</option></select></div>
+                        <div class="form-group"><label>Durumu</label><select><option>Sıfır</option><option>İkinci El</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi.includes('Toptan')) {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Toptan Satış Türü</label><select><option>Paletli / Kolili Toptan</option><option>Çuvalli / Dökme</option><option>Konteyner Bazlı</option></select></div>
+                        <div class="form-group"><label>Minimum Sipariş Miktarı</label><input type="text" placeholder="Örn: 100 Adet / 1 Ton"></div>
+                        <div class="form-group"><label>Fatura Durumu</label><select><option>Faturalı (%20 KDV)</option><option>İhracat / İmalat</option></select></div>
+                        <div class="form-group"><label>Teslimat Yeri</label><select><option>Ambar / Fabrika Teslim</option><option>Adrese Teslim</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi.includes('Tadilat') || katAdi.includes('Tesisatçısı') || katAdi.includes('Elektrikçi') || katAdi.includes('Ustası') || katAdi.includes('Marangoz') || katAdi.includes('Çatı')) {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Hizmet Dalı</label><select><option>${katAdi}</option><option>Genel Tamirat & Servis</option></select></div>
+                        <div class="form-group"><label>Ücretsiz Keşif</label><select><option>İstiyorum</option><option>Gerek Yok</option></select></div>
+                        <div class="form-group"><label>Garantili İşçilik</label><select><option>1 Yıl Garantili</option><option>2 Yıl Garantili</option></select></div>
+                        <div class="form-group"><label>Çalışma Saatleri</label><select><option>7/24 Acil Servis</option><option>Mesai Saatleri İçi</option></select></div>
                     </div>
                 `;
             } else if (katAdi === 'Cep Telefonu & Aksesuar') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Marka</label><select><option>Tümü</option><option>Apple (iPhone)</option><option>Samsung</option><option>Xiaomi</option><option>Huawei</option></select></div>
-                        <div class="form-group"><label>Dahili Hafıza (ROM)</label><select><option>Tümü</option><option>64 GB</option><option>128 GB</option><option>256 GB</option><option>512 GB ve Üzeri</option></select></div>
-                        <div class="form-group"><label>RAM Bellek</label><select><option>Tümü</option><option>4 GB</option><option>6 GB</option><option>8 GB ve Üzeri</option></select></div>
-                        <div class="form-group"><label>Garanti Durumu</label><select><option>Tümü</option><option>Türkiye Garantili (Distrübütör)</option><option>İthalatçı Garantili</option><option>Garantisiz / İkinci El</option></select></div>
+                        <div class="form-group"><label>Marka</label><select><option>Apple (iPhone)</option><option>Samsung</option><option>Xiaomi</option><option>Huawei</option></select></div>
+                        <div class="form-group"><label>Dahili Hafıza</label><select><option>64 GB</option><option>128 GB</option><option>256 GB</option><option>512 GB ve Üzeri</option></select></div>
+                        <div class="form-group"><label>RAM</label><select><option>4 GB</option><option>6 GB</option><option>8 GB ve Üzeri</option></select></div>
+                        <div class="form-group"><label>Garanti</label><select><option>Türkiye Garantili</option><option>İkinci El</option></select></div>
                     </div>
                 `;
             } else if (katAdi === 'Bilgisayar & Laptop') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Cihaz Tipi</label><select><option>Tümü</option><option>Laptop (Dizüstü)</option><option>Masaüstü (Desktop)</option><option>Gaming Bilgisayar</option></select></div>
-                        <div class="form-group"><label>İşlemci</label><select><option>Tümü</option><option>Intel Core i5</option><option>Intel Core i7</option><option>AMD Ryzen 7</option><option>Apple M1/M2/M3</option></select></div>
-                        <div class="form-group"><label>RAM</label><select><option>Tümü</option><option>8 GB</option><option>16 GB</option><option>32 GB ve Üzeri</option></select></div>
-                        <div class="form-group"><label>Ekran Boyutu</label><select><option>Tümü</option><option>13.3 inç - 14 inç</option><option>15.6 inç</option><option>17.3 inç</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'Ev Elektroniği & Beyaz Eşya') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Ürün Grubu</label><select><option>Tümü</option><option>Buzdolabı</option><option>Çamaşır Makinesi</option><option>Bulaşık Makinesi</option><option>Klima</option><option>Televizyon</option></select></div>
-                        <div class="form-group"><label>Enerji Sınıfı</label><select><option>Tümü</option><option>A+++</option><option>A++</option><option>A+</option><option>B</option></select></div>
-                        <div class="form-group"><label>Garanti</label><select><option>Tümü</option><option>Garantili</option><option>Garantisi Bitmiş</option></select></div>
-                        <div class="form-group"><label>Durumu</label><select><option>Tümü</option><option>Sıfır</option><option>İkinci El</option></select></div>
+                        <div class="form-group"><label>Cihaz Tipi</label><select><option>Laptop (Dizüstü)</option><option>Masaüstü</option><option>Gaming PC</option></select></div>
+                        <div class="form-group"><label>İşlemci</label><select><option>Intel Core i5</option><option>Intel Core i7</option><option>AMD Ryzen 7</option><option>Apple M Serisi</option></select></div>
+                        <div class="form-group"><label>RAM</label><select><option>8 GB</option><option>16 GB</option><option>32 GB+</option></select></div>
+                        <div class="form-group"><label>Ekran Boyutu</label><select><option>15.6 inç</option><option>17.3 inç</option></select></div>
                     </div>
                 `;
             } else if (katAdi === 'Nakliye Hizmeti') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Taşınacak Ev Tipi</label><select><option>1+1 Daire</option><option>2+1 Daire</option><option>3+1 ve Üzeri</option><option>Villa / Müstakil</option><option>Ofis / Büro</option></select></div>
+                        <div class="form-group"><label>Taşınacak Ev Tipi</label><select><option>1+1 Daire</option><option>2+1 Daire</option><option>3+1 ve Üzeri</option><option>Villa / Ofis</option></select></div>
                         <div class="form-group"><label>Asansörlü Taşıma</label><select><option>İstiyorum</option><option>Gerek Yok</option></select></div>
-                        <div class="form-group"><label>Hizmet Bölgesi</label><select><option>Şehir İçi</option><option>Şehirler Arası</option></select></div>
-                        <div class="form-group"><label>Sigortalı Nakliye</label><select><option>Evet</option><option>İsteğe Bağlı</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'Sektörel İş İlanları' || katAdi === 'Part-Time / Stajyer') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Çalışma Şekli</label><select><option>Tam Zamanlı</option><option>Part-Time</option><option>Stajyer</option><option>Uzaktan (Remote)</option></select></div>
-                        <div class="form-group"><label>Sektör</label><select><option>Gayrimenkul / Emlak</option><option>Bilişim / Yazılım</option><option>Lojistik / Nakliye</option><option>İnşaat</option><option>Otomotiv</option></select></div>
-                        <div class="form-group"><label>Eğitim Seviyesi</label><select><option>Fark Etmez</option><option>Lise</option><option>Üniversite Mezunu</option></select></div>
-                        <div class="form-group"><label>Deneyim</label><select><option>Deneyimsiz / Yetiştirilmek Üzere</option><option>1-3 Yıl</option><option>5 Yıl ve Üzeri</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'İş Makineleri' || katAdi === 'Tarım Makineleri' || katAdi === 'Sanayi Ekipmanları') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Makine / Ekipman Türü</label><select><option>Ekskavatör</option><option>Kepçe / Beko Loder</option><option>Vinç</option><option>Forklift</option><option>CNC Torna Tezgahı</option><option>Traktör & Tarım</option></select></div>
-                        <div class="form-group"><label>Üretim Yılı (Min)</label><input type="text" placeholder="Örn: 2012"></div>
-                        <div class="form-group"><label>Çalışma Saati (Max)</label><input type="text" placeholder="Örn: 5000"></div>
-                        <div class="form-group"><label>Durumu</label><select><option>İkinci El</option><option>Sıfır</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi === 'Evcil Hayvanlar' || katAdi === 'Mama & Aksesuar') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Kategori / Cins</label><select><option>Kedi (Yavru/Yetişkin)</option><option>Köpek (Yavru/Yetişkin)</option><option>Kuş & Papağan</option><option>Akvaryum & Balık</option><option>Mama & Kafes Ekipmanları</option></select></div>
-                        <div class="form-group"><label>Yaş</label><select><option>Yavru (0-1 Yaş)</option><option>Genç (1-3 Yaş)</option><option>Yetişkin</option></select></div>
-                        <div class="form-group"><label>Cinsiyet</label><select><option>Dişi</option><option>Erkek</option><option>Fark Etmez</option></select></div>
-                        <div class="form-group"><label>Aşı Durumu</label><select><option>Tam / Karneli</option><option>Eksik / Bilinmiyor</option></select></div>
-                    </div>
-                `;
-            } else if (katAdi.includes('Özel Ders') || katAdi.includes('Bakıcı')) {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>Hizmet / Ders Konusu</label><select><option>Matematik / Fen Takviye</option><option>İngilizce / Yabancı Dil</option><option>Bebek & Çocuk Bakıcısı</option><option>Yaşlı & Hasta Bakıcısı</option></select></div>
-                        <div class="form-group"><label>Eğitmen / Bakıcı Kimden</label><select><option>Öğretmenden / Uzmandan</option><option>Öğrenciden</option><option>Kurumdan / Ajanstan</option></select></div>
-                        <div class="form-group"><label>Konum</label><select><option>Öğrencinin Evi</option><option>Eğirmenin Yeri / Online</option></select></div>
+                        <div class="form-group"><label>Bölge</label><select><option>Şehir İçi</option><option>Şehirler Arası</option></select></div>
+                        <div class="form-group"><label>Sigorta</label><select><option>Sigortalı</option></select></div>
                     </div>
                 `;
             } else {
