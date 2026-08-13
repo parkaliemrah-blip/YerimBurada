@@ -2,64 +2,55 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>YerimBurada - Dinamik Filtreleme Mimarisi</title>
+    <title>YerimBurada - Profesyonel İlan Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .filter-panel { padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; }
-        .dynamic-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .hidden { display: none; }
-        .results-bar { margin-top: 20px; padding: 15px; background: #ff3b00; color: #fff; text-align: center; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        /* Modern Tasarım */
+        :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; }
+        body { background: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .main-layout { display: flex; gap: 20px; max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+        .sidebar { width: 300px; background: #fff; padding: 20px; border-radius: 10px; }
+        .content-area { flex: 1; background: #fff; padding: 30px; border-radius: 10px; }
+        .filter-section { border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; background: #fafafa; }
+        .btn-orange { background: var(--yb-turuncu); color: #fff; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="filter-panel">
-        <!-- 1. Kategori Seçimi -->
-        <select id="mainCategory" onchange="loadFilters()">
-            <option value="">Kategori Seçiniz</option>
-            <option value="konut">Konut (Emlak)</option>
-            <option value="otomobil">Otomobil (Vasıta)</option>
-        </select>
-
-        <!-- 2. Dinamik Filtreler Buraya Gelecek -->
-        <div id="dynamicFilters" class="dynamic-fields"></div>
-
-        <!-- 3. Canlı Sayaçlı Buton -->
-        <div id="resultsBar" class="results-bar hidden" onclick="alert('İlanlar listeleniyor...')">
-            0 İlan bulundu, sonuçları göster
-        </div>
+<div class="main-layout">
+    <!-- SOL KATALOG -->
+    <div class="sidebar">
+        <h3>KATEGORİLER</h3>
+        <div onclick="yukle('konut')" class="cat-header">1. Emlak</div>
+        <div onclick="yukle('otomobil')" class="cat-header">2. Vasıta</div>
     </div>
 
+    <!-- SAĞ DİNAMİK ALAN -->
+    <div class="content-area">
+        <div id="filter-container" class="filter-section">
+            <h3>Kategori Bazlı Dinamik Filtre</h3>
+            <div id="dynamic-inputs"></div>
+            <div id="results-bar" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // Filtre Veritabanı
-    const filterConfig = {
-        konut: `
-            <input type="number" placeholder="Min m²">
-            <input type="number" placeholder="Max m²">
-            <select><option>1+1</option><option>2+1</option><option>3+1</option></select>
-            <select><option>Zemin</option><option>Ara Kat</option><option>Çatı</option></select>
-        `,
-        otomobil: `
-            <select><option>Marka Seç</option><option>BMW</option><option>Mercedes</option></select>
-            <input type="number" placeholder="Min KM">
-            <select><option>Otomatik</option><option>Manuel</option></select>
-            <select><option>Benzin</option><option>Dizel</option><option>Elektrik</option></select>
-        `
+    const data = {
+        konut: {
+            title: "Konut Filtreleri",
+            inputs: `<select><option>1+1</option><option>2+1</option></select><input type="text" placeholder="m²">`
+        },
+        otomobil: {
+            title: "Vasıta Filtreleri",
+            inputs: `<select><option>BMW</option><option>Mercedes</option></select><input type="text" placeholder="KM">`
+        }
     };
 
-    function loadFilters() {
-        const cat = document.getElementById('mainCategory').value;
-        const container = document.getElementById('dynamicFilters');
-        const bar = document.getElementById('resultsBar');
-
-        if (cat && filterConfig[cat]) {
-            container.innerHTML = filterConfig[cat];
-            bar.classList.remove('hidden');
-            // Burada canlı sayaç simülasyonu yapabilirsin
-            bar.innerText = Math.floor(Math.random() * 500) + " İlan bulundu, sonuçları göster";
-        } else {
-            container.innerHTML = '';
-            bar.classList.add('hidden');
-        }
+    function yukle(cat) {
+        const target = data[cat];
+        document.getElementById('dynamic-inputs').innerHTML = `<h4>${target.title}</h4>${target.inputs}`;
+        document.getElementById('results-bar').innerHTML = "1.420 İlan Bulundu <button class='btn-orange'>Listele</button>";
     }
 </script>
 
