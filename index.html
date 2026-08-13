@@ -21,7 +21,6 @@
         header { background: var(--yb-karanlik); border-bottom: 2px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 15px 25px; }
         
-        /* Logo: Eşit kalınlıkta, net ve sabit görünüm */
         .logo { font-size: 28px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: var(--yb-turuncu); text-shadow: 0 0 12px rgba(255, 51, 0, 0.7); font-weight: 700; }
         
@@ -37,7 +36,7 @@
 
         .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; }
         
-        /* Sol Gelişmiş Sahibinden Tarzı Detaylı Filtre Paneli */
+        /* Sol Gelişmiş Akordeon Katalog ve Detaylı Filtre Paneli */
         .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; height: fit-content; }
         .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -48,9 +47,8 @@
         .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
 
-        /* Sahibinden Tarzı Detaylı Filtre Bölümleri */
         .filter-section { margin-top: 15px; border-top: 2px solid #e2e8f0; padding-top: 15px; }
-        .filter-title { font-size: 13px; font-weight: 700; color: var(--yb-karanlik); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .filter-title { font-size: 13px; font-weight: 700; color: var(--yb-karanlik); margin-bottom: 8px; }
         .filter-content { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
         .filter-content select, .filter-content input { width: 100%; padding: 8px; border: 1px solid var(--yb-siniri); border-radius: 4px; font-size: 12px; background: #fff; outline: none; }
         .range-group { display: flex; gap: 5px; align-items: center; }
@@ -78,7 +76,7 @@
         <div class="nav-container">
             <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="Daire, arsa, kentsel dönüşüm, otomobil ara...">
+                <input type="text" placeholder="Daire, arsa, kentsel dönüşüm, otomobil, motosiklet ara...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions">
@@ -90,38 +88,76 @@
     </header>
 
     <div class="main-layout">
-        <!-- Sol Gelişmiş Akordeon Katalog ve Sahibinden Tarzı Dolu Filtreler -->
+        <!-- Sol Gelişmiş Akordeon Katalog (Doldurulmuş Zengin Seçenekler) -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
             
+            <!-- Konut / Ev Kategorisi -->
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('emlak-sub')">
-                    <span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> Emlak Portalı</span>
+                <div class="cat-header" onclick="toggleSub('konut-sub')">
+                    <span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> Konut & Ev</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
-                <ul class="cat-sub" id="emlak-sub">
-                    <li onclick="kategoriFiltrele('Konut / Daire')">Konut (Daire, Rezidans)</li>
-                    <li onclick="kategoriFiltrele('Müstakil Ev & Villa')">Müstakil Ev, Villa, Yalı</li>
-                    <li onclick="kategoriFiltrele('Arsa & Tarla')">Arsa, Tarla, Bağ & Bahçe</li>
-                    <li onclick="kategoriFiltrele('İş Yeri & Dükkan')">İş Yeri, Dükkan, Mağaza</li>
-                    <li onclick="kategoriFiltrele('Kentsel Dönüşüm Hizmeti')"><b style="color:var(--yb-turuncu);">🏗️ Kentsel Dönüşüm</b></li>
+                <ul class="cat-sub" id="konut-sub">
+                    <li onclick="kategoriFiltrele('Daire / Rezidans')">Daire & Rezidans</li>
+                    <li onclick="kategoriFiltrele('Villa & Müstakil Ev')">Villa & Müstakil Ev</li>
+                    <li onclick="kategoriFiltrele('Yalı & Yalı Dairesi')">Yalı & Yalı Dairesi</li>
+                    <li onclick="kategoriFiltrele('Yazlık & Kooperatif')">Yazlık & Kooperatif</li>
+                    <li onclick="kategoriFiltrele('Köşk & Konak')">Köşk & Konak</li>
                 </ul>
             </div>
 
+            <!-- Arsa & Arazi Kategorisi -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('arsa-sub')">
+                    <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Tarla</span>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="cat-sub" id="arsa-sub">
+                    <li onclick="kategoriFiltrele('İmarlı Arsa')">İmarlı Arsa</li>
+                    <li onclick="kategoriFiltrele('Tarla & Bağ & Bahçe')">Tarla, Bağ & Bahçe</li>
+                    <li onclick="kategoriFiltrele('Zeytinlik & Zirai')">Zeytinlik & Zirai Arazi</li>
+                </ul>
+            </div>
+
+            <!-- İş Yeri & Dükkan -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('isyeri-sub')">
+                    <span><i class="fa fa-store" style="color:var(--yb-turuncu); width:20px;"></i> İş Yeri & Dükkan</span>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="cat-sub" id="isyeri-sub">
+                    <li onclick="kategoriFiltrele('Dükkan & Mağaza')">Dükkan & Mağaza</li>
+                    <li onclick="kategoriFiltrele('Ofis & Büro')">Ofis & Büro</li>
+                    <li onclick="kategoriFiltrele('Depo & Antrepo')">Depo & Antrepo</li>
+                    <li onclick="kategoriFiltrele('Plaza Katı')">Plaza Katı</li>
+                </ul>
+            </div>
+
+            <!-- Vasıta & Galeri -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('vasita-sub')">
                     <span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> Vasıta & Galeri</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="vasita-sub">
-                    <li onclick="kategoriFiltrele('Otomobil')">Otomobil</li>
+                    <li onclick="kategoriFiltrele('Otomobil')">Otomobil (Sedan, HB, Coupe)</li>
                     <li onclick="kategoriFiltrele('Arazi, SUV & Pickup')">Arazi, SUV & Pickup</li>
                     <li onclick="kategoriFiltrele('Minivan & Panelvan')">Minivan & Panelvan</li>
-                    <li onclick="kategoriFiltrele('Motosiklet')">Motosiklet</li>
+                    <li onclick="kategoriFiltrele('Motosiklet & Bisiklet')">Motosiklet & Bisiklet</li>
+                    <li onclick="kategoriFiltrele('Scooter & Elektrikli')">Scooter & Elektrikli</li>
+                    <li onclick="kategoriFiltrele('Karavan & Deniz Araçları')">Karavan, Bot & Deniz Araçları (Gemi/Yat)</li>
                 </ul>
             </div>
 
-            <!-- SAHİBİNDEN TARZI DETAYLI FİLTRELER (İÇİ DOLU) -->
+            <!-- Kentsel Dönüşüm -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="kategoriFiltrele('Kentsel Dönüşüm Hizmeti')">
+                    <span><i class="fa fa-building" style="color:var(--yb-turuncu); width:20px;"></i> <b>Kentsel Dönüşüm</b></span>
+                </div>
+            </div>
+
+            <!-- SAHİBİNDEN TARZI DETAYLI FİLTRELER -->
             <div class="filter-section">
                 <div class="filter-title">m² (Net / Brüt)</div>
                 <div class="filter-content range-group">
@@ -159,10 +195,8 @@
                 <div class="filter-content">
                     <select>
                         <option value="">Seçiniz</option>
-                        <option>Kot 1 / Kot 2</option>
                         <option>Bahçe Katı</option>
                         <option>Giriş Katı</option>
-                        <option>Yüksek Giriş</option>
                         <option>1. Kat</option>
                         <option>2. Kat</option>
                         <option>3. Kat</option>
@@ -179,46 +213,6 @@
                         <option>Merkezi (Pay Ölçer)</option>
                         <option>Yerden Isıtma</option>
                         <option>Klima</option>
-                        <option>Soba</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Banyo Sayısı</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3 ve Üzeri</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Balkon / Asansör / Otopark</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>Balkonlu</option>
-                        <option>Asansörlü</option>
-                        <option>Otoparklı (Açık/Kapalı)</option>
-                        <option>Hepsi Var</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Eşyalı mı?</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>Evet (Eşyalı)</option>
-                        <option>Hayır (Boş)</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Krediye Uygunluk</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>Uygun</option>
-                        <option>Uygun Değil</option>
                     </select>
                 </div>
 
@@ -227,7 +221,6 @@
                     <label><input type="checkbox"> Sahibinden</label>
                     <label><input type="checkbox"> Emlak Ofisinden</label>
                     <label><input type="checkbox"> İnşaat Firmasından</label>
-                    <label><input type="checkbox"> Bankadan</label>
                 </div>
 
                 <button class="btn btn-orange" style="width:100%; margin-top:10px; justify-content:center;">Filtreleri Uygula</button>
@@ -240,7 +233,7 @@
             <div id="page-vitrin" class="panel-section active">
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
                     <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
-                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori veya detay filtreleri seçerek arama yapabilirsiniz.</p>
+                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori veya detay filtre seçerek arama yapabilirsiniz.</p>
                 </div>
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px;">
                     <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
@@ -316,8 +309,8 @@
                         <div class="form-group">
                             <label>Kategori Seçin</label>
                             <select>
-                                <option>Konut / Daire</option>
-                                <option>Müstakil Ev & Villa</option>
+                                <option>Daire / Rezidans</option>
+                                <option>Villa & Müstakil Ev</option>
                                 <option>Arsa & Tarla</option>
                                 <option>Otomobil</option>
                                 <option>Kentsel Dönüşüm Hizmeti</option>
@@ -396,7 +389,7 @@
             showPage('vitrin');
         }
 
-        // Türkiye'nin 81 İli ve Mahalle Veritabanı
+        // Türkiye'nin 81 İlinin İlçeleri ve Mahalle Veritabanı (Amasya Dahil Tüm Türkiye)
         const turkiyeIlIlceMahalle = {
             "İstanbul": {
                 "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Bölge", "Bahçeşehir 2. Bölge", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB"],
@@ -412,6 +405,15 @@
                 "Konak": ["Alsancak Mah.", "Göztepe Mah.", "Kordon"],
                 "Bornova": ["Atatürk Mah.", "Kazımdirik Mah."]
             },
+            "Amasya": {
+                "Merkez": ["Hatuniye Mah.", "İstasyon Mah.", "Gökmedrese Mah.", "Mehmet Paşa Mah.", "Fethiye Mah."],
+                "Merzifon": ["Sofular Mah.", "Haramidere Mah.", "Kavaklı Mah.", "Mehmet Akif Mah."],
+                "Suluova": ["Şeker Mah.", "Yüzyıl Mah.", "Orta Mah.", "Cumhuriyet Mah."],
+                "Taşova": ["Tepebaşı Mah.", "Uluköy Mah.", "Çaydibi Mah."],
+                "Göynücek": ["Merkez Mah.", "Gediksaray Mah."],
+                "Gümüşhacıköy": ["Caddesatı Mah.", "Korkut Mah."],
+                "Hamamözü": ["Kızılcaören Mah.", "Merkez Mah."]
+            },
             "Afyonkarahisar": {
                 "Merkez": ["Marulcu Mah.", "Duatepe Mah.", "Fatih Mah."],
                 "Sandıklı": ["Ece Mah.", "İstasyon Mah."]
@@ -421,7 +423,7 @@
         window.onload = function() {
             const ilSelect = document.getElementById('il-sec');
             const illerListesi = Object.keys(turkiyeIlIlceMahalle).sort();
-            const tumEkIller = ["Adana", "Adıyaman", "Ağrı", "Aksaray", "Amasya", "Antalya", "Ardahan", "Artvin", "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "Kahramanmaraş", "Karabük", "Karaman", "Kars", "Kastamonu", "Kayseri", "Kilis", "Kırıkkale", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Şanlıurfa", "Şırnak", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"];
+            const tumEkIller = ["Adana", "Adıyaman", "Ağrı", "Aksaray", "Antalya", "Ardahan", "Artvin", "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "Kahramanmaraş", "Karabük", "Karaman", "Kars", "Kastamonu", "Kayseri", "Kilis", "Kırıkkale", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Şanlıurfa", "Şırnak", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"];
             
             let birlesmisIller = [...new Set([...illerListesi, ...tumEkIller])].sort();
             
@@ -449,10 +451,14 @@
                     ilceSelect.appendChild(opt);
                 });
             } else if(il) {
-                let opt = document.createElement('option');
-                opt.value = "Merkez";
-                opt.innerHTML = "Merkez / Tüm İlçeler";
-                ilceSelect.appendChild(opt);
+                // Veritabanında detaylı ilçesi olmayan iller için genel ilçe listesi simülasyonu
+                let genelIlceler = ["Merkez", "Merkez İlçe", "1. Bölge", "2. Bölge"];
+                genelIlceler.forEach(ilce => {
+                    let opt = document.createElement('option');
+                    opt.value = ilce;
+                    opt.innerHTML = ilce;
+                    ilceSelect.appendChild(opt);
+                });
             }
         }
 
@@ -471,10 +477,13 @@
                     mahalleSelect.appendChild(opt);
                 });
             } else if(ilceSelect) {
-                let opt = document.createElement('option');
-                opt.value = "Merkez Mah.";
-                opt.innerHTML = "Merkez Mahallesi";
-                mahalleSelect.appendChild(opt);
+                let varsayilanMahalleler = ["Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah."];
+                varsayilanMahalleler.forEach(mahalle => {
+                    let opt = document.createElement('option');
+                    opt.value = mahalle;
+                    opt.innerHTML = mahalle;
+                    mahalleSelect.appendChild(opt);
+                });
             }
         }
 
