@@ -1,56 +1,91 @@
-<script>
-    // 1. Kategoriler arası geçişi sağlayan profesyonel fonksiyon
-    function kategoriSec(katAdi) {
-        // Sol menüde aktif olanı görselleştir
-        document.querySelectorAll('.cat-sub li').forEach(el => el.style.fontWeight = 'normal');
-        event.target.style.fontWeight = 'bold';
-        event.target.style.color = 'var(--yb-turuncu)';
-
-        // Sağdaki başlığı güncelle
-        document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
-        document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisi için filtreler yüklendi.`;
-
-        // Filtre dropdown'ını da otomatik güncelle
-        const dropdown = document.getElementById('filtre-kategori');
-        dropdown.value = katAdi; // Eğer option değerleri ile isimler uyuşuyorsa
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YerimBurada - Türkiye'nin Premium Ticaret ve Esnaf Ağı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --yb-karanlik: #090d16;
+            --yb-card-bg: #ffffff;
+            --yb-turuncu: #ff3b00;
+            --yb-turuncu-hover: #e03400;
+            --yb-bg: #f3f4f6;
+            --yb-siniri: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--yb-bg); color: var(--yb-karanlik); min-height: 100vh; display: flex; flex-direction: column; }
         
-        showPage('vitrin');
-    }
+        header { background: var(--yb-karanlik); border-bottom: 3px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 30px; }
+        .logo { font-size: 30px; font-weight: 800; color: #fff; text-decoration: none; }
+        .logo span { color: var(--yb-turuncu); }
+        
+        .main-layout { max-width: 1480px; margin: 35px auto; padding: 0 30px; display: grid; grid-template-columns: 340px 1fr; gap: 35px; width: 100%; flex: 1; }
+        
+        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; }
+        .sidebar h3 { font-size: 12px; color: var(--yb-turuncu); margin-bottom: 18px; font-weight: 800; text-transform: uppercase; }
+        .cat-header { padding: 12px 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; border-radius: 8px; }
+        .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
 
-    // 2. Fiyat formatlama (5.000.000 gibi görünmesi için)
-    function fiyatFormatla(input) {
-        let value = input.value.replace(/\D/g, '');
-        if (value === "") return;
-        input.value = new Intl.NumberFormat('tr-TR').format(value);
-    }
+        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 35px; min-height: 650px; }
+        .filter-box { background: #fff; border: 1.5px solid var(--yb-siniri); border-radius: 10px; padding: 25px; margin-bottom: 25px; }
+        .filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        .form-group select, .form-group input { width: 100%; padding: 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; }
+        .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        .btn-orange:hover { background-color: var(--yb-turuncu-hover); }
+    </style>
+</head>
+<body>
 
-    // 3. Kullanıcı Giriş Kontrolü
-    function kontrolVeIlanVer() {
-        if (!kullaniciGirisYapildi) {
-            toggleAuthModal();
-        } else {
-            showPage('ilanver');
-        }
-    }
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">Yerim<span>Burada</span></a>
+            <div style="color: #fff; font-weight: bold;">Güvenli İlan ve Esnaf Ağı</div>
+        </div>
+    </header>
 
-    // 4. Dinamik Filtreleme Mantığı (Gelişmiş)
-    document.getElementById('filtre-kategori').addEventListener('change', function() {
-        const secilen = this.value;
-        if(secilen) {
-            // Burada kategoriye göre ek filtre alanları türetebiliriz
-            console.log("Filtreleme şuna göre yapılacak:", secilen);
-        }
-    });
+    <div class="main-layout">
+        <div class="sidebar">
+            <h3>KATEGORİLER</h3>
+            <div class="cat-header"><span><i class="fa fa-home" style="color:var(--yb-turuncu);"></i> 1. Emlak</span></div>
+            <div class="cat-header"><span><i class="fa fa-car" style="color:var(--yb-turuncu);"></i> 2. Vasıta</span></div>
+            <div class="cat-header"><span><i class="fa fa-shopping-bag" style="color:var(--yb-turuncu);"></i> 3. Alışveriş</span></div>
+            <div class="cat-header"><span><i class="fa fa-truck" style="color:var(--yb-turuncu);"></i> 4. Nakliye Hizmetleri</span></div>
+        </div>
 
-    // 5. İlan Yayınla - Esnaf Ağına Gönder
-    function ilanYayinla() {
-        const baslik = document.getElementById('ilan-baslik').value;
-        if(!baslik) {
-            alert("Lütfen başlık giriniz.");
-            return;
-        }
-        // İlan verisini buraya toplayıp veritabanına (Supabase vb.) göndereceğiz
-        alert("İlanınız başarıyla YerimBurada ağında yayınlandı!");
-        showPage('vitrin');
-    }
-</script>
+        <div class="content-area">
+            <div class="filter-box">
+                <h3 style="font-size: 16px; margin-bottom: 10px;"><i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Detaylı Arama & Filtreleme</h3>
+                <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Aradığınız ürünü veya gayrimenkulü hemen filtreleyin.</p>
+                <div class="filter-grid">
+                    <div class="form-group">
+                        <label>Kategori Seçin</label>
+                        <select>
+                            <option>Tüm Kategoriler</option>
+                            <option>Konut (Daire, Villa)</option>
+                            <option>Otomobil</option>
+                            <option>Nakliye Hizmeti</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Minimum Fiyat (TL)</label>
+                        <input type="text" placeholder="Min TL">
+                    </div>
+                    <div class="form-group">
+                        <label>Maksimum Fiyat (TL)</label>
+                        <input type="text" placeholder="Max TL">
+                    </div>
+                </div>
+                <button class="btn-orange" style="margin-top: 15px;">İlanları Filtrele</button>
+            </div>
+            <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 25px; text-align: center; color: #64748b;">
+                Canlı İlan Vitrini - İlk ilanı sen ver!
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
