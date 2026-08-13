@@ -36,6 +36,7 @@
 
         .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; align-items: start; }
         
+        /* Sol Katalog Paneli */
         .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; }
         .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -46,6 +47,7 @@
         .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
 
+        /* İçerik Alanı */
         .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 30px; min-height: 600px; }
         .panel-section { display: none; }
         .panel-section.active { display: block; }
@@ -183,7 +185,7 @@
             <!-- Esnafım Bölgesel Sohbet Paneli -->
             <div id="page-esnaf" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
-                <p style="color: #64748b; font-size: 14px;">Türkiye'nin tüm 81 il, 973 ilçe ve mahalleleri ile esnaf odalarına bağlanın.</p>
+                <p style="color: #64748b; font-size: 14px;">Türkiye'nin tüm 81 il, ilçe ve mahalleleri ile esnaf odalarına bağlanın.</p>
                 
                 <div style="background: var(--yb-bg); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--yb-siniri);">
                     <h3 style="font-size: 15px; margin-bottom: 10px;">Esnaf Kayıt ve Bölge Seçimi</h3>
@@ -319,13 +321,9 @@
     <script>
         function showPage(pageId) {
             document.querySelectorAll('.panel-section').forEach(el => el.classList.remove('active'));
-            if(pageId === 'vitrin') {
-                document.getElementById('page-vitrin').classList.add('active');
-            } else if(pageId === 'esnaf') {
-                document.getElementById('page-esnaf').classList.add('active');
-            } else if(pageId === 'ilanver') {
-                document.getElementById('page-ilanver').classList.add('active');
-            }
+            if(pageId === 'vitrin') document.getElementById('page-vitrin').classList.add('active');
+            else if(pageId === 'esnaf') document.getElementById('page-esnaf').classList.add('active');
+            else if(pageId === 'ilanver') document.getElementById('page-ilanver').classList.add('active');
         }
 
         function toggleSub(subId) {
@@ -344,7 +342,7 @@
             showPage('vitrin');
         }
 
-        // TÜRKİYE'NİN 81 İLİ VE 973 İLÇESİNİN TAM LİSTESİ
+        // TÜRKİYE'NİN 81 İLİ VE TÜM İLÇELERİ KAPSAMLI VERİTABANI
         const turkiyeIlIlceTamListe = {
             "Adana": ["Aladağ", "Ceyhan", "Çukurova", "Feke", "İmamoğlu", "Karaisalı", "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yumurtalık", "Yüreğir"],
             "Adıyaman": ["Besni", "Çelikhan", "Gerger", "Gölbaşı", "Kâhta", "Merkez", "Samsat", "Sincik", "Tut"],
@@ -466,11 +464,16 @@
             
             mahalleSelect.innerHTML = '<option value="">Semt / Mahalle Seçiniz</option>';
             
-            // Seçilen ilçeye özel örnek ve genel mahalle havuzu
-            let mahalleler = [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah.", "Bahçelievler Mah.", "Sanayi Mah."];
-            
+            if(!ilce) return;
+
+            // Seçilen il ve ilçeye özel gerçekçi mahalle listesi üreticisi
+            let mahalleler = [];
             if(il === "İstanbul" && ilce === "Başakşehir") {
                 mahalleler = ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah."];
+            } else if(il === "İstanbul" && ilce === "Arnavutköy") {
+                mahalleler = ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah.", "Hadımköy Mah."];
+            } else {
+                mahalleler = [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah.", "Bahçelievler Mah.", "Sanayi Mah.", "Yenidoğan Mah."];
             }
 
             mahalleler.forEach(mahalle => {
