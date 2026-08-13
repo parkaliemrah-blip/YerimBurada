@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Türkiye'nin Premium Gayrimenkul, Nakliye ve Kentsel Dönüşüm Ağı</title>
+    <title>YerimBurada - Türkiye'nin Premium İlan, Esnaf ve Filtreleme Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -25,21 +25,18 @@
         .logo { font-size: 30px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: var(--yb-turuncu); text-shadow: 0 0 15px rgba(255, 59, 0, 0.6); }
         
-        .search-container { flex: 1; max-width: 600px; margin: 0 40px; display: flex; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .search-container { flex: 1; max-width: 550px; margin: 0 30px; display: flex; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .search-container input { width: 100%; padding: 14px 20px; border: none; outline: none; font-size: 15px; }
-        .search-container button { background: var(--yb-turuncu); color: white; border: none; padding: 0 30px; cursor: pointer; font-weight: 700; font-size: 15px; transition: background 0.2s; }
-        .search-container button:hover { background: var(--yb-turuncu-hover); }
+        .search-container button { background: var(--yb-turuncu); color: white; border: none; padding: 0 25px; cursor: pointer; font-weight: 700; font-size: 15px; transition: background 0.2s; }
 
-        .nav-actions { display: flex; gap: 14px; align-items: center; position: relative; }
-        .btn { padding: 11px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: all 0.2s; }
+        .nav-actions { display: flex; gap: 12px; align-items: center; position: relative; }
+        .btn { padding: 11px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: all 0.2s; }
         .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; box-shadow: 0 4px 12px rgba(255,59,0,0.3); }
         .btn-orange:hover { background-color: var(--yb-turuncu-hover); transform: translateY(-1px); }
         .btn-outline { border: 1.5px solid rgba(255,255,255,0.2); color: white; background: rgba(255,255,255,0.05); }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-        /* Sağ Kullanıcı Profil Menüsü */
         .user-dropdown { display: none; position: absolute; right: 0; top: 50px; background: #fff; border: 1px solid var(--yb-siniri); border-radius: 10px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; }
-        .user-dropdown a { display: block; padding: 12px 16px; font-size: 13px; color: var(--yb-karanlik); text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.2s; }
+        .user-dropdown a { display: block; padding: 12px 16px; font-size: 13px; color: var(--yb-karanlik); text-decoration: none; border-bottom: 1px solid #f1f5f9; }
         .user-dropdown a:hover { background: #fff7ed; color: var(--yb-turuncu); }
 
         .main-layout { max-width: 1480px; margin: 35px auto; padding: 0 30px; display: grid; grid-template-columns: 340px 1fr; gap: 35px; width: 100%; flex: 1; align-items: start; }
@@ -51,7 +48,7 @@
         .cat-header { padding: 14px 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--yb-karanlik); border-radius: 8px; transition: all 0.2s; }
         .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
         .cat-sub { display: none; padding-left: 15px; list-style: none; background: #fafafa; border-radius: 8px; margin-bottom: 8px; }
-        .cat-sub li { padding: 10px 12px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; transition: color 0.2s; }
+        .cat-sub li { padding: 10px 12px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 600; background: #fff; }
 
         .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 35px; min-height: 650px; box-shadow: var(--yb-golge); }
@@ -59,31 +56,30 @@
         .panel-section.active { display: block; }
         
         .smart-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 25px; }
-        .smart-card { border: 2px solid var(--yb-siniri); border-radius: 10px; padding: 22px; text-align: center; cursor: pointer; transition: all 0.25s ease; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .smart-card:hover, .smart-card.selected { border-color: var(--yb-turuncu); background: #fff8f6; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,59,0,0.1); }
+        .smart-card { border: 2px solid var(--yb-siniri); border-radius: 10px; padding: 22px; text-align: center; cursor: pointer; transition: all 0.25s ease; background: #fff; }
+        .smart-card:hover, .smart-card.selected { border-color: var(--yb-turuncu); background: #fff8f6; transform: translateY(-3px); }
         .smart-card i { font-size: 32px; color: var(--yb-turuncu); margin-bottom: 12px; }
         .smart-card h4 { font-size: 16px; font-weight: 700; color: var(--yb-karanlik); }
 
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 18px; }
         .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 14px; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--yb-mavi); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 14px; }
         .form-full { grid-column: span 2; }
 
-        /* Modern Modal (SMS Doğrulama Dahil) */
+        /* Filtreleme Paneli */
+        .filter-box { background: #fff; border: 1.5px solid var(--yb-siniri); border-radius: 10px; padding: 25px; margin-bottom: 25px; }
+        .filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,11,20,0.7); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: #fff; width: 440px; padding: 35px; border-radius: 16px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
         .modal-close { position: absolute; top: 20px; right: 20px; font-size: 22px; cursor: pointer; color: #94a3b8; }
 
-        .social-btn { width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 1.5px solid var(--yb-siniri); background: #fff; transition: background 0.2s; margin-bottom: 10px; }
-        .social-btn:hover { background: #f8fafc; }
+        .social-btn { width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 1.5px solid var(--yb-siniri); background: #fff; margin-bottom: 10px; }
         .social-btn.google { color: #1e293b; border-color: #cbd5e1; }
         .social-btn.apple { background: #000; color: #fff; border-color: #000; }
-
         .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #94a3b8; font-size: 13px; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--yb-siniri); }
-        .divider::before { margin-right: 10px; }
-        .divider::after { margin-left: 10px; }
+        .divider::before { margin-right: 10px; } .divider::after { margin-left: 10px; }
 
         footer { background: var(--yb-karanlik); color: #94a3b8; padding: 50px 0; margin-top: auto; border-top: 1px solid #1e293b; }
         .footer-content { max-width: 1480px; margin: 0 auto; padding: 0 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
@@ -98,17 +94,18 @@
         <div class="nav-container">
             <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="İlan, mahalle, nakliye veya kentsel dönüşüm arayın...">
+                <input type="text" placeholder="İlan, mahalle, nakliye, tekstil veya oyuncak arayın...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions" id="header-auth-area">
                 <button onclick="toggleAuthModal()" class="btn btn-outline" id="giris-buton"><i class="fa fa-user"></i> Giriş Yap / Üye Ol</button>
-                <button onclick=" kontrolVeIlanVer()" class="btn btn-orange"><i class="fa fa-plus"></i> Ücretsiz İlan Ver</button>
+                <button onclick="showPage('esnaf')" class="btn btn-outline" id="esnaf-menu-btn"><i class="fa fa-store"></i> Esnafım</button>
+                <button onclick="kontrolVeIlanVer()" class="btn btn-orange"><i class="fa fa-plus"></i> Ücretsiz İlan Ver</button>
             </div>
         </div>
     </header>
 
-    <!-- SMS Doğrulama & Üyelik Modalı -->
+    <!-- SMS ve Sosyal Doğrulama Modalı -->
     <div id="auth-modal" class="modal-overlay">
         <div class="modal-box">
             <span class="modal-close" onclick="toggleAuthModal()">&times;</span>
@@ -145,7 +142,7 @@
     </div>
 
     <div class="main-layout">
-        <!-- Sol Katalog -->
+        <!-- Sol Akordeon Katalog (Genişletilmiş Kategori Ağı) -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
             
@@ -167,14 +164,42 @@
             </div>
 
             <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('arsa-sub')">
-                    <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Arazi</span>
+                <div class="cat-header" onclick="toggleSub('vasita-sub')">
+                    <span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> Vasıta</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
-                <ul class="cat-sub" id="arsa-sub">
-                    <li onclick="kategoriSec('İmarlı Arsa')">İmarlı Arsa</li>
-                    <li onclick="kategoriSec('Tarla')">Tarla</li>
-                    <li onclick="kategoriSec('Bağ & Bahçe')">Bağ & Bahçe</li>
+                <ul class="cat-sub" id="vasita-sub">
+                    <li onclick="kategoriSec('Otomobil')">Otomobil</li>
+                    <li onclick="kategoriSec('Arazi (SUV)')">Arazi (SUV)</li>
+                    <li onclick="kategoriSec('Motosiklet')">Motosiklet</li>
+                    <li onclick="kategoriSec('Ticari Araç')">Ticari Araç</li>
+                </ul>
+            </div>
+
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('tekstil-sub')">
+                    <span><i class="fa fa-tshirt" style="color:var(--yb-turuncu); width:20px;"></i> Tekstil & Giyim</span>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="cat-sub" id="tekstil-sub">
+                    <li onclick="kategoriSec('T-Shirt')">T-Shirt</li>
+                    <li onclick="kategoriSec('Mont & Kaban')">Mont & Kaban</li>
+                    <li onclick="kategoriSec('Pantolon')">Pantolon</li>
+                    <li onclick="kategoriSec('Etek & Elbise')">Etek & Elbise</li>
+                    <li onclick="kategoriSec('Çocuk Giyim')">Çocuk Giyim</li>
+                    <li onclick="kategoriSec('Toptan Kıyafet')">Toptan Kıyafet</li>
+                </ul>
+            </div>
+
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('oyuncak-sub')">
+                    <span><i class="fa fa-gamepad" style="color:var(--yb-turuncu); width:20px;"></i> Oyuncak & Hobi</span>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="cat-sub" id="oyuncak-sub">
+                    <li onclick="kategoriSec('Eğitici Oyuncak')">Eğitici Oyuncak</li>
+                    <li onclick="kategoriSec('Uzaktan Kumandalı')">Uzaktan Kumandalı</li>
+                    <li onclick="kategoriSec('Bebek Oyuncakları')">Bebek Oyuncakları</li>
                 </ul>
             </div>
 
@@ -186,6 +211,7 @@
                 <ul class="cat-sub" id="nakliye-sub">
                     <li onclick="kategoriSec('Şehir İçi Taşımacılık')">Şehir İçi Taşımacılık</li>
                     <li onclick="kategoriSec('Şehirler Arası Nakliyat')">Şehirler Arası Nakliyat</li>
+                    <li onclick="kategoriSec('Asansörlü Nakliye')">Asansörlü Nakliye</li>
                 </ul>
             </div>
 
@@ -198,17 +224,46 @@
 
         <div class="content-area">
             
+            <!-- Vitrin ve Akıllı Filtreleme Alanı -->
             <div id="page-vitrin" class="panel-section active">
+                <!-- Filtreleme Kutusu -->
+                <div class="filter-box">
+                    <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 10px;"><i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Detaylı Arama & Filtreleme</h3>
+                    <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Aradığınız gayrimenkul, vasıta veya ürünü özelliklerine göre hemen filtreleyin.</p>
+                    <div class="filter-grid">
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            <select id="filtre-kategori">
+                                <option value="">Tüm Kategoriler</option>
+                                <option value="Daire">Daire / Konut</option>
+                                <option value="Otomobil">Otomobil</option>
+                                <option value="Tekstil">Tekstil & Giyim</option>
+                                <option value="Nakliye">Nakliye Hizmeti</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Minimum Fiyat (TL)</label>
+                            <input type="text" placeholder="Min TL">
+                        </div>
+                        <div class="form-group">
+                            <label>Maksimum Fiyat (TL)</label>
+                            <input type="text" placeholder="Max TL">
+                        </div>
+                    </div>
+                    <button onclick="alert('Filtreleme uygulandı, ilanlar listeleniyor!')" class="btn btn-orange" style="margin-top: 15px; width: 100%; justify-content: center; padding: 12px;">İlanları Filtrele</button>
+                </div>
+
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 22px; margin-bottom: 25px; background: #fff;">
                     <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 12px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
-                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori seçerek ilanları inceleyebilirsiniz.</p>
+                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori seçerek detaylı arama yapabilir veya ilanları inceleyebilirsiniz.</p>
                 </div>
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 22px; background: #fff;">
                     <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
-                    <p style="color: #64748b; font-size: 14px; text-align: center; padding: 50px;">Henüz ilan bulunmuyor. İlk ilanı siz verin!</p>
+                    <p style="color: #64748b; font-size: 14px; text-align: center; padding: 40px;">Henüz ilan bulunmuyor. İlk ilanı siz verin!</p>
                 </div>
             </div>
 
+            <!-- Esnafım Bölgesel Sohbet Paneli -->
             <div id="page-esnaf" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
                 <div style="background: var(--yb-bg); padding: 25px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); margin-top: 20px;">
@@ -262,10 +317,10 @@
                 </div>
             </div>
 
-            <!-- Yeni Nesil Hızlı İlan Merkezi (SMS Doğrulama Kontrollü) -->
+            <!-- Yeni Nesil Hızlı İlan Merkezi -->
             <div id="page-ilanver" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-bolt"></i> Yeni Nesil Hızlı İlan & Hizmet Merkezi</h2>
-                <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Aşağıdan kategori seçin, fiyat girerken otomatik formatlansın.</p>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Aşağıdan kategori seçin, detaylı daire niteliklerini ve fiyatını belirleyerek anında yayınlayın.</p>
                 
                 <div class="smart-cards-grid">
                     <div class="smart-card selected" id="card-gayrimenkul" onclick="secilenKartiAyarla('gayrimenkul')">
@@ -349,24 +404,6 @@
                             <select><option>Kombi (Doğalgaz)</option><option>Merkezi (Pay Ölçer)</option><option>Yerden Isıtma</option><option>Klima</option></select>
                         </div>
 
-                        <div class="form-group nakliye-alan" style="display:none;">
-                            <label>Taşınacak Ev Tipi</label>
-                            <select><option>1+1 Daire</option><option>2+1 Daire</option><option>3+1 Daire</option><option>Villa / Ofis</option></select>
-                        </div>
-                        <div class="form-group nakliye-alan" style="display:none;">
-                            <label>Kat & Asansör Durumu</label>
-                            <input type="text" placeholder="Örn: 4. Kat, Asansör Yok">
-                        </div>
-
-                        <div class="form-group donusum-alan" style="display:none;">
-                            <label>Bina Yaşı</label>
-                            <input type="number" placeholder="Örn: 35 Yıllık Bina">
-                        </div>
-                        <div class="form-group donusum-alan" style="display:none;">
-                            <label>Toplam Hane / Daire Sayısı</label>
-                            <input type="text" placeholder="Örn: 12 Daireli Apartman">
-                        </div>
-
                         <div class="form-group">
                             <label>Fiyat / Bütçe (TL)</label>
                             <input type="text" id="ilan-fiyat" placeholder="Örn: 5.000.000" oninput="fiyatFormatla(this)">
@@ -446,33 +483,22 @@
         function kodOnayla() {
             const kod = document.getElementById('kod-input').value;
             if(kod.length < 4) {
-                alert("Lütfen 6 haneli doğrulama kodunu girin!");
+                alert("Lütfen doğrulama kodunu girin!");
                 return;
             }
             kullaniciGirisYapildi = true;
             toggleAuthModal();
-            
-            // Sağ üst alanı profil menüsüyle değiştir
-            const headerAuthArea = document.getElementById('header-auth-area');
-            headerAuthArea.innerHTML = `
-                <div style="position: relative;">
-                    <button onclick="toggleUserDropdown()" class="btn btn-outline" style="background: rgba(255,255,255,0.15);"><i class="fa fa-user-check" style="color:#22c55e;"></i> Emrah Kaya <i class="fa fa-chevron-down" style="font-size:10px;"></i></button>
-                    <div id="user-dropdown-menu" class="user-dropdown">
-                        <a href="#" onclick="showPage('vitrin')"><i class="fa fa-user"></i> Profilim</a>
-                        <a href="#" onclick="showPage('vitrin')"><i class="fa fa-list"></i> İlanlarım</a>
-                        <a href="#" onclick="showPage('esnaf')"><i class="fa fa-envelope"></i> Mesaj Kutum</a>
-                        <a href="#" onclick="cikisYap()"><i class="fa fa-sign-out-alt"></i> Çıkış Yap</a>
-                    </div>
-                </div>
-                <button onclick="showPage('ilanver')" class="btn btn-orange"><i class="fa fa-plus"></i> Ücretsiz İlan Ver</button>
-            `;
-            alert("Tebrikler! Telefon numaranız doğrulandı ve üyelik işleminiz tamamlandı.");
-            showPage('ilanver');
+            basariliGirisIslemi();
         }
 
         function sosyalGiris(platform) {
             kullaniciGirisYapildi = true;
             toggleAuthModal();
+            basariliGirisIslemi();
+            alert(`${platform} ile başarıyla giriş yapıldı!`);
+        }
+
+        function basariliGirisIslemi() {
             const headerAuthArea = document.getElementById('header-auth-area');
             headerAuthArea.innerHTML = `
                 <div style="position: relative;">
@@ -484,9 +510,9 @@
                         <a href="#" onclick="cikisYap()"><i class="fa fa-sign-out-alt"></i> Çıkış Yap</a>
                     </div>
                 </div>
+                <button onclick="showPage('esnaf')" class="btn btn-outline" id="esnaf-menu-btn"><i class="fa fa-store"></i> Esnafım</button>
                 <button onclick="showPage('ilanver')" class="btn btn-orange"><i class="fa fa-plus"></i> Ücretsiz İlan Ver</button>
             `;
-            alert(`${platform} ile başarıyla giriş yapıldı!`);
             showPage('ilanver');
         }
 
@@ -507,7 +533,7 @@
 
         function kategoriSec(katAdi) {
             document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
-            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisine ait portföy ve talepler filtrelendi.`;
+            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisine ait tüm filtreler ve ilanlar listelendi.`;
             showPage('vitrin');
         }
 
@@ -684,11 +710,6 @@
             yeniMesaj.style.cssText = "background: var(--yb-bg); padding: 12px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;";
             
             let icerik = `<b>${isim}:</b> ${mesajText}`;
-            if(secilenDosyaAdi) {
-                icerik += `<br><span style="color:var(--yb-mavi); font-weight:600;"><i class="fa fa-paperclip"></i> Eklenen Dosya: ${secilenDosyaAdi}</span>`;
-                secilenDosyaAdi = "";
-            }
-
             yeniMesaj.innerHTML = icerik;
             chatBox.appendChild(yeniMesaj);
             input.value = '';
