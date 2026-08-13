@@ -36,7 +36,6 @@
 
         .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; align-items: start; }
         
-        /* Sol Katalog Paneli */
         .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; }
         .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -47,7 +46,6 @@
         .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
 
-        /* İçerik Alanı */
         .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 30px; min-height: 600px; }
         .panel-section { display: none; }
         .panel-section.active { display: block; }
@@ -185,7 +183,7 @@
             <!-- Esnafım Bölgesel Sohbet Paneli -->
             <div id="page-esnaf" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
-                <p style="color: #64748b; font-size: 14px;">Türkiye'nin tüm il, ilçe ve mahalleleri ile esnaf odalarına bağlanın.</p>
+                <p style="color: #64748b; font-size: 14px;">Türkiye'nin tüm 81 il, 973 ilçe ve mahalleleri ile esnaf odalarına bağlanın.</p>
                 
                 <div style="background: var(--yb-bg); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--yb-siniri);">
                     <h3 style="font-size: 15px; margin-bottom: 10px;">Esnaf Kayıt ve Bölge Seçimi</h3>
@@ -346,104 +344,96 @@
             showPage('vitrin');
         }
 
-        // TÜRKİYE'NİN 81 İLİ, TÜM İLÇELERİ VE MAHALLELERİ KAPSAMLI VERİTABANI
-        const turkiyeIlIlceMahalle = {
-            "İstanbul": {
-                "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah."],
-                "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah."],
-                "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah.", "Yıldız Mah."],
-                "Beylikdüzü": ["Adnan Kahveci Mah.", "Barış Mah.", "Büyükşehir Mah.", "Cumhuriyet Mah.", "Yakuplu Mah."],
-                "Esenyurt": ["Piri Reis Mah.", "Esenkent Mah.", "Mehmet Akif Ersoy Mah.", "Fatih Mah.", "Yenikent Mah."],
-                "Ümraniye": ["Atatürk Mah.", "Çakmak Mah.", "Esenşehir Mah.", "Ihlamurkuyu Mah."],
-                "Üsküdar": ["Acıbadem Mah.", "Altunizade Mah.", "Çengelköy Mah.", "Kuzguncuk Mah."],
-                "Fatih": ["Akşemsettin Mah.", "Balat Mah.", "Cibali Mah.", "Hocapaşa Mah."]
-            },
-            "Ankara": {
-                "Çankaya": ["Kızılay Mah.", "Ayrancı Mah.", "Balgat Mah.", "Çayyolu Mah.", "Ümitköy Mah.", "Bahçelievler Mah."],
-                "Keçiören": ["Etlik Mah.", "İncirli Mah.", "Ovacık Mah.", "Kuştepe Mah.", "Şehit Kubilay Mah."],
-                "Yenimahalle": ["Demetevler Mah.", "Batıkent Mah.", "İvedik OSB", "Macun Mah.", "Şentepe Mah."],
-                "Mamak": ["Abidinpaşa Mah.", "Durali Alıç Mah.", "Natoyolu Mah."],
-                "Sincan": ["Fatih Mah.", "Ahi Evran Mah.", "Yenikent Mah."]
-            },
-            "İzmir": {
-                "Konak": ["Alsancak Mah.", "Göztepe Mah.", "Kordon", "Basmane Mah.", "Kahramanlar Mah."],
-                "Bornova": ["Atatürk Mah.", "Kazımdirik Mah.", "Egemenzlik Mah.", "Çamdibi Mah."],
-                "Buca": ["Şirinyer Mah.", "Adatepe Mah.", "Fırat Mah.", "Yıldız Mah."],
-                "Karşıyaka": ["Bostanlı Mah.", "Mavişehir Mah.", "Nergiz Mah.", "Alaybey Mah."],
-                "Çeşme": ["Alaçatı Mah.", "Dalyan Mah.", "Ilıca Mah."]
-            },
-            "Antalya": {
-                "Muratpaşa": ["Fener Mah.", "Lara Mah.", "Güzelyalı Mah.", "Kışla Mah.", "Kızıltoprak Mah."],
-                "Konyaaltı": ["Arapsuyu Mah.", "Gürsu Mah.", "Uncalı Mah.", "Hurma Mah.", "Pınarbaşı Mah."],
-                "Kepez": ["Fatih Mah.", "Şafak Mah.", "Ahatlı Mah.", "Varsak Mah."],
-                "Alanya": ["Oba Mah.", "Cikcilli Mah.", "Mahmutlar Mah.", "Kestel Mah."],
-                "Manavgat": ["Side Mah.", "Çolaklı Mah.", "Evrenseki Mah."]
-            },
-            "Bursa": {
-                "Osmangazi": ["Atatürk Mah.", "Fomara", "Çekirge Mah.", "Elmasbahçeler Mah."],
-                "Nilüfer": ["Özlüce Mah.", "Fethiye Mah.", "Ertuğrul Mah.", "Görükle Mah."],
-                "Yıldırım": ["Mimar Sinan Mah.", "Vakıf Mah.", "Esenevler Mah."],
-                "İnegöl": ["Osmaniye Mah.", "Kemalpaşa Mah.", "Sinanbey Mah."]
-            },
-            "Adana": {
-                "Seyhan": ["Ziyapaşa Mah.", "Gürselpaşa Mah.", "Barajyolu", "Fevzipaşa Mah."],
-                "Çukurova": ["Mahfesığmaz Mah.", "Güzelyalı Mah.", "Yurt Mah.", "Karasu Mah."],
-                "Yüreğir": ["Atakent Mah.", "Ptt Evleri Mah.", "Kışla Mah."]
-            },
-            "Amasya": {
-                "Merkez": ["Hatuniye Mah.", "İstasyon Mah.", "Gökmedrese Mah.", "Mehmet Paşa Mah.", "Fethiye Mah.", "Hacılar Meydanı Mah."],
-                "Merzifon": ["Sofular Mah.", "Haramidere Mah.", "Kavaklı Mah.", "Mehmet Akif Mah.", "Hasan Paşa Mah."],
-                "Suluova": ["Şeker Mah.", "Yüzyıl Mah.", "Orta Mah.", "Cumhuriyet Mah.", "Bilecik Mah."],
-                "Taşova": ["Tepebaşı Mah.", "Uluköy Mah.", "Çaydibi Mah.", "Yenimahalle"],
-                "Göynücek": ["Merkez Mah.", "Gediksaray Mah.", "Tunalı Mah."],
-                "Gümüşhacıköy": ["Caddesatı Mah.", "Korkut Mah.", "Çermik Mah."],
-                "Hamamözü": ["Kızılcaören Mah.", "Merkez Mah.", "Yazıoba Mah."]
-            },
-            "Afyonkarahisar": {
-                "Merkez": ["Marulcu Mah.", "Duatepe Mah.", "Fatih Mah.", "Selçuklu Mah.", "Mecidiye Mah."],
-                "Sandıklı": ["Ece Mah.", "İstasyon Mah.", "Mehmet Akif Mah.", "Hoca Sinan Mah."],
-                "Bolvadin": ["Çarşı Mah.", "Kırkgöz Mah.", "Yenidoğan Mah."],
-                "Dinar": ["İtfaiye Mah.", "Pazar Mah.", "Cumhuriyet Mah."]
-            },
-            "Kırklareli": {
-                "Merkez": ["Karacaibrahim Mah.", "Karahıdır Mah.", "Akalar Mah.", "Datköy"],
-                "Lüleburgaz": ["Kurtuluş Mah.", "Yıldırım Mah.", "Siteler Mah.", "Özalp Mah."],
-                "Babaeski": ["Fevzi Çakmak Mah.", "Gazikemal Mah."],
-                "Vize": ["Evren Mah.", "Zeytinlik Mah."]
-            }
-        };
-
-        // Standart diğer iller için dinamik ilçe jeneratörü (Hiçbiri boş kalmayacak)
-        const digerIlIlceler = {
+        // TÜRKİYE'NİN 81 İLİ VE 973 İLÇESİNİN TAM LİSTESİ
+        const turkiyeIlIlceTamListe = {
+            "Adana": ["Aladağ", "Ceyhan", "Çukurova", "Feke", "İmamoğlu", "Karaisalı", "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yumurtalık", "Yüreğir"],
             "Adıyaman": ["Besni", "Çelikhan", "Gerger", "Gölbaşı", "Kâhta", "Merkez", "Samsat", "Sincik", "Tut"],
+            "Afyonkarahisar": ["Başmakçı", "Bayat", "Bolvadin", "Çay", "Çobanlar", "Dazkırı", "Dinar", "Emirdağ", "Evciler", "Hocalar", "İhsaniye", "İscehisar", "Kızılören", "Merkez", "Sandıklı", "Sinanpaşa", "Sultandağı", "Şuhut"],
             "Ağrı": ["Diyadin", "Doğubayazıt", "Eleşkirt", "Hamur", "Merkez", "Patnos", "Taşlıçay", "Tutak"],
             "Aksaray": ["Ağaçören", "Eskil", "Gülağaç", "Güzelyurt", "Merkez", "Ortaköy", "Sarıyahşi", "Sultanhanı"],
+            "Amasya": ["Göynücek", "Gümüşhacıköy", "Hamamözü", "Merkez", "Merzifon", "Suluova", "Taşova"],
+            "Ankara": ["Akyurt", "Altındağ", "Ayaş", "Bala", "Beypazarı", "Çamlıdere", "Çankaya", "Çubuk", "Elmadağ", "Etimesgut", "Evren", "Gölbaşı", "Güdül", "Haymana", "Kahramankazan", "Kalecik", "Keçiören", "Kızılcahamam", "Mamak", "Nallıhan", "Polatlı", "Pursaklar", "Sincan", "Şereflikoçhisar", "Yenimahalle"],
+            "Antalya": ["Akseki", "Aksu", "Alanya", "Demre", "Döşemealtı", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş", "İbradı", "Kaş", "Kemer", "Kepez", "Konyaaltı", "Korkuteli", "Kumluca", "Manavgat", "Muratpaşa", "Serik"],
+            "Ardahan": ["Çıldır", "Damal", "Göle", "Hanak", "Merkez", "Posof"],
+            "Artvin": ["Ardanuç", "Arhavi", "Borçka", "Hopa", "Kemalpaşa", "Merkez", "Murgul", "Şavşat", "Yusufeli"],
             "Aydın": ["Bozdoğan", "Buharkent", "Çine", "Didim", "Efeler", "Germencik", "İncirliova", "Karacasu", "Karpuzlu", "Koçarlı", "Köşk", "Kuşadası", "Kuyucak", "Nazilli", "Söke", "Sultanhisar", "Yenipazar"],
             "Balıkesir": ["Altıeylül", "Ayvalık", "Balya", "Bandırma", "Bigadiç", "Burhaniye", "Dursunbey", "Edremit", "Erdek", "Gömeç", "Gönen", "Havran", "İvrindi", "Karesi", "Kepsut", "Manyas", "Marmara", "Savaştepe", "Sındırgı", "Susurluk"],
+            "Bartın": ["Amasra", "Kurucaşile", "Merkez", "Ulus"],
+            "Batman": ["Beşiri", "Gercüş", "Hasankeyf", "Kozluk", "Merkez", "Sason"],
+            "Bayburt": ["Aydıntepe", "Demirözü", "Merkez"],
+            "Bilecik": ["Bozüyük", "Gölpazarı", "İnhisar", "Merkez", "Osmaneli", "Pazaryeri", "Söğüt", "Yenipazar"],
+            "Bingöl": ["Adaklı", "Genç", "Karlıova", "Kiğı", "Merkez", "Solhan", "Yayladere", "Yedisu"],
+            "Bitlis": ["Adilcevaz", "Ahlat", "Güroymak", "Hizan", "Merkez", "Mutki", "Tatvan"],
+            "Bolu": ["Dörtdivan", "Gerede", "Göynük", "Kıbrıscık", "Mengen", "Merkez", "Mudurnu", "Seben", "Yeniçağa"],
+            "Burdur": ["Ağlasun", "Altınyayla", "Bucak", "Çavdır", "Çeltikçi", "Gölhisar", "Karamanlı", "Kemer", "Merkez", "Tefenni", "Yeşilova"],
+            "Bursa": ["Büyükorhan", "Gemlik", "Gürsu", "Harmancık", "İnegöl", "İznik", "Karacabey", "Keles", "Kestel", "Mudanya", "Mustafakemalpaşa", "Nilüfer", "Orhaneli", "Orhangazi", "Osmangazi", "Yenişehir", "Yıldırım"],
             "Çanakkale": ["Ayvacık", "Bayramiç", "Biga", "Bozcaada", "Çan", "Eceabat", "Ezine", "Gelibolu", "Gökçeada", "Lapseki", "Merkez", "Yenice"],
+            "Çankırı": ["Atkaracalar", "Bayramören", "Çerkeş", "Eldivan", "Ilgaz", "Kızılırmak", "Korgun", "Kurşunlu", "Merkez", "Orta", "Şabanözü", "Yapraklı"],
+            "Çorum": ["Alaca", "Bayat", "Boğazkale", "Dodurga", "İskilip", "Kargı", "Laçin", "Mecitözü", "Merkez", "Oğuzlar", "Ortaköy", "Osmancık", "Sungurlu", "Uğurludağ"],
             "Denizli": ["Acıpayam", "Babadağ", "Baklan", "Bekilli", "Beyağaç", "Bozkurt", "Buldan", "Çal", "Çameli", "Çardak", "Çivril", "Güney", "Honaz", "Kale", "Merkezefendi", "Pamukkale", "Sarayköy", "Serinhisar", "Tavas"],
             "Diyarbakır": ["Bağlar", "Bismil", "Çermik", "Çınar", "Çüngüş", "Dicle", "Eğil", "Ergani", "Hani", "Hazro", "Kayapınar", "Kulp", "Lice", "Silvan", "Sur", "Yenişehir"],
+            "Düzce": ["Akçakoca", "Cumayeri", "Çilimli", "Gümüşova", "Kaynaşlı", "Merkez", "Yığılca"],
+            "Edirne": ["Enez", "Havsa", "İpsala", "Keşan", "Lalapaşa", "Meriç", "Merkez", "Süloğlu", "Uzunköprü"],
+            "Elazığ": ["Ağın", "Alacakaya", "Arıcak", "Baskil", "Karakoçan", "Keban", "Kovancılar", "Maden", "Merkez", "Palu", "Sivrice"],
+            "Erzincan": ["Çayırlı", "İliç", "Kemah", "Kemaliye", "Merkez", "Otlukbeli", "Refahiye", "Tercan", "Üzümlü"],
+            "Erzurum": ["Aşkale", "Aziziye", "Çat", "Hınıs", "Horasan", "İspir", "Karaçoban", "Karayazı", "Köprüköy", "Narman", "Oltu", "Olur", "Palandöken", "Pasinler", "Pazaryolu", "Şenkaya", "Tortum", "Uzundere", "Yakutiye"],
             "Eskişehir": ["Alpu", "Beylikova", "Çifteler", "Günyüzü", "Han", "İnönü", "Mahmudiye", "Mihalgazi", "Mihalıççık", "Odunpazarı", "Sarıcakaya", "Sivrihisar", "Tepebaşı"],
             "Gaziantep": ["Araban", "İslahiye", "Karkamış", "Nizip", "Nurdağı", "Oğuzeli", "Şahinbey", "Şehitkamil", "Yavuzeli"],
+            "Giresun": ["Alucra", "Bulancak", "Çamoluk", "Çanakçı", "Dereli", "Doğankent", "Espiye", "Eynesil", "Görele", "Güce", "Keşap", "Merkez", "Piraziz", "Şebinkarahisar", "Tirebolu", "Yağlıdere"],
+            "Gümüşhane": ["Kelkit", "Köse", "Kürtün", "Merkez", "Şiran", "Torul"],
+            "Hakkari": ["Çukurca", "Merkez", "Şemdinli", "Yüksekova"],
             "Hatay": ["Altınözü", "Antakya", "Arsuz", "Belen", "Defne", "Dörtyol", "Erzin", "Hassa", "İskenderun", "Kırıkhan", "Kumlu", "Payas", "Reyhanlı", "Samandağ", "Yayladağı"],
+            "Iğdır": ["Aralık", "Karakoyunlu", "Merkez", "Tuzluca"],
+            "Isparta": ["Aksu", "Atabey", "Eğirdir", "Gelendost", "Gönen", "Keçiborlu", "Merkez", "Senirkent", "Sütçüler", "Şarkikaraağaç", "Uluborlu", "Yalvaç", "Yenişarbademli"],
+            "İstanbul": ["Adalar", "Arnavutköy", "Ataşehir", "Avcılar", "Bağcılar", "Bahçelievler", "Bakırköy", "Başakşehir", "Bayrampaşa", "Beşiktaş", "Beykoz", "Beylikdüzü", "Beyoğlu", "Büyükçekmece", "Çatalca", "Çekmeköy", "Esenler", "Esenyurt", "Eyüpsultan", "Fatih", "Gaziosmanpaşa", "Güngören", "Kadıköy", "Kağıthane", "Kartal", "Küçükçekmece", "Maltepe", "Pendik", "Sancaktepe", "Sarıyer", "Silivri", "Sultanbeyli", "Sultangazi", "Şile", "Şişli", "Tuzla", "Ümraniye", "Üsküdar", "Zeytinburnu"],
+            "İzmir": ["Aliağa", "Balçova", "Bayındır", "Bayraklı", "Bergama", "Beydağ", "Bornova", "Buca", "Çeşme", "Çiğli", "Dikili", "Foça", "Gaziemir", "Güzelbahçe", "Karabağlar", "Karaburun", "Karşıyaka", "Kemalpaşa", "Kınık", "Kiraz", "Konak", "Menderes", "Menemen", "Narlıdere", "Ödemiş", "Seferihisar", "Selçuk", "Tire", "Torbalı", "Urla"],
+            "Kahramanmaraş": ["Afşin", "Andırın", "Çağlayancerit", "Dulkadiroğlu", "Ekinözü", "Elbistan", "Göksun", "Nurhak", "Onikişubat", "Pazarcık", "Türkoğlu"],
+            "Karabük": ["Eflani", "Eskipazar", "Merkez", "Ovacık", "Safranbolu", "Yenice"],
+            "Karaman": ["Ayrancı", "Başyayla", "Ermenek", "Kazımkarabekir", "Merkez", "Sarıveliler"],
+            "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"],
+            "Kastamonu": ["Abana", "Ağlı", "Araç", "Azdavay", "Bozkurt", "Cide", "Çatalzeytin", "Daday", "Devrekani", "Doğanyurt", "Hanönü", "İhsangazi", "İnebolu", "Küre", "Merkez", "Pınarbaşı", "Seydiler", "Şenpazar", "Taşköprü", "Tosya"],
             "Kayseri": ["Akkışla", "Bünyan", "Develi", "Felahiye", "Hacılar", "İncesu", "Kocasinan", "Melikgazi", "Pınarbaşı", "Sarıoğlan", "Sarız", "Talas", "Tomarza", "Yahyalı", "Yeşilhisar"],
+            "Kilis": ["Elbeyli", "Merkez", "Musabeyli", "Polateli"],
+            "Kırıkkale": ["Bahşılı", "Balışeyh", "Çelebi", "Delice", "Karakeçili", "Keskin", "Merkez", "Sulakyurt", "Yahşihan"],
+            "Kırklareli": ["Babaeski", "Demirköy", "Kofçaz", "Lüleburgaz", "Pehlivanköy", "Pınarhisar", "Merkez", "Vize"],
+            "Kırşehir": ["Akpınar", "Akçakent", "Boztepe", "Çiçekdağı", "Kaman", "Merkez", "Mucur"],
             "Kocaeli": ["Başiskele", "Çayırova", "Darıca", "Derince", "Dilovası", "Gebze", "Gölcük", "İzmit", "Kandıra", "Karamürsel", "Kartepe", "Körfez"],
             "Konya": ["Ahırlı", "Akören", "Akşehir", "Altınekin", "Beyşehir", "Bozkır", "Cihanbeyli", "Çeltik", "Çumra", "Derbent", "Derebucak", "Doğanhisar", "Emirgazi", "Ereğli", "Güneysınır", "Hadim", "Halkapınar", "Hüyük", "Ilgın", "Kadınhanı", "Karapınar", "Karatay", "Kulu", "Meram", "Sarayönü", "Selçuklu", "Seydişehir", "Taşkent", "Tuzlukçu", "Yalıhüyük", "Yunak"],
+            "Kütahya": ["Altıntaş", "Aslanapa", "Çavdarhisar", "Domaniç", "Dumlupınar", "Emet", "Gediz", "Hisarcık", "Merkez", "Pazarlar", "Simav", "Şaphane", "Tavşanlı"],
+            "Malatya": ["Akçadağ", "Arapgir", "Arguvan", "Battalgazi", "Darende", "Doğanşehir", "Doğanyol", "Hekimhan", "Kale", "Kuluncak", "Pütürge", "Yazıhan", "Yeşilyurt"],
             "Manisa": ["Ahmetli", "Akhisar", "Alaşehir", "Demirci", "Gölmarmara", "Gördes", "Kırkağaç", "Köprübaşı", "Kula", "Salihli", "Sarıgöl", "Saruhanlı", "Selendi", "Soma", "Şehzadeler", "Turgutlu", "Yunusemre"],
+            "Mardin": ["Artuklu", "Dargeçit", "Derik", "Kızıltepe", "Mazıdağı", "Midyat", "Nusaybin", "Ömerli", "Savur", "Yeşilli"],
             "Mersin": ["Akdeniz", "Anamur", "Aydıncık", "Bozyazı", "Çamlıyayla", "Erdemli", "Gülnar", "Mezitli", "Mut", "Silifke", "Tarsus", "Toroslar", "Yenişehir"],
             "Muğla": ["Bodrum", "Dalaman", "Datça", "Fethiye", "Kavaklıdere", "Köyceğiz", "Marmaris", "Menteşe", "Milas", "Ortaca", "Seydikemer", "Ula", "Yatağan"],
+            "Muş": ["Bulanık", "Hasköy", "Korkut", "Malazgirt", "Merkez", "Varto"],
+            "Nevşehir": ["Acıgöl", "Avanos", "Derinkuyu", "Gülşehir", "Hacıbektaş", "Kozaklı", "Merkez", "Ürgüp"],
+            "Niğde": ["Altunhisar", "Bor", "Çamardı", "Çiftlik", "Merkez", "Ulukışla"],
+            "Ordu": ["Akkuş", "Altınordu", "Aybastı", "Çamaş", "Çatalpınar", "Çaybaşı", "Fatsa", "Gölköy", "Gülyalı", "Gürgentepe", "İkizce", "Kabadüz", "Kabataş", "Korgan", "Kumru", "Mesudiye", "Perşembe", "Ulubey", "Ünye"],
+            "Osmaniye": ["Bahçe", "Düziçi", "Hasanbeyli", "Kadirli", "Merkez", "Sumbas", "Toprakkale"],
+            "Rize": ["Ardeşen", "Çamlıhemşin", "Çayeli", "Derepazarı", "Fındıklı", "Güneysu", "Hemşin", "İkizdere", "İyidere", "Kalkandere", "Merkez", "Pazar"],
             "Sakarya": ["Adapazarı", "Akyazı", "Arifiye", "Erenler", "Ferizli", "Geyve", "Hendek", "Karapürçek", "Karasu", "Kaynarca", "Pamukova", "Sapanca", "Serdivan", "Söğütlü", "Taraklı"],
             "Samsun": ["19 Mayıs", "Alaçam", "Asarcık", "Atakum", "Ayvacık", "Bafra", "Canik", "Çarşamba", "Havza", "Kavak", "Ladik", "Salıpazarı", "Tekkeköy", "Terme", "Vezirköprü", "Yakakent"],
+            "Siirt": ["Baykan", "Eruh", "Kurtalan", "Merkez", "Pervari", "Şirvan"],
+            "Sinop": ["Ayancık", "Boyabat", "Dikmen", "Durağan", "Erfelek", "Gerze", "Merkez", "Saraydüzü", "Türkeli"],
+            "Sivas": ["Akıncılar", "Altınyayla", "Divriği", "Doğanşar", "Gemerek", "Gürün", "Hafik", "İmranlı", "Kangal", "Koyulhisar", "Merkez", "Suşehri", "Şarkışla", "Ulaş", "Yıldızeli", "Zara"],
+            "Şanlıurfa": ["Akçakale", "Birecik", "Bozova", "Ceylanpınar", "Eyyübiye", "Halfeti", "Haliliye", "Harran", "Hilvan", "Siverek", "Suruç", "Viranşehir"],
+            "Şırnak": ["Beytüşşebap", "Cizre", "Güçlükonak", "İdil", "Merkez", "Silopi", "Uludere"],
             "Tekirdağ": ["Çerkezköy", "Çorlu", "Ergene", "Hayrabolu", "Kapaklı", "Malkara", "Marmaraereğlisi", "Muratlı", "Saray", "Süleymanpaşa", "Şarköy"],
+            "Tokat": ["Almus", "Artova", "Başçiftlik", "Erbaa", "Niksar", "Pazar", "Reşadiye", "Sulusaray", "Turhal", "Yeşilyurt", "Zile"],
             "Trabzon": ["Akçaabat", "Araklı", "Arsin", "Beşikdüzü", "Çarşıbaşı", "Çaykara", "Dernekpazarı", "Düzköy", "Hayrat", "Köprübaşı", "Maçka", "Of", "Ortahisar", "Sürmene", "Şalpazarı", "Tonya", "Vakfıkebir", "Yomra"],
-            "Van": ["Bahçesaray", "Başkale", "Çaldıran", "Çatak", "Edremit", "Erciş", "Gevaş", "Gürpınar", "Muradiye", "Özalp", "Saray", "Tuşba"]
+            "Tunceli": ["Çemişgezek", "Hozat", "Mazgirt", "Merkez", "Nazımiye", "Ovacık", "Pertek", "Pülümür"],
+            "Uşak": ["Banaz", "Eşme", "Karahallı", "Merkez", "Sivaslı", "Ulubey"],
+            "Van": ["Bahçesaray", "Başkale", "Çaldıran", "Çatak", "Edremit", "Erciş", "Gevaş", "Gürpınar", "Muradiye", "Özalp", "Saray", "Tuşba"],
+            "Yalova": ["Altınova", "Armutlu", "Çınarcık", "Çiftlikköy", "Merkez", "Termal"],
+            "Yozgat": ["Akdağmadeni", "Aydıncık", "Boğazlıyan", "Çandır", "Çayıralan", "Çekerek", "Kadışehri", "Merkez", "Saraykent", "Sorgun", "Şefaatli", "Yenifakılı", "Yerköy"],
+            "Zonguldak": ["Alaplı", "Çaycuma", "Devrek", "Gökçebey", "Karadeniz Ereğli", "Merkez"]
         };
 
         window.onload = function() {
             const ilSelect = document.getElementById('il-sec');
-            const tumIllerSet = new Set([...Object.keys(turkiyeIlIlceMahalle), ...Object.keys(digerIlIlceler), "Artvin", "Ardahan", "Ağrı", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Çankırı", "Çorum", "Elazığ", "Erzincan", "Erzurum", "Giresun", "Gümüşhane", "Hakkari", "Iğdır", "Isparta", "Kahramanmaraş", "Karabük", "Karaman", "Kars", "Kastamonu", "Kilis", "Kırıkkale", "Kırşehir", "Kütahya", "Malatya", "Mardin", "Muş", "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Siirt", "Sinop", "Sivas", "Şanlıurfa", "Şırnak", "Tokat", "Tunceli", "Uşak", "Yalova", "Yozgat", "Zonguldak"]);
+            const iller = Object.keys(turkiyeIlIlceTamListe).sort();
             
-            Array.from(tumIllerSet).sort().forEach(il => {
+            iller.forEach(il => {
                 let opt = document.createElement('option');
                 opt.value = il;
                 opt.innerHTML = il;
@@ -459,46 +449,59 @@
             ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
             mahalleSelect.innerHTML = '<option value="">Önce İlçe Seçiniz</option>';
             
-            let ilcelerListesi = [];
-            if(turkiyeIlIlceMahalle[il]) {
-                ilcelerListesi = Object.keys(turkiyeIlIlceMahalle[il]);
-            } else if(digerIlIlceler[il]) {
-                ilcelerListesi = digerIlIlceler[il];
-            } else if(il) {
-                ilcelerListesi = ["Merkez", "1. İlçe", "2. İlçe", "3. İlçe"];
+            if(turkiyeIlIlceTamListe[il]) {
+                turkiyeIlIlceTamListe[il].forEach(ilce => {
+                    let opt = document.createElement('option');
+                    opt.value = ilce;
+                    opt.innerHTML = ilce;
+                    ilceSelect.appendChild(opt);
+                });
             }
-
-            ilcelerListesi.sort().forEach(ilce => {
-                let opt = document.createElement('option');
-                opt.value = ilce;
-                opt.innerHTML = ilce;
-                ilceSelect.appendChild(opt);
-            });
         }
 
         function mahalleleriGetir() {
             const il = document.getElementById('il-sec').value;
-            const ilceSelect = document.getElementById('ilce-sec').value;
+            const ilce = document.getElementById('ilce-sec').value;
             const mahalleSelect = document.getElementById('mahalle-sec');
             
             mahalleSelect.innerHTML = '<option value="">Semt / Mahalle Seçiniz</option>';
             
-            if(turkiyeIlIlceMahalle[il] && turkiyeIlIlceMahalle[il][ilceSelect]) {
-                turkiyeIlIlceMahalle[il][ilceSelect].forEach(mahalle => {
-                    let opt = document.createElement('option');
-                    opt.value = mahalle;
-                    opt.innerHTML = mahalle;
-                    mahalleSelect.appendChild(opt);
-                });
-            } else if(ilceSelect) {
-                let varsayilanMahalleler = ["Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Bahçelievler Mah.", "Atatürk Mah."];
-                varsayilanMahalleler.forEach(mahalle => {
-                    let opt = document.createElement('option');
-                    opt.value = mahalle;
-                    opt.innerHTML = mahalle;
-                    mahalleSelect.appendChild(opt);
-                });
+            // Seçilen ilçeye özel örnek ve genel mahalle havuzu
+            let mahalleler = [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah.", "Bahçelievler Mah.", "Sanayi Mah."];
+            
+            if(il === "İstanbul" && ilce === "Başakşehir") {
+                mahalleler = ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah."];
             }
+
+            mahalleler.forEach(mahalle => {
+                let opt = document.createElement('option');
+                opt.value = mahalle;
+                opt.innerHTML = mahalle;
+                mahalleSelect.appendChild(opt);
+            });
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.panel-section').forEach(el => el.classList.remove('active'));
+            if(pageId === 'vitrin') document.getElementById('page-vitrin').classList.add('active');
+            else if(pageId === 'esnaf') document.getElementById('page-esnaf').classList.add('active');
+            else if(pageId === 'ilanver') document.getElementById('page-ilanver').classList.add('active');
+        }
+
+        function toggleSub(subId) {
+            const subMenu = document.getElementById(subId);
+            if (subMenu.style.display === 'block') {
+                subMenu.style.display = 'none';
+            } else {
+                document.querySelectorAll('.cat-sub').forEach(el => el.style.display = 'none');
+                subMenu.style.display = 'block';
+            }
+        }
+
+        function kategoriSec(katAdi) {
+            document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
+            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisine ait portföy ve ilanlar filtrelendi.`;
+            showPage('vitrin');
         }
 
         let secilenDosyaAdi = "";
