@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Türkiye'nin Güvenli İlan, Nakliye ve Kentsel Dönüşüm Ağı</title>
+    <title>YerimBurada - Profesyonel İlan, Nakliye ve Kentsel Dönüşüm Platformu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -130,6 +130,7 @@
                     <li onclick="kategoriSec('Yalı')">Yalı</li>
                     <li onclick="kategoriSec('Yazlık')">Yazlık</li>
                     <li onclick="kategoriSec('Köşk & Konak')">Köşk & Konak</li>
+                    <li onclick="kategoriSec('Dubpleks & Çatı Katı')">Dubleks / Çatı Katı</li>
                 </ul>
             </div>
 
@@ -268,10 +269,10 @@
                 </div>
             </div>
 
-            <!-- Yeni Nesil Tek Ekran Akıllı İlan ve Hizmet Sihirbazı (Adres ve 15+1'e Kadar Oda Sıralaması Dahil) -->
+            <!-- Yeni Nesil Tek Ekran Akıllı İlan ve Hizmet Sihirbazı -->
             <div id="page-ilanver" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-bolt"></i> Yeni Nesil Hızlı İlan & Hizmet Merkezi</h2>
-                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Aşağıdan kategori seçin, adresinizi belirtin ve anında yayınlayın.</p>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Aşağıdan kategori seçin, detaylı daire niteliklerini belirleyin ve anında yayınlayın.</p>
                 
                 <!-- Akıllı Kartlar -->
                 <div class="smart-cards-grid">
@@ -293,7 +294,7 @@
                     <div class="form-grid">
                         <div class="form-group form-full">
                             <label>İlan / Talep Başlığı</label>
-                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir'de Lüks Daire veya Ev Taşıma Talebi">
+                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir'de Ara Kat Dubleks Lüks Daire">
                         </div>
 
                         <!-- ADRES SEÇİM ALANLARI (İl, Yaka, İlçe, Mahalle) -->
@@ -327,11 +328,25 @@
                             </select>
                         </div>
 
-                        <!-- GAYRİMENKUL ALANLARI (1+1'den 15+1'e Tüm Buçuklu ve Çift Salonlu Sıralama) -->
+                        <!-- GAYRİMENKUL ALANLARI (Genişletilmiş Nitelikler ve 15+1 Oda Seçenekleri) -->
                         <div class="form-group gayrimenkul-alan">
-                            <label>Konut Tipi</label>
-                            <select><option>Daire</option><option>Rezidans</option><option>Villa</option><option>Müstakil Ev</option><option>Yalı</option><option>Yazlık</option></select>
+                            <label>Konut Tipi / Nitelikleri</label>
+                            <select>
+                                <option>Daire</option>
+                                <option>Ara Kat Dubleks</option>
+                                <option>Çatı Dubleksi</option>
+                                <option>Ters Dubleks</option>
+                                <option>Bahçe Katı</option>
+                                <option>Giriş Katı</option>
+                                <option>Yüksek Giriş</option>
+                                <option>Müstakil Ev</option>
+                                <option>Villa</option>
+                                <option>Rezidans</option>
+                                <option>Yalı / Yalı Dairesi</option>
+                                <option>Loft</option>
+                            </select>
                         </div>
+
                         <div class="form-group gayrimenkul-alan">
                             <label>Oda Sayısı (1+1'den 15+1'e)</label>
                             <select>
@@ -353,9 +368,45 @@
                                 <option>7+1</option>
                                 <option>7+2</option>
                                 <option>7+3</option>
-                                <option>8+10</option>
-                                <option>9+1 ve Üzeri</option>
+                                <option>8+1</option>
+                                <option>8+2</option>
+                                <option>9+1</option>
+                                <option>10+1</option>
                                 <option>15+1</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group gayrimenkul-alan">
+                            <label>Bulunduğu Kat (1'den 50'ye)</label>
+                            <select>
+                                <option>Bodrum Kat</option>
+                                <option>Zemin Kat</option>
+                                <option>Giriş Katı</option>
+                                <option>Yüksek Giriş</option>
+                                <option>Bahçe Katı</option>
+                                <option>1. Kat</option><option>2. Kat</option><option>3. Kat</option><option>4. Kat</option><option>5. Kat</option>
+                                <option>6. Kat</option><option>7. Kat</option><option>8. Kat</option><option>9. Kat</option><option>10. Kat</option>
+                                <option>11. Kat</option><option>12. Kat</option><option>13. Kat</option><option>14. Kat</option><option>15. Kat</option>
+                                <option>16. Kat</option><option>17. Kat</option><option>18. Kat</option><option>19. Kat</option><option>20. Kat</option>
+                                <option>21. Kat</option><option>22. Kat</option><option>23. Kat</option><option>24. Kat</option><option>25. Kat</option>
+                                <option>26. Kat</option><option>27. Kat</option><option>28. Kat</option><option>29. Kat</option><option>30. Kat</option>
+                                <option>31. Kat</option><option>32. Kat</option><option>33. Kat</option><option>34. Kat</option><option>35. Kat</option>
+                                <option>36. Kat</option><option>37. Kat</option><option>38. Kat</option><option>39. Kat</option><option>40. Kat</option>
+                                <option>41. Kat</option><option>42. Kat</option><option>43. Kat</option><option>44. Kat</option><option>45. Kat</option>
+                                <option>46. Kat</option><option>47. Kat</option><option>48. Kat</option><option>49. Kat</option><option>50. Kat ve Üzeri</option>
+                                <option>Çatı Katı</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group gayrimenkul-alan">
+                            <label>Isıtma Tipi</label>
+                            <select>
+                                <option>Kombi (Doğalgaz)</option>
+                                <option>Merkezi (Pay Ölçer)</option>
+                                <option>Yerden Isıtma</option>
+                                <option>Klima</option>
+                                <option>Sobalı</option>
+                                <option>Yerden Isıtma + Kombi</option>
                             </select>
                         </div>
 
@@ -494,14 +545,13 @@
         };
 
         const ilceMahalleleri = {
-            "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah."],
-            "Küçükçekmece": ["Atatürk Mah.", "Cennet Mah.", "Fatih Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Söğütlüçeşme Mah.", "Yeni Mah."],
-            "Arnavutköy": ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah."],
-            "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah."],
-            "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah."]
+            "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah.", "Şamlar Mah."],
+            "Küçükçekmece": ["Atatürk Mah.", "Beşyol Mah.", "Cennet Mah.", "Fatih Mah.", "Fevzi Çakmak Mah.", "Gültepe Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Kartaltepe Mah.", "Kemalpaşa Mah.", "Mehmet Akif Mah.", "Söğütlüçeşme Mah.", "Sultan Murat Mah.", "Tepeüstü Mah.", "Yarımburgaz Mah.", "Yeni Mah."],
+            "Arnavutköy": ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah.", "Hadımköy Mah.", "Yenidoğan Mah."],
+            "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah.", "Caferağa Mah.", "Feneryolu Mah.", "Rasimpaşa Mah."],
+            "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah.", "Yıldız Mah.", "Balmumcu Mah.", "Vişnezade Mah."]
         };
 
-        // İlan Ver Sayfası için Adres Fonksiyonları
         window.onload = function() {
             const ilSelect = document.getElementById('il-sec');
             const ilanIlSelect = document.getElementById('ilan-il');
@@ -552,13 +602,12 @@
             const mahalleSelect = document.getElementById('mahalle-sec');
             mahalleSelect.innerHTML = '<option value="">Semt / Mahalle Seçiniz</option>';
             if (!ilce) return;
-            let mahalleler = ilceMahalleleri[ilce] || [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah."];
+            let mahalleler = ilceMahalleleri[ilce] || [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah.", "Bahçelievler Mah.", "Sanayi Mah."];
             mahalleler.sort().forEach(mahalle => {
                 let opt = document.createElement('option'); opt.value = mahalle; opt.innerHTML = mahalle; mahalleSelect.appendChild(opt);
             });
         }
 
-        // İlan Ver Sayfası Adres Fonksiyonları
         function ilanIlDegisti() {
             const il = document.getElementById('ilan-il').value;
             const yakaContainer = document.getElementById('ilan-yaka-container');
@@ -585,7 +634,7 @@
             const mahalleSelect = document.getElementById('ilan-mahalle-sec');
             mahalleSelect.innerHTML = '<option value="">Semt / Mahalle Seçiniz</option>';
             if (!ilce) return;
-            let mahalleler = ilceMahalleleri[ilce] || [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah."];
+            let mahalleler = ilceMahalleleri[ilce] || [ilce + " Merkez Mah.", "Cumhuriyet Mah.", "Yeni Mah.", "Fatih Mah.", "Atatürk Mah.", "Bahçelievler Mah.", "Sanayi Mah."];
             mahalleler.sort().forEach(mahalle => {
                 let opt = document.createElement('option'); opt.value = mahalle; opt.innerHTML = mahalle; mahalleSelect.appendChild(opt);
             });
