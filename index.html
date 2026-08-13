@@ -76,7 +76,7 @@
         <div class="nav-container">
             <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="Daire, arsa, kentsel dönüşüm, otomobil, motosiklet ara...">
+                <input type="text" placeholder="Daire, rezidans, arsa, tarla, otomobil, nakliye ara...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions">
@@ -88,66 +88,89 @@
     </header>
 
     <div class="main-layout">
-        <!-- Sol Gelişmiş Akordeon Katalog (Doldurulmuş Zengin Seçenekler) -->
+        <!-- Sol Gelişmiş Akordeon Katalog (Kesinlikle Alt Alta ve Ayrı) -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
             
-            <!-- Konut / Ev Kategorisi -->
+            <!-- Konut & Ev (Tek Tek Alt Alta) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('konut-sub')">
                     <span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> Konut & Ev</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="konut-sub">
-                    <li onclick="kategoriFiltrele('Daire / Rezidans')">Daire & Rezidans</li>
-                    <li onclick="kategoriFiltrele('Villa & Müstakil Ev')">Villa & Müstakil Ev</li>
-                    <li onclick="kategoriFiltrele('Yalı & Yalı Dairesi')">Yalı & Yalı Dairesi</li>
-                    <li onclick="kategoriFiltrele('Yazlık & Kooperatif')">Yazlık & Kooperatif</li>
-                    <li onclick="kategoriFiltrele('Köşk & Konak')">Köşk & Konak</li>
+                    <li onclick="kategoriFiltrele('Daire')">Daire</li>
+                    <li onclick="kategoriFiltrele('Rezidans')">Rezidans</li>
+                    <li onclick="kategoriFiltrele('Villa')">Villa</li>
+                    <li onclick="kategoriFiltrele('Müstakil Ev')">Müstakil Ev</li>
+                    <li onclick="kategoriFiltrele('Yalı')">Yalı</li>
+                    <li onclick="kategoriFiltrele('Yalı Dairesi')">Yalı Dairesi</li>
+                    <li onclick="kategoriFiltrele('Yazlık')">Yazlık</li>
+                    <li onclick="kategoriFiltrele('Kooperatif')">Kooperatif</li>
+                    <li onclick="kategoriFiltrele('Köşk')">Köşk</li>
+                    <li onclick="kategoriFiltrele('Konak')">Konak</li>
                 </ul>
             </div>
 
-            <!-- Arsa & Arazi Kategorisi -->
+            <!-- Arsa & Tarla (Tek Tek Alt Alta Nitelikler) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('arsa-sub')">
-                    <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Tarla</span>
+                    <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Arazi</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="arsa-sub">
                     <li onclick="kategoriFiltrele('İmarlı Arsa')">İmarlı Arsa</li>
-                    <li onclick="kategoriFiltrele('Tarla & Bağ & Bahçe')">Tarla, Bağ & Bahçe</li>
-                    <li onclick="kategoriFiltrele('Zeytinlik & Zirai')">Zeytinlik & Zirai Arazi</li>
+                    <li onclick="kategoriFiltrele('Tarla')">Tarla</li>
+                    <li onclick="kategoriFiltrele('Bağ')">Bağ</li>
+                    <li onclick="kategoriFiltrele('Bahçe')">Bahçe</li>
+                    <li onclick="kategoriFiltrele('Zeytinlik')">Zeytinlik</li>
+                    <li onclick="kategoriFiltrele('Mera')">Mera</li>
+                    <li onclick="kategoriFiltrele('Zirai Arazi')">Zirai Arazi</li>
                 </ul>
             </div>
 
-            <!-- İş Yeri & Dükkan -->
+            <!-- İş Yeri & Dükkan (Tek Tek Alt Alta) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('isyeri-sub')">
                     <span><i class="fa fa-store" style="color:var(--yb-turuncu); width:20px;"></i> İş Yeri & Dükkan</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="isyeri-sub">
-                    <li onclick="kategoriFiltrele('Dükkan & Mağaza')">Dükkan & Mağaza</li>
-                    <li onclick="kategoriFiltrele('Ofis & Büro')">Ofis & Büro</li>
-                    <li onclick="kategoriFiltrele('Depo & Antrepo')">Depo & Antrepo</li>
+                    <li onclick="kategoriFiltrele('Dükkan')">Dükkan</li>
+                    <li onclick="kategoriFiltrele('Mağaza')">Mağaza</li>
+                    <li onclick="kategoriFiltrele('Ofis')">Ofis</li>
+                    <li onclick="kategoriFiltrele('Büro')">Büro</li>
+                    <li onclick="kategoriFiltrele('Depo')">Depo</li>
+                    <li onclick="kategoriFiltrele('Antrepo')">Antrepo</li>
                     <li onclick="kategoriFiltrele('Plaza Katı')">Plaza Katı</li>
                 </ul>
             </div>
 
-            <!-- Vasıta & Galeri -->
+            <!-- Vasıta & Galeri (Ayrı Ayrı Alt Alta) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('vasita-sub')">
                     <span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> Vasıta & Galeri</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="vasita-sub">
-                    <li onclick="kategoriFiltrele('Otomobil')">Otomobil (Sedan, HB, Coupe)</li>
-                    <li onclick="kategoriFiltrele('Arazi, SUV & Pickup')">Arazi, SUV & Pickup</li>
-                    <li onclick="kategoriFiltrele('Minivan & Panelvan')">Minivan & Panelvan</li>
-                    <li onclick="kategoriFiltrele('Motosiklet & Bisiklet')">Motosiklet & Bisiklet</li>
-                    <li onclick="kategoriFiltrele('Scooter & Elektrikli')">Scooter & Elektrikli</li>
-                    <li onclick="kategoriFiltrele('Karavan & Deniz Araçları')">Karavan, Bot & Deniz Araçları (Gemi/Yat)</li>
+                    <li onclick="kategoriFiltrele('Otomobil')">Otomobil</li>
+                    <li onclick="kategoriFiltrele('Arazi (SUV)')">Arazi (SUV)</li>
+                    <li onclick="kategoriFiltrele('Pickup')">Pickup</li>
+                    <li onclick="kategoriFiltrele('Minivan')">Minivan</li>
+                    <li onclick="kategoriFiltrele('Panelvan')">Panelvan</li>
+                    <li onclick="kategoriFiltrele('Motosiklet')">Motosiklet</li>
+                    <li onclick="kategoriFiltrele('Bisiklet')">Bisiklet</li>
+                    <li onclick="kategoriFiltrele('Scooter')">Scooter</li>
+                    <li onclick="kategoriFiltrele('Karavan')">Karavan</li>
+                    <li onclick="kategoriFiltrele('Deniz Araçları / Gemi')">Deniz Araçları / Gemi / Yat</li>
                 </ul>
+            </div>
+
+            <!-- Nakliye Hizmetleri -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="kategoriFiltrele('Nakliye Hizmetleri')">
+                    <span><i class="fa fa-truck" style="color:var(--yb-turuncu); width:20px;"></i> <b>Nakliye Hizmetleri</b></span>
+                </div>
             </div>
 
             <!-- Kentsel Dönüşüm -->
@@ -188,31 +211,6 @@
                         <option>21 - 30 arası</option>
                         <option>31 - 50 arası</option>
                         <option>50 ve Üzeri</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Bulunduğu Kat</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>Bahçe Katı</option>
-                        <option>Giriş Katı</option>
-                        <option>1. Kat</option>
-                        <option>2. Kat</option>
-                        <option>3. Kat</option>
-                        <option>4. Kat ve Üzeri</option>
-                        <option>Çatı Katı</option>
-                    </select>
-                </div>
-
-                <div class="filter-title">Isıtma Tipi</div>
-                <div class="filter-content">
-                    <select>
-                        <option value="">Seçiniz</option>
-                        <option>Kombi (Doğalgaz)</option>
-                        <option>Merkezi (Pay Ölçer)</option>
-                        <option>Yerden Isıtma</option>
-                        <option>Klima</option>
                     </select>
                 </div>
 
@@ -280,7 +278,7 @@
                     <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; overflow: hidden;">
                         <div id="chat-messages" style="height: 280px; background: #fff; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
                             <div style="background: var(--yb-bg); padding: 10px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;">
-                                <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz! Burada daire arayışları, kentsel dönüşüm ve görseller paylaşabilirsiniz.
+                                <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz! Burada daire arayışları, kentsel dönüşüm ve nakliye talepleri paylaşabilirsiniz.
                             </div>
                         </div>
                         <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1px solid var(--yb-siniri); gap: 10px; align-items: center;">
@@ -297,24 +295,28 @@
 
             <!-- Ücretsiz İlan Ver Ekranı -->
             <div id="page-ilanver" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan Ver / Kentsel Dönüşüm Talebi Oluştur</h2>
-                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">İstediğiniz kategoride ilanınızı girin veya kentsel dönüşüm başvurunuzu yapın.</p>
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan Ver / Başvuru Oluştur</h2>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">İstediğiniz kategoride ilanınızı girin.</p>
                 
                 <div style="background: var(--yb-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--yb-siniri);">
                     <div class="form-grid">
                         <div class="form-group">
                             <label>İlan Başlığı</label>
-                            <input type="text" placeholder="Örn: Başakşehir'de Satılık 3+1 Daire / Kentsel Dönüşüm">
+                            <input type="text" placeholder="Örn: Başakşehir'de Satılık Daire / Nakliye / Arsa">
                         </div>
                         <div class="form-group">
                             <label>Kategori Seçin</label>
                             <select>
-                                <option>Daire / Rezidans</option>
-                                <option>Villa & Müstakil Ev</option>
-                                <option>Arsa & Tarla</option>
+                                <option>Daire</option>
+                                <option>Rezidans</option>
+                                <option>Villa</option>
+                                <option>Müstakil Ev</option>
+                                <option>Yalı</option>
+                                <option>İmarlı Arsa</option>
+                                <option>Tarla</option>
                                 <option>Otomobil</option>
+                                <option>Nakliye Hizmetleri</option>
                                 <option>Kentsel Dönüşüm Hizmeti</option>
-                                <option>İş Yeri & Dükkan</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -389,7 +391,7 @@
             showPage('vitrin');
         }
 
-        // Türkiye'nin 81 İlinin İlçeleri ve Mahalle Veritabanı (Amasya Dahil Tüm Türkiye)
+        // Türkiye'nin 81 İlinin İlçeleri ve Mahalle Veritabanı
         const turkiyeIlIlceMahalle = {
             "İstanbul": {
                 "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Bölge", "Bahçeşehir 2. Bölge", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB"],
@@ -451,7 +453,6 @@
                     ilceSelect.appendChild(opt);
                 });
             } else if(il) {
-                // Veritabanında detaylı ilçesi olmayan iller için genel ilçe listesi simülasyonu
                 let genelIlceler = ["Merkez", "Merkez İlçe", "1. Bölge", "2. Bölge"];
                 genelIlceler.forEach(ilce => {
                     let opt = document.createElement('option');
