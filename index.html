@@ -2,76 +2,129 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>YerimBurada - Türkiye'nin Premium Ticaret Ağı</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinamik Kategori Filtreleme Sistemi</title>
     <style>
-        /* Modern Tasarım Stilleri */
-        :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; }
-        body { background: #f3f4f6; font-family: 'Inter', sans-serif; }
-        header { background: var(--yb-karanlik); border-bottom: 3px solid var(--yb-turuncu); padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: 800; color: #fff; }
-        .sidebar { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
-        .main-container { display: flex; gap: 20px; padding: 20px; max-width: 1400px; margin: auto; }
-        .content-area { flex: 1; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .cat-header { padding: 10px; cursor: pointer; font-weight: 600; }
-        .panel-section { display: none; }
-        .panel-section.active { display: block; }
-        .btn-orange { background: var(--yb-turuncu); color: #fff; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #f4f6f8; display: flex; justify-content: center; padding: 40px; }
+        .container { width: 100%; max-width: 900px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { margin-bottom: 20px; color: #333; }
+        
+        /* Kategori Seçim Butonları */
+        .categories { display: flex; gap: 15px; margin-bottom: 25px; }
+        .cat-btn { padding: 12px 24px; border: 2px solid #ddd; background: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .cat-btn.active { border-color: #0055ff; background: #eef3ff; color: #0055ff; }
+
+        /* Dinamik Panel Alanı */
+        .filter-panel { background: #fafbfc; border: 1px solid #e1e4e8; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 13px; font-weight: bold; color: #555; }
+        .form-group select, .form-group input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fff; }
+
+        /* Arama Butonu */
+        .search-action { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 20px; }
+        .result-count { font-weight: bold; color: #666; }
+        .search-btn { background: #ff5500; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .search-btn:hover { background: #e04c00; }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo">Yerim<span>Burada</span></a>
-    <div id="auth-header">
-        <button onclick="toggleAuthModal()" class="btn-orange">Giriş Yap / Üye Ol</button>
-        <button onclick="ilanVerClick()" class="btn-orange">Ücretsiz İlan Ver</button>
-    </div>
-</header>
+<div class="container">
+    <h2>Kategori Bazlı Dinamik Filtre</h2>
 
-<div class="main-container">
-    <div class="sidebar">
-        <h3>KATEGORİLER</h3>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">1. Emlak</div></div>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">2. Vasıta</div></div>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">3. Yedek Parça</div></div>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">4. Alışveriş</div></div>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">5. İş İlanları</div></div>
-        <div class="cat-item"><div class="cat-header" onclick="showPage('ilanver')">6. Hizmetler</div></div>
+    <!-- 1. Adım: Kategoriler -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="changeCategory('konut', this)">Konut / Daire</button>
+        <button class="cat-btn" onclick="changeCategory('otomobil', this)">Otomobil</button>
     </div>
 
-    <div class="content-area">
-        <div id="page-vitrin" class="panel-section active">
-            <h2>Vitrin</h2>
-        </div>
-        <div id="page-ilanver" class="panel-section">
-            <h2>İlan Verme Paneli</h2>
-            <!-- Buraya istediğin tüm filtreler ve formlar gelecek -->
-        </div>
+    <!-- 2. Adım: Dinamik Değişen Filtre Paneli -->
+    <div id="filterPanel" class="filter-panel">
+        <!-- JavaScript burayı otomatik dolduracak -->
+    </div>
+
+    <!-- 3. Adım: Sonuç ve Arama Butonu -->
+    <div class="search-action">
+        <span id="resultCount" class="result-count">1.420 İlan Bulundu</span>
+        <button class="search-btn" onclick="executeSearch()">İlanları Listele</button>
     </div>
 </div>
 
 <script>
-    let isLogged = false;
+    // Kategorilere göre panellerin HTML içerikleri
+    const filterTemplates = {
+        konut: `
+            <div class="form-group">
+                <label>Oda Sayısı</label>
+                <select>
+                    <option>Seçiniz</option>
+                    <option>1+1</option>
+                    <option>2+1</option>
+                    <option>3+1</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Metrekare (m²)</label>
+                <input type="text" placeholder="Min - Max">
+            </div>
+            <div class="form-group">
+                <label>Bina Yaşı</label>
+                <select>
+                    <option>0 (Sıfır)</option>
+                    <option>1-5 arası</option>
+                    <option>5-10 arası</option>
+                </select>
+            </div>
+        `,
+        otomobil: `
+            <div class="form-group">
+                <label>Marka</label>
+                <select>
+                    <option>Seçiniz</option>
+                    <option>BMW</option>
+                    <option>Mercedes</option>
+                    <option>Renault</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Vites Tipi</label>
+                <select>
+                    <option>Tümü</option>
+                    <option>Düz</option>
+                    <option>Otomatik</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kilometre (Max)</label>
+                <input type="number" placeholder="Örn: 100000">
+            </div>
+        `
+    };
 
-    function showPage(pageId) {
-        document.querySelectorAll('.panel-section').forEach(p => p.style.display = 'none');
-        document.getElementById('page-' + pageId).style.display = 'block';
-    }
+    // Kategori değiştirme fonksiyonu
+    function changeCategory(categoryName, btnElement) {
+        // Aktif buton görselini güncelle
+        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
 
-    function ilanVerClick() {
-        if(!isLogged) {
-            alert("İlan vermek için önce giriş yapmalısınız!");
-            return;
+        // İlgili kategoriye ait filtre HTML'ini panele bas
+        document.getElementById('filterPanel').innerHTML = filterTemplates[categoryName];
+
+        // Örnek ilan sayısını simüle et
+        if(categoryName === 'konut') {
+            document.getElementById('resultCount').innerText = "850 Konut İlanı Bulundu";
+        } else {
+            document.getElementById('resultCount').innerText = "2.140 Otomobil İlanı Bulundu";
         }
-        showPage('ilanver');
     }
 
-    function toggleAuthModal() {
-        // Üyelik Modalı
-        isLogged = true; // Simülasyon
-        alert("Giriş Başarılı!");
-        document.getElementById('auth-header').innerHTML = "<span>Hoş Geldin Emrah Kaya</span>";
+    // Sayfa ilk açıldığında varsayılan olarak 'konut' panelini yükle
+    document.getElementById('filterPanel').innerHTML = filterTemplates['konut'];
+
+    function executeSearch() {
+        alert("Filtreleme kriterleri alındı! Sonuç sayfasına yönlendiriliyorsunuz...");
     }
 </script>
 
