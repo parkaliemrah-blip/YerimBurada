@@ -1,84 +1,56 @@
-<!-- Sağ Filtreleme Alanı Güncellemesi -->
-<div class="filter-card">
-    <div class="filter-header">
-        <i class="icon-filter"></i>
-        <h3>Detaylı Arama & Filtreleme</h3>
-    </div>
-    <p class="filter-desc">Aradığınız gayrimenkul, vasıta veya ürünün özelliklerine göre hemen filtreleyin.</p>
-    
-    <div class="filter-grid">
-        <div class="form-group">
-            <label for="categorySelect">Kategori Seçin</label>
-            <select id="categorySelect" class="form-control" onchange="syncCategoryFromDropdown(this.value)">
-                <option value="">Tüm Kategoriler</option>
-                
-                <!-- 1. Emlak -->
-                <optgroup label="1. Emlak">
-                    <option value="Konut (Daire, Villa)">Konut (Daire, Villa)</option>
-                    <option value="İşyeri">İşyeri</option>
-                    <option value="Arsa">Arsa</option>
-                </optgroup>
+<script>
+    // 1. Kategoriler arası geçişi sağlayan profesyonel fonksiyon
+    function kategoriSec(katAdi) {
+        // Sol menüde aktif olanı görselleştir
+        document.querySelectorAll('.cat-sub li').forEach(el => el.style.fontWeight = 'normal');
+        event.target.style.fontWeight = 'bold';
+        event.target.style.color = 'var(--yb-turuncu)';
 
-                <!-- 2. Vasıta -->
-                <optgroup label="2. Vasıta">
-                    <option value="Otomobil">Otomobil</option>
-                    <option value="Motosiklet">Motosiklet</option>
-                    <option value="Arazi, SUV & Pickup">Arazi, SUV & Pickup</option>
-                </optgroup>
+        // Sağdaki başlığı güncelle
+        document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
+        document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisi için filtreler yüklendi.`;
 
-                <!-- 3. Yedek Parça & Tuning -->
-                <optgroup label="3. Yedek Parça & Tuning">
-                    <option value="Otomotiv Ekipmanları">Otomotiv Ekipmanları</option>
-                    <option value="Motosiklet Ekipmanları">Motosiklet Ekipmanları</option>
-                </optgroup>
+        // Filtre dropdown'ını da otomatik güncelle
+        const dropdown = document.getElementById('filtre-kategori');
+        dropdown.value = katAdi; // Eğer option değerleri ile isimler uyuşuyorsa
+        
+        showPage('vitrin');
+    }
 
-                <!-- 4. Alışveriş -->
-                <optgroup label="4. Alışveriş (İkinci El/Sıfır)">
-                    <option value="Alışveriş / Elektronik">Alışveriş / Elektronik</option>
-                    <option value="Ev Eşyası">Ev Eşyası</option>
-                </optgroup>
+    // 2. Fiyat formatlama (5.000.000 gibi görünmesi için)
+    function fiyatFormatla(input) {
+        let value = input.value.replace(/\D/g, '');
+        if (value === "") return;
+        input.value = new Intl.NumberFormat('tr-TR').format(value);
+    }
 
-                <!-- 5. İş İlanları -->
-                <optgroup label="5. İş İlanları">
-                    <option value="Arayan ve İlanlar">Arayan ve İlanlar</option>
-                </optgroup>
+    // 3. Kullanıcı Giriş Kontrolü
+    function kontrolVeIlanVer() {
+        if (!kullaniciGirisYapildi) {
+            toggleAuthModal();
+        } else {
+            showPage('ilanver');
+        }
+    }
 
-                <!-- 6. Hizmetler -->
-                <optgroup label="6. Hizmetler">
-                    <option value="Nakliye Hizmeti">Nakliye Hizmeti</option>
-                    <option value="Tadilat & Dekorasyon">Tadilat & Dekorasyon</option>
-                </optgroup>
+    // 4. Dinamik Filtreleme Mantığı (Gelişmiş)
+    document.getElementById('filtre-kategori').addEventListener('change', function() {
+        const secilen = this.value;
+        if(secilen) {
+            // Burada kategoriye göre ek filtre alanları türetebiliriz
+            console.log("Filtreleme şuna göre yapılacak:", secilen);
+        }
+    });
 
-                <!-- 7. İş Makineleri & Sanayi -->
-                <optgroup label="7. İş Makineleri & Sanayi">
-                    <option value="İş Makineleri">İş Makineleri</option>
-                    <option value="Sanayi Elektriği & Ekipmanları">Sanayi Elektriği & Ekipmanları</option>
-                </optgroup>
-
-                <!-- 8. Evcil Hayvan -->
-                <optgroup label="8. Evcil Hayvan">
-                    <option value="Evcil Hayvan">Evcil Hayvan</option>
-                    <option value="Mama & Aksesuar">Mama & Aksesuar</option>
-                </optgroup>
-
-                <!-- 9. Özel Ders Verenler -->
-                <optgroup label="9. Özel Ders Verenler">
-                    <option value="Lise & Üniversite Takviye">Lise & Üniversite Takviye</option>
-                    <option value="Yabancı Dil Eğitmeni">Yabancı Dil Eğitmeni</option>
-                </optgroup>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="minPrice">Minimum Fiyat (TL)</label>
-            <input type="number" id="minPrice" class="form-control" placeholder="Min TL">
-        </div>
-
-        <div class="form-group">
-            <label for="maxPrice">Maksimum Fiyat (TL)</label>
-            <input type="number" id="maxPrice" class="form-control" placeholder="Max TL">
-        </div>
-    </div>
-
-    <button type="button" class="btn-filter-action">İlanları Filtrele</v>
-</div>
+    // 5. İlan Yayınla - Esnaf Ağına Gönder
+    function ilanYayinla() {
+        const baslik = document.getElementById('ilan-baslik').value;
+        if(!baslik) {
+            alert("Lütfen başlık giriniz.");
+            return;
+        }
+        // İlan verisini buraya toplayıp veritabanına (Supabase vb.) göndereceğiz
+        alert("İlanınız başarıyla YerimBurada ağında yayınlandı!");
+        showPage('vitrin');
+    }
+</script>
