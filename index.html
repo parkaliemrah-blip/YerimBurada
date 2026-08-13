@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Profesyonel İlan ve Bölgesel Esnaf Ağı</title>
+    <title>YerimBurada - Türkiye'nin Güvenli İlan ve Bölgesel Esnaf Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -52,7 +53,8 @@
         
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; background: #fff; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; background: #fff; font-size: 14px; }
+        .form-full { grid-column: span 2; }
 
         footer { background: var(--yb-karanlik); color: #94a3b8; padding: 40px 0; margin-top: auto; border-top: 1px solid #1e293b; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 25px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
@@ -148,7 +150,7 @@
                 </div>
             </div>
 
-            <!-- Esnafım Bölgesel Sohbet Paneli (Avrupa / Anadolu Yakası Destekli) -->
+            <!-- Esnafım Bölgesel Sohbet Paneli -->
             <div id="page-esnaf" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
                 <p style="color: #64748b; font-size: 14px;">İstanbul için Avrupa / Anadolu yakası seçimi ve tüm Türkiye'nin eksiksiz il, ilçe ve mahalle ağı.</p>
@@ -167,7 +169,6 @@
                             </select>
                         </div>
                         
-                        <!-- İstanbul için Avrupa / Anadolu Yakası Seçim Alanı -->
                         <div class="form-group" id="yaka-container" style="display:none;">
                             <label>İstanbul Bölgesi (Yaka Seçin)</label>
                             <select id="yaka-sec" onchange="yakaDegisti()">
@@ -213,26 +214,63 @@
                 </div>
             </div>
 
-            <!-- Ücretsiz İlan Ver Ekranı -->
+            <!-- Profesyonel Ücretsiz İlan Ver Ekranı (Dolu Detaylı Form) -->
             <div id="page-ilanver" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan Ver</h2>
-                <div style="background: var(--yb-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--yb-siniri); margin-top:15px;">
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan Ver / Portföy Ekle</h2>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 15px;">İlan detaylarını eksiksiz doldurarak vitrindeki yerinizi alın.</p>
+                
+                <div style="background: var(--yb-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--yb-siniri);">
                     <div class="form-grid">
-                        <div class="form-group">
+                        <div class="form-group form-full">
                             <label>İlan Başlığı</label>
-                            <input type="text" placeholder="Örn: Başakşehir'de Satılık Daire">
+                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir Güvercintepe'de Satılık 3+1 Lüks Daire">
                         </div>
                         <div class="form-group">
-                            <label>Kategori</label>
-                            <select>
+                            <label>Kategori Seçin</label>
+                            <select id="ilan-kategori">
                                 <option>Daire</option>
+                                <option>Rezidans</option>
                                 <option>Villa</option>
-                                <option>Arsa</option>
+                                <option>Müstakil Ev</option>
+                                <option>İmarlı Arsa</option>
+                                <option>Tarla</option>
                                 <option>Otomobil</option>
+                                <option>Arazi (SUV)</option>
+                                <option>Nakliye Hizmetleri</option>
+                                <option>Kentsel Dönüşüm</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Fiyat (TL)</label>
+                            <input type="text" id="ilan-fiyat" placeholder="Örn: 3.500.000 TL">
+                        </div>
+                        <div class="form-group">
+                            <label>Metrekare (m² - Net/Brüt)</label>
+                            <input type="text" id="ilan-m2" placeholder="Örn: 135 m²">
+                        </div>
+                        <div class="form-group">
+                            <label>Oda Sayısı</label>
+                            <select id="ilan-oda">
+                                <option>1+1</option>
+                                <option>2+1</option>
+                                <option>3+1</option>
+                                <option>4+1 ve Üzeri</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>İl / İlçe / Mahalle</label>
+                            <input type="text" id="ilan-konum" placeholder="Örn: İstanbul / Başakşehir / Güvercintepe">
+                        </div>
+                        <div class="form-group">
+                            <label>İletişim Telefonu</label>
+                            <input type="text" id="ilan-tel" placeholder="05XX XXX XX XX">
+                        </div>
+                        <div class="form-group form-full">
+                            <label>İlan Açıklaması & Detaylar</label>
+                            <textarea id="ilan-detay" rows="4" placeholder="Gayrimenkul veya vasıta hakkındaki tüm özellikleri ve avantajları yazın..."></textarea>
+                        </div>
                     </div>
-                    <button onclick="alert('İlan başarıyla eklendi!')" class="btn btn-orange" style="margin-top: 20px; width: 100%;">Yayınla</button>
+                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 15px;">İlanı Hemen Yayınla</button>
                 </div>
             </div>
 
@@ -271,11 +309,10 @@
 
         function kategoriSec(katAdi) {
             document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
-            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" ilanları filtrelendi.`;
+            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisine ait portföy ve ilanlar filtrelendi.`;
             showPage('vitrin');
         }
 
-        // İstanbul Avrupa ve Anadolu Yakası İlçe Ayrımı + Türkiye'nin Tüm İlleri ve Mahalle Veritabanı
         const istanbulAvrupaIlceler = ["Arnavutköy", "Avcılar", "Bağcılar", "Bahçelievler", "Bakırköy", "Başakşehir", "Bayrampaşa", "Beşiktaş", "Beylikdüzü", "Beyoğlu", "Büyükçekmece", "Çatalca", "Esenler", "Esenyurt", "Eyüpsultan", "Fatih", "Gaziosmanpaşa", "Güngören", "Kağıthane", "Küçükçekmece", "Sarıyer", "Silivri", "Sultangazi", "Şişli", "Zeytinburnu"];
         const istanbulAnadoluIlceler = ["Adalar", "Ataşehir", "Beykoz", "Çekmeköy", "Kartal", "Maltepe", "Pendik", "Sancaktepe", "Sultanbeyli", "Şile", "Tuzla", "Ümraniye", "Üsküdar"];
 
@@ -290,13 +327,12 @@
             "Kırklareli": ["Babaeski", "Demirköy", "Kofçaz", "Lüleburgaz", "Pehlivanköy", "Pınarhisar", "Merkez", "Vize"]
         };
 
-        // Gerçek ve Doğru Mahalle Listesi Veritabanı
         const ilceMahalleleri = {
-            "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah.", "Şamlar Mah."],
-            "Küçükçekmece": ["Atatürk Mah.", "Beşyol Mah.", "Cennet Mah.", "Centilmen Mah.", "Fatih Mah.", "Fevzi Çakmak Mah.", "Gültepe Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Kartaltepe Mah.", "Kemalpaşa Mah.", "Mehmet Akif Mah.", "Söğütlüçeşme Mah.", "Sultan Murat Mah.", "Tepeüstü Mah.", "Yarımburgaz Mah.", "Yeni Mah."],
-            "Arnavutköy": ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah.", "Hadımköy Mah.", "Yenidoğan Mah.", "Çilingir Mah."],
-            "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah.", "Caferağa Mah.", "Feneryolu Mah.", "Rasimpaşa Mah."],
-            "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah.", "Yıldız Mah.", "Balmumcu Mah.", "Vişnezade Mah."]
+            "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah."],
+            "Küçükçekmece": ["Atatürk Mah.", "Cennet Mah.", "Fatih Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Söğütlüçeşme Mah.", "Yeni Mah."],
+            "Arnavutköy": ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah."],
+            "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah."],
+            "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah."]
         };
 
         window.onload = function() {
@@ -368,6 +404,19 @@
                 opt.innerHTML = mahalle;
                 mahalleSelect.appendChild(opt);
             });
+        }
+
+        function ilanYayinla() {
+            const baslik = document.getElementById('ilan-baslik').value;
+            const fiyat = document.getElementById('ilan-fiyat').value;
+            const tel = document.getElementById('ilan-tel').value;
+
+            if(!baslik || !fiyat || !tel) {
+                alert("Bay Kaya, lütfen İlan Başlığı, Fiyat ve İletişim Telefonu alanlarını doldurun!");
+                return;
+            }
+            alert("Tebrikler Bay Kaya! İlanınız başarıyla vitrine eklendi.");
+            showPage('vitrin');
         }
 
         let secilenDosyaAdi = "";
