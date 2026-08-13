@@ -33,13 +33,19 @@
         .btn-orange:hover { background-color: var(--yb-turuncu-hover); }
         .btn-outline { border: 1px solid var(--yb-siniri); color: white; background: transparent; }
 
-        .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 280px 1fr; gap: 30px; width: 100%; flex: 1; }
+        .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 300px 1fr; gap: 30px; width: 100%; flex: 1; }
         
-        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px; height: fit-content; }
-        .sidebar h3 { font-size: 14px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
-        .sidebar-menu { list-style: none; }
-        .sidebar-menu li { padding: 12px 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 500; }
-        .sidebar-menu li:hover { background: #fff7ed; color: var(--yb-turuncu); }
+        /* Sol Gelişmiş Akordeon Katalog Paneli */
+        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; height: fit-content; }
+        .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .cat-item { border-bottom: 1px solid #f1f5f9; }
+        .cat-header { padding: 12px 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--yb-karanlik); border-radius: 6px; transition: background 0.2s; }
+        .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
+        .cat-sub { display: none; padding-left: 15px; list-style: none; background: #fafafa; border-radius: 6px; margin-bottom: 5px; }
+        .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
+        .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
+        .cat-sub li:last-child { border-bottom: none; }
 
         .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 30px; min-height: 600px; }
         
@@ -74,21 +80,76 @@
     </header>
 
     <div class="main-layout">
+        <!-- Sol Profesyonel Genişletilebilir Akordeon Katalog -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
-            <ul class="sidebar-menu" onclick="showVitrin()">
-                <li>Emlak Portalı <i class="fa fa-chevron-right"></i></li>
-                <li>Vasıta & Galeri <i class="fa fa-chevron-right"></i></li>
-                <li>Alışveriş & Teknoloji <i class="fa fa-chevron-right"></i></li>
-            </ul>
+            
+            <!-- Emlak Kategorisi -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('emlak-sub')">
+                    <span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> Emlak Portalı</span>
+                    <i class="fa fa-chevron-down" id="emlak-icon"></i>
+                </div>
+                <ul class="cat-sub" id="emlak-sub">
+                    <li onclick="secilenKategori('Konut / Daire')">Konut (Daire, Rezidans)</li>
+                    <li onclick="secilenKategori('Arsa & Tarla')">Arsa, Tarla, Bağ & Bahçe</li>
+                    <li onclick="secilenKategori('İş Yeri & Dükkan')">İş Yeri, Dükkan, Mağaza</li>
+                    <li onclick="secilenKategori('Bina & Villa')">Bina, Müstakil Ev, Villa</li>
+                    <li onclick="secilenKategori('Devremülk & Turistik')">Devremülk, Turistik Tesis</li>
+                </ul>
+            </div>
+
+            <!-- Vasıta Kategorisi -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('vasita-sub')">
+                    <span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> Vasıta & Galeri</span>
+                    <i class="fa fa-chevron-down" id="vasita-icon"></i>
+                </div>
+                <ul class="cat-sub" id="vasita-sub">
+                    <li onclick="secilenKategori('Otomobil')">Otomobil (Sedan, Hatchback)</li>
+                    <li onclick="secilenKategori('Arazi, SUV & Pickup')">Arazi, SUV & Pickup</li>
+                    <li onclick="secilenKategori('Minivan & Panelvan')">Minivan & Panelvan</li>
+                    <li onclick="secilenKategori('Motosiklet & Bisiklet')">Motosiklet & Bisiklet</li>
+                    <li onclick="secilenKategori('Karavan & Deniz Aracı')">Karavan, Bot & Deniz Araçları</li>
+                    <li onclick="secilenKategori('Ticari Araçlar')">Kamyon, Tır, Otobüs</li>
+                </ul>
+            </div>
+
+            <!-- Alışveriş & Teknoloji -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('alisveris-sub')">
+                    <span><i class="fa fa-laptop" style="color:var(--yb-turuncu); width:20px;"></i> Alışveriş & Teknoloji</span>
+                    <i class="fa fa-chevron-down" id="alisveris-icon"></i>
+                </div>
+                <ul class="cat-sub" id="alisveris-sub">
+                    <li onclick="secilenKategori('Cep Telefonu & Tablet')">Cep Telefonu & Tablet</li>
+                    <li onclick="secilenKategori('Bilgisayar & Donanım')">Bilgisayar, Laptop & Parça</li>
+                    <li onclick="secilenKategori('Ev Elektroniği & Beyaz Eşya')">Ev Elektroniği & Beyaz Eşya</li>
+                    <li onclick="secilenKategori('Mobilya & Ev Dekorasyon')">Mobilya & Ev Dekorasyon</li>
+                    <li onclick="secilenKategori('Endüstriyel Makineler')">Sanayi & Basınç Makineleri</li>
+                </ul>
+            </div>
+
+            <!-- Hizmetler & İş İlanları -->
+            <div class="cat-item">
+                <div class="cat-header" onclick="toggleSub('hizmet-sub')">
+                    <span><i class="fa fa-briefcase" style="color:var(--yb-turuncu); width:20px;"></i> Hizmetler & İş İlanları</span>
+                    <i class="fa fa-chevron-down" id="hizmet-icon"></i>
+                </div>
+                <ul class="cat-sub" id="hizmet-sub">
+                    <li onclick="secilenKategori('İş Arayanlar & Ustalar')">İş Arayanlar & Ustalar</li>
+                    <li onclick="secilenKategori('Nakliyat & Mimarlık')">Nakliyat, Mimarlık & Dekorasyon</li>
+                    <li onclick="secilenKategori('Eğitim & Danışmanlık')">Eğitim, Kurs & Danışmanlık</li>
+                </ul>
+            </div>
         </div>
 
         <div class="content-area">
             <!-- Normal Vitrin Alanı -->
             <div id="vitrin-section">
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
-                    <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
-                    <p style="color: #64748b; font-size: 14px;">Vitrin ilanı bulunmuyor.</p>
+                    <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
+                    <p style="color: #64748b; font-size: 14px;">Vitrin ilanı bulunmuyor. Sol menüden kategori seçerek detayları inceleyebilirsiniz.</p>
                 </div>
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px;">
                     <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
@@ -179,13 +240,31 @@
     </footer>
 
     <script>
+        // Akordeon menü açma kapama fonksiyonu
+        function toggleSub(subId) {
+            const subMenu = document.getElementById(subId);
+            if (subMenu.style.display === 'block') {
+                subMenu.style.display = 'none';
+            } else {
+                // Diğer açık olanları kapatıp sadece tıklananı açmak için:
+                document.querySelectorAll('.cat-sub').forEach(el => el.style.display = 'none');
+                subMenu.style.display = 'block';
+            }
+        }
+
+        function secilenKategori(katAdi) {
+            document.getElementById('kategori-baslik.innerText = `📁 Seçilen Kategori: ${katAdi}`;');
+            document.getElementById('kategori-baslik').innerText = `📁 Seçilen Kategori: ${katAdi}`;
+            showVitrin();
+        }
+
         // Türkiye'nin 81 İli ve Bütün İlçeleri Eksiksiz Veritabanı
         const turkiyeIlIlce = {
             "Adana": ["Aladağ", "Ceyhan", "Çukurova", "Feke", "İmamoğlu", "Karaisalı", "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yumurtalık", "Yüreğir"],
             "Adıyaman": ["Besni", "Çelikhan", "Gerger", "Gölbaşı", "Kâhta", "Merkez", "Samsat", "Sincik", "Tut"],
             "Afyonkarahisar": ["Başmakçı", "Bayat", "Bolvadin", "Çay", "Çobanlar", "Dazkırı", "Dinar", "Emirdağ", "Evciler", "Hocalar", "İhsaniye", "İscehisar", "Kızılören", "Merkez", "Sandıklı", "Sinanpaşa", "Sultandağı", "Şuhut"],
             "Ağrı": ["Diyadin", "Doğubayazıt", "Eleşkirt", "Hamur", "Merkez", "Patnos", "Taşlıçay", "Tutak"],
-            "Aksaray": ["Ağaçören", "Eskil", "Glağaç", "Güzelyurt", "Merkez", "Ortaköy", "Sarıyahşi", "Sultanhanı"],
+            "Aksaray": ["Ağaçören", "Eskil", "Gülağaç", "Güzelyurt", "Merkez", "Ortaköy", "Sarıyahşi", "Sultanhanı"],
             "Amasya": ["Merkez", "Göynücek", "Gümüşhacıköy", "Hamamözü", "Merzifon", "Suluova", "Taşova"],
             "Ankara": ["Akyurt", "Altındağ", "Ayaş", "Bala", "Beypazarı", "Çamlıdere", "Çankaya", "Çubuk", "Elmadağ", "Etimesgut", "Evren", "Gölbaşı", "Güdül", "Haymana", "Kahramankazan", "Kalecik", "Keçiören", "Kızılcahamam", "Mamak", "Nallıhan", "Polatlı", "Pursaklar", "Sincan", "Şereflikoçhisar", "Yenimahalle"],
             "Antalya": ["Akseki", "Aksu", "Alanya", "Demre", "Döşemealtı", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş", "İbradı", "Kaş", "Kemer", "Kepez", "Konyaaltı", "Korkuteli", "Kumluca", "Manavgat", "Muratpaşa", "Serik"],
@@ -205,14 +284,14 @@
             "Çanakkale": ["Ayvacık", "Bayramiç", "Biga", "Bozcaada", "Çan", "Eceabat", "Ezine", "Gelibolu", "Gökçeada", "Lapseki", "Merkez", "Yenice"],
             "Çankırı": ["Atkaracalar", "Bayramören", "Çerkeş", "Eldivan", "Ilgaz", "Kızılırmak", "Korgun", "Kurşunlu", "Merkez", "Orta", "Şabanözü", "Yapraklı"],
             "Çorum": ["Alaca", "Bayat", "Boğazkale", "Dodurga", "İskilip", "Kargı", "Laçin", "Mecitözü", "Merkez", "Oğuzlar", "Ortaköy", "Osmancık", "Sungurlu", "Uğurludağ"],
-            "Denizli": ["Acıpayam", "Babadağ", "Baklan", "Bekilli", "Ağaçdelen", "Beyağaç", "Bozkurt", "Buldan", "Çal", "Çameli", "Çardak", "Çivril", "Güney", "Honaz", "Kale", "Merkezefendi", "Pamukkale", "Sarayköy", "Serinhisar", "Tavas"],
+            "Denizli": ["Acıpayam", "Babadağ", "Baklan", "Bekilli", "Beyağaç", "Bozkurt", "Buldan", "Çal", "Çameli", "Çardak", "Çivril", "Güney", "Honaz", "Kale", "Merkezefendi", "Pamukkale", "Sarayköy", "Serinhisar", "Tavas"],
             "Diyarbakır": ["Bağlar", "Bismil", "Çermik", "Çınar", "Çüngüş", "Dicle", "Eğil", "Ergani", "Hani", "Hazro", "Kayapınar", "Kulp", "Lice", "Silvan", "Sur", "Yenişehir"],
             "Düzce": ["Akçakoca", "Cumayeri", "Çilimli", "Gümüşova", "Kaynaşlı", "Merkez", "Yığılca"],
             "Edirne": ["Enez", "Havsa", "İpsala", "Keşan", "Lalapaşa", "Meriç", "Merkez", "Süloğlu", "Uzunköprü"],
             "Elazığ": ["Ağın", "Alacakaya", "Arıcak", "Baskil", "Karakoçan", "Keban", "Kovancılar", "Maden", "Merkez", "Palu", "Sivrice"],
             "Erzincan": ["Çayırlı", "İliç", "Kemah", "Kemaliye", "Merkez", "Otlukbeli", "Refahiye", "Tercan", "Üzümlü"],
             "Erzurum": ["Aşkale", "Aziziye", "Çat", "Hınıs", "Horasan", "İspir", "Karaçoban", "Karayazı", "Köprüköy", "Narman", "Oltu", "Olur", "Palandöken", "Pasinler", "Pazaryolu", "Şenkaya", "Tortum", "Uzundere", "Yakutiye"],
-            "Eskişehir": ["Alpu", "Beylikova", "Çifteler", "Günyüzü", "Han", "İnönü", "Mahmudiye", "Mihalgazi", "Mihalıççık", "Odunpazarı", "Sarıgazi", "Sivrihisar", "Tepebaşı"],
+            "Eskişehir": ["Alpu", "Beylikova", "Çifteler", "Günyüzü", "Han", "İnönü", "Mahmudiye", "Mihalgazi", "Mihalıççık", "Odunpazarı", "Sarıcakaya", "Sivrihisar", "Tepebaşı"],
             "Gaziantep": ["Araban", "İslahiye", "Karkamış", "Nizip", "Nurdağı", "Oğuzeli", "Şahinbey", "Şehitkamil", "Yavuzeli"],
             "Giresun": ["Alucra", "Bulancak", "Çamoluk", "Çanakçı", "Dereli", "Doğankent", "Espiye", "Eynesil", "Görele", "Güce", "Keşap", "Merkez", "Piraziz", "Şebinkarahisar", "Tirebolu", "Yağlıdere"],
             "Gümüşhane": ["Kelkit", "Köse", "Kürtün", "Merkez", "Şiran", "Torul"],
@@ -227,7 +306,7 @@
             "Karaman": ["Ayrancı", "Başyayla", "Ermenek", "Kazımkarabekir", "Merkez", "Sarıveliler"],
             "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"],
             "Kastamonu": ["Abana", "Ağlı", "Araç", "Azdavay", "Bozkurt", "Cide", "Çatalzeytin", "Daday", "Devrekani", "Doğanyurt", "Hanönü", "İhsangazi", "İnebolu", "Küre", "Merkez", "Pınarbaşı", "Seydiler", "Şenpazar", "Taşköprü", "Tosya"],
-            "Kayseri": ["Akkışla", "Bünyan", "Develi", "Felicak", "Hacılar", "İncesu", "Kocasinan", "Melikgazi", "Pınarbaşı", "Sarıoğlan", "Sarız", "Talas", "Tomarza", "Yahyalı", "Yeşilhisar"],
+            "Kayseri": ["Akkışla", "Bünyan", "Develi", "Felahiye", "Hacılar", "İncesu", "Kocasinan", "Melikgazi", "Pınarbaşı", "Sarıoğlan", "Sarız", "Talas", "Tomarza", "Yahyalı", "Yeşilhisar"],
             "Kilis": ["Elbeyli", "Merkez", "Musabeyli", "Polateli"],
             "Kırıkkale": ["Bahşılı", "Balışeyh", "Çelebi", "Delice", "Karakeçili", "Keskin", "Merkez", "Sulakyurt", "Yahşihan"],
             "Kırklareli": ["Babaeski", "Demirköy", "Kofçaz", "Lüleburgaz", "Pehlivanköy", "Pınarhisar", "Merkez", "Vize"],
@@ -248,7 +327,7 @@
             "Rize": ["Ardeşen", "Çamlıhemşin", "Çayeli", "Derepazarı", "Fındıklı", "Güneysu", "Hemşin", "İkizdere", "İyidere", "Kalkandere", "Merkez", "Pazar"],
             "Sakarya": ["Adapazarı", "Akyazı", "Arifiye", "Erenler", "Ferizli", "Geyve", "Hendek", "Karapürçek", "Karasu", "Kaynarca", "Pamukova", "Sapanca", "Serdivan", "Söğütlü", "Taraklı"],
             "Samsun": ["19 Mayıs", "Alaçam", "Asarcık", "Atakum", "Ayvacık", "Bafra", "Canik", "Çarşamba", "Havza", "Kavak", "Ladik", "Salıpazarı", "Tekkeköy", "Terme", "Vezirköprü", "Yakakent"],
-            "Siirt": ["Baykan", "Eruh", "Hizan", "Kurtalan", "Merkez", "Pervari", "Şirvan"],
+            "Siirt": ["Baykan", "Eruh", "Kurtalan", "Merkez", "Pervari", "Şirvan"],
             "Sinop": ["Ayancık", "Boyabat", "Dikmen", "Durağan", "Erfelek", "Gerze", "Merkez", "Saraydüzü", "Türkeli"],
             "Sivas": ["Akıncılar", "Altınyayla", "Divriği", "Doğanşar", "Gemerek", "Gürün", "Hafik", "İmranlı", "Kangal", "Koyulhisar", "Merkez", "Suşehri", "Şarkışla", "Ulaş", "Yıldızeli", "Zara"],
             "Şanlıurfa": ["Akçakale", "Birecik", "Bozova", "Ceylanpınar", "Eyyübiye", "Halfeti", "Haliliye", "Harran", "Hilvan", "Siverek", "Suruç", "Viranşehir"],
@@ -259,7 +338,7 @@
             "Tunceli": ["Çemişgezek", "Hozat", "Mazgirt", "Merkez", "Nazımiye", "Ovacık", "Pertek", "Pülümür"],
             "Uşak": ["Banaz", "Eşme", "Karahallı", "Merkez", "Sivaslı", "Ulubey"],
             "Van": ["Bahçesaray", "Başkale", "Çaldıran", "Çatak", "Edremit", "Erciş", "Gevaş", "Gürpınar", "Muradiye", "Özalp", "Saray", "Tuşba"],
-            "Yalova": ["Altınova", "Armutl", "Çınarcık", "Çiftlikköy", "Merkez", "Termal"],
+            "Yalova": ["Altınova", "Armutlu", "Çınarcık", "Çiftlikköy", "Merkez", "Termal"],
             "Yozgat": ["Akdağmadeni", "Aydıncık", "Boğazlıyan", "Çandır", "Çayıralan", "Çekerek", "Kadışehri", "Merkez", "Saraykent", "Sorgun", "Şefaatli", "Yenifakılı", "Yerköy"],
             "Zonguldak": ["Alaplı", "Çaycuma", "Devrek", "Gökçebey", "Karadeniz Ereğli", "Merkez"]
         };
