@@ -3,89 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Türkiye'nin Premium Ticaret ve Esnaf Ağı</title>
+    <title>YerimBurada | Profesyonel İlan Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --yb-karanlik: #090d16;
-            --yb-card-bg: #ffffff;
-            --yb-turuncu: #ff3b00;
-            --yb-turuncu-hover: #e03400;
-            --yb-bg: #f3f4f6;
-            --yb-siniri: #e2e8f0;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--yb-bg); color: var(--yb-karanlik); min-height: 100vh; display: flex; flex-direction: column; }
+        :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; --yb-bg: #f3f4f6; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--yb-bg); }
         
-        header { background: var(--yb-karanlik); border-bottom: 3px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 30px; }
-        .logo { font-size: 30px; font-weight: 800; color: #fff; text-decoration: none; }
-        .logo span { color: var(--yb-turuncu); }
+        /* Layout */
+        .header { background: var(--yb-karanlik); color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--yb-turuncu); }
+        .container { display: flex; max-width: 1300px; margin: 30px auto; gap: 30px; padding: 0 20px; }
         
-        .main-layout { max-width: 1480px; margin: 35px auto; padding: 0 30px; display: grid; grid-template-columns: 340px 1fr; gap: 35px; width: 100%; flex: 1; }
-        
-        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; }
-        .sidebar h3 { font-size: 12px; color: var(--yb-turuncu); margin-bottom: 18px; font-weight: 800; text-transform: uppercase; }
-        .cat-header { padding: 12px 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; border-radius: 8px; }
-        .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
+        /* Sidebar */
+        .sidebar { width: 300px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: fit-content; }
+        .sidebar h3 { font-size: 14px; color: var(--yb-turuncu); margin-bottom: 15px; text-transform: uppercase; }
+        .cat-item { padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 600; }
+        .cat-item:hover { color: var(--yb-turuncu); }
 
-        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 35px; min-height: 650px; }
-        .filter-box { background: #fff; border: 1.5px solid var(--yb-siniri); border-radius: 10px; padding: 25px; margin-bottom: 25px; }
-        .filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
-        .form-group select, .form-group input { width: 100%; padding: 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; }
-        .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
-        .btn-orange:hover { background-color: var(--yb-turuncu-hover); }
+        /* Content */
+        .main-content { flex: 1; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .filter-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        
+        /* Form */
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: var(--yb-turuncu); color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">Yerim<span>Burada</span></a>
-            <div style="color: #fff; font-weight: bold;">Güvenli İlan ve Esnaf Ağı</div>
-        </div>
-    </header>
+<div class="header">
+    <div style="font-size: 24px; font-weight: bold;">Yerim<span>Burada</span></div>
+    <div>
+        <button onclick="alert('Giriş sistemi aktif edilecek')" style="background:transparent; color:#fff; border:1px solid #fff; padding:10px;">Giriş Yap</button>
+        <button class="btn-orange" style="background:var(--yb-turuncu); color:#fff; padding:10px 20px; border:none;">İlan Ver</button>
+    </div>
+</div>
 
-    <div class="main-layout">
-        <div class="sidebar">
-            <h3>KATEGORİLER</h3>
-            <div class="cat-header"><span><i class="fa fa-home" style="color:var(--yb-turuncu);"></i> 1. Emlak</span></div>
-            <div class="cat-header"><span><i class="fa fa-car" style="color:var(--yb-turuncu);"></i> 2. Vasıta</span></div>
-            <div class="cat-header"><span><i class="fa fa-shopping-bag" style="color:var(--yb-turuncu);"></i> 3. Alışveriş</span></div>
-            <div class="cat-header"><span><i class="fa fa-truck" style="color:var(--yb-turuncu);"></i> 4. Nakliye Hizmetleri</span></div>
-        </div>
+<div class="container">
+    <div class="sidebar">
+        <h3>KATEGORİLER</h3>
+        <div class="cat-item">1. Emlak</div>
+        <div class="cat-item">2. Vasıta</div>
+        <div class="cat-item">3. Yedek Parça</div>
+        <div class="cat-item">4. Alışveriş</div>
+    </div>
 
-        <div class="content-area">
-            <div class="filter-box">
-                <h3 style="font-size: 16px; margin-bottom: 10px;"><i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Detaylı Arama & Filtreleme</h3>
-                <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Aradığınız ürünü veya gayrimenkulü hemen filtreleyin.</p>
-                <div class="filter-grid">
-                    <div class="form-group">
-                        <label>Kategori Seçin</label>
-                        <select>
-                            <option>Tüm Kategoriler</option>
-                            <option>Konut (Daire, Villa)</option>
-                            <option>Otomobil</option>
-                            <option>Nakliye Hizmeti</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Minimum Fiyat (TL)</label>
-                        <input type="text" placeholder="Min TL">
-                    </div>
-                    <div class="form-group">
-                        <label>Maksimum Fiyat (TL)</label>
-                        <input type="text" placeholder="Max TL">
-                    </div>
-                </div>
-                <button class="btn-orange" style="margin-top: 15px;">İlanları Filtrele</button>
+    <div class="main-content">
+        <div class="filter-box">
+            <h3>Detaylı Arama</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <input type="text" placeholder="Kategori">
+                <input type="text" placeholder="Minimum Fiyat">
+                <input type="text" placeholder="Maksimum Fiyat">
             </div>
-            <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 25px; text-align: center; color: #64748b;">
-                Canlı İlan Vitrini - İlk ilanı sen ver!
-            </div>
+            <button>İlanları Filtrele</button>
+        </div>
+        <div style="margin-top: 30px;">
+            <h3>Vitrin İlanları</h3>
+            <p>Henüz ilan yok.</p>
         </div>
     </div>
+</div>
 
 </body>
 </html>
