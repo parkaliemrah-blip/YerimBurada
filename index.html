@@ -3,128 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinamik Kategori Filtreleme Sistemi</title>
+    <title>Sahibinden Tarzı Dinamik Filtre</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #f4f6f8; display: flex; justify-content: center; padding: 40px; }
-        .container { width: 100%; max-width: 900px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { margin-bottom: 20px; color: #333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; padding: 30px; }
         
-        /* Kategori Seçim Butonları */
-        .categories { display: flex; gap: 15px; margin-bottom: 25px; }
-        .cat-btn { padding: 12px 24px; border: 2px solid #ddd; background: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .cat-btn.active { border-color: #0055ff; background: #eef3ff; color: #0055ff; }
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+        }
 
-        /* Dinamik Panel Alanı */
-        .filter-panel { background: #fafbfc; border: 1px solid #e1e4e8; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        /* Sol Kategori Kutusu */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        .sidebar h3 {
+            font-size: 16px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff5500;
+        }
+        .cat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .cat-item {
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .cat-item:hover {
+            background: #eef3ff;
+            color: #0055ff;
+            border-color: #bcd2ff;
+        }
+        .cat-item.active {
+            background: #0055ff;
+            color: white;
+            border-color: #0055ff;
+        }
+
+        /* Sağ Dinamik İçerik Alanı */
+        .content-area {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .content-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
         
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
-        .form-group label { font-size: 13px; font-weight: bold; color: #555; }
-        .form-group select, .form-group input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fff; }
+        /* Dinamik Filtre Izgarası */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            background: #fafbfc;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #eaeaea;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .form-group select, .form-group input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
 
-        /* Arama Butonu */
-        .search-action { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 20px; }
-        .result-count { font-weight: bold; color: #666; }
-        .search-btn { background: #ff5500; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .search-btn:hover { background: #e04c00; }
+        /* Alt Eylem Çubuğu */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .result-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+        .search-btn {
+            background: #ff5500;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-btn:hover {
+            background: #e04c00;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Kategori Bazlı Dinamik Filtre</h2>
-
-    <!-- 1. Adım: Kategoriler -->
-    <div class="categories">
-        <button class="cat-btn active" onclick="changeCategory('konut', this)">Konut / Daire</button>
-        <button class="cat-btn" onclick="changeCategory('otomobil', this)">Otomobil</button>
+<div class="main-container">
+    <!-- Sol Taraf: Kategoriler -->
+    <div class="sidebar">
+        <h3>KATEGORİLER</h3>
+        <div class="cat-list" id="categoryList">
+            <button class="cat-item active" onclick="switchCategory('konut', this)">1. Emlak (Konut)</button>
+            <button class="cat-item" onclick="switchCategory('otomobil', this)">2. Vasıta (Otomobil)</button>
+            <button class="cat-item" onclick="switchCategory('yedekparca', this)">3. Yedek Parça</button>
+            <button class="cat-item" onclick="switchCategory('isilanlari', this)">4. İş İlanları</button>
+        </div>
     </div>
 
-    <!-- 2. Adım: Dinamik Değişen Filtre Paneli -->
-    <div id="filterPanel" class="filter-panel">
-        <!-- JavaScript burayı otomatik dolduracak -->
-    </div>
+    <!-- Sağ Taraf: Dinamik Panel -->
+    <div class="content-area">
+        <div id="contentTitle" class="content-title">Konut / Daire Arama Filtreleri</div>
+        
+        <!-- Dinamik Alan -->
+        <div id="dynamicFilterPanel" class="filter-grid">
+            <!-- JavaScript burayı dolduracak -->
+        </div>
 
-    <!-- 3. Adım: Sonuç ve Arama Butonu -->
-    <div class="search-action">
-        <span id="resultCount" class="result-count">1.420 İlan Bulundu</span>
-        <button class="search-btn" onclick="executeSearch()">İlanları Listele</button>
+        <!-- Alt Bilgi ve Buton -->
+        <div class="action-bar">
+            <span id="resultCount" class="result-text">1.240 İlan Listeleniyor</span>
+            <button class="search-btn" onclick="aramaYap()">İlanları Ara</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // Kategorilere göre panellerin HTML içerikleri
-    const filterTemplates = {
-        konut: `
-            <div class="form-group">
-                <label>Oda Sayısı</label>
-                <select>
-                    <option>Seçiniz</option>
-                    <option>1+1</option>
-                    <option>2+1</option>
-                    <option>3+1</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Metrekare (m²)</label>
-                <input type="text" placeholder="Min - Max">
-            </div>
-            <div class="form-group">
-                <label>Bina Yaşı</label>
-                <select>
-                    <option>0 (Sıfır)</option>
-                    <option>1-5 arası</option>
-                    <option>5-10 arası</option>
-                </select>
-            </div>
-        `,
-        otomobil: `
-            <div class="form-group">
-                <label>Marka</label>
-                <select>
-                    <option>Seçiniz</option>
-                    <option>BMW</option>
-                    <option>Mercedes</option>
-                    <option>Renault</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Vites Tipi</label>
-                <select>
-                    <option>Tümü</option>
-                    <option>Düz</option>
-                    <option>Otomatik</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Kilometre (Max)</label>
-                <input type="number" placeholder="Örn: 100000">
-            </div>
-        `
+    // Her kategorinin kendine has filtre şablonları
+    const templates = {
+        konut: {
+            title: "Emlak > Konut Arama Filtreleri",
+            count: "1.450 Konut İlanı Bulundu",
+            html: `
+                <div class="form-group">
+                    <label>Oda Sayısı</label>
+                    <select><option>Tümü</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Metrekare (m²)</label>
+                    <input type="text" placeholder="Min - Max m²">
+                </div>
+                <div class="form-group">
+                    <label>Bina Yaşı</label>
+                    <select><option>Tümü</option><option>0 (Sıfır)</option><option>1-5 arası</option><option>5-10 arası</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Bulunduğu Kat</label>
+                    <select><option>Tümü</option><option>Yüksek Giriş</option><option>Ara Kat</option><option>En Üst Kat</option></select>
+                </div>
+            `
+        },
+        otomobil: {
+            title: "Vasıta > Otomobil Arama Filtreleri",
+            count: "3.890 Otomobil İlanı Bulundu",
+            html: `
+                <div class="form-group">
+                    <label>Marka</label>
+                    <select><option>Tümü</option><option>BMW</option><option>Mercedes-Benz</option><option>Renault</option><option>Volkswagen</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Vites Tipi</label>
+                    <select><option>Tümü</option><option>Düz (Manuel)</option><option>Otomatik</option><option>Yarı Otomatik</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Yakıt Türü</label>
+                    <select><option>Tümü</option><option>Benzin</option><option>Dizel</option><option>Hibrit</option><option>Elektrik</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Kilometre (Max)</label>
+                    <input type="number" placeholder="Örn: 100000">
+                </div>
+            `
+        },
+        yedekparca: {
+            title: "Yedek Parça & Aksesuar Filtreleri",
+            count: "920 Yedek Parça İlanı Bulundu",
+            html: `
+                <div class="form-group">
+                    <label>Ürün Tipi</label>
+                    <select><option>Tümü</option><option>Motor Parçaları</option><option>Jant & Lastik</option><option>Ses Sistemleri</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Durumu</label>
+                    <select><option>Tümü</option><option>Sıfır</option><option>İkinci El</option></select>
+                </div>
+            `
+        },
+        isilanlari: {
+            title: "İş İlanları Kriterleri",
+            count: "410 İş İlanı Bulundu",
+            html: `
+                <div class="form-group">
+                    <label>Sektör</label>
+                    <select><option>Tümü</option><option>Bilişim / Yazılım</option><option>Gayrimenkul</option><option>Otomotiv</option><option>Üretim / İmalat</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Çalışma Şekli</label>
+                    <select><option>Tümü</option><option>Tam Zamanlı</option><option>Yarı Zamanlı (Part-Time)</option><option>Stajyer</option></select>
+                </div>
+            `
+        }
     };
 
-    // Kategori değiştirme fonksiyonu
-    function changeCategory(categoryName, btnElement) {
-        // Aktif buton görselini güncelle
-        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-        btnElement.classList.add('active');
+    function switchCategory(catKey, element) {
+        // Aktif buton rengini değiştir
+        document.querySelectorAll('.cat-item').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
 
-        // İlgili kategoriye ait filtre HTML'ini panele bas
-        document.getElementById('filterPanel').innerHTML = filterTemplates[categoryName];
-
-        // Örnek ilan sayısını simüle et
-        if(categoryName === 'konut') {
-            document.getElementById('resultCount').innerText = "850 Konut İlanı Bulundu";
-        } else {
-            document.getElementById('resultCount').innerText = "2.140 Otomobil İlanı Bulundu";
-        }
+        // İlgili verileri panele bas
+        const data = templates[catKey];
+        document.getElementById('contentTitle').innerText = data.title;
+        document.getElementById('dynamicFilterPanel').innerHTML = data.html;
+        document.getElementById('resultCount').innerText = data.count;
     }
 
-    // Sayfa ilk açıldığında varsayılan olarak 'konut' panelini yükle
-    document.getElementById('filterPanel').innerHTML = filterTemplates['konut'];
+    // Sayfa açıldığında direkt konut ile başlasın
+    document.getElementById('dynamicFilterPanel').innerHTML = templates.konut.html;
 
-    function executeSearch() {
-        alert("Filtreleme kriterleri alındı! Sonuç sayfasına yönlendiriliyorsunuz...");
+    function aramaYap() {
+        alert("Filtreleme çalıştı! Listeleme sayfasına aktarılıyor...");
     }
 </script>
 
