@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Türkiye'nin Güvenli İlan, Nakliye ve Kentsel Dönüşüm Ağı</title>
+    <title>YerimBurada - Yeni Nesil İlan ve Bölgesel Esnaf Platformu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -50,12 +50,18 @@
         .panel-section { display: none; }
         .panel-section.active { display: block; }
         
+        /* Özgün Akıllı Kart Tasarımı */
+        .smart-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .smart-card { border: 2px solid var(--yb-siniri); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fff; }
+        .smart-card:hover, .smart-card.selected { border-color: var(--yb-turuncu); background: #fff7ed; transform: translateY(-2px); }
+        .smart-card i { font-size: 28px; color: var(--yb-turuncu); margin-bottom: 10px; }
+        .smart-card h4 { font-size: 15px; font-weight: 700; }
+
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; background: #fff; font-size: 14px; }
         .form-full { grid-column: span 2; }
 
-        /* Modal Giriş/Üye Paneli */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: #fff; width: 400px; padding: 30px; border-radius: 8px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 20px; cursor: pointer; color: #64748b; }
@@ -108,7 +114,7 @@
     </div>
 
     <div class="main-layout">
-        <!-- Sol Gelişmiş Akordeon Katalog -->
+        <!-- Sol Akordeon Katalog -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
             
@@ -122,21 +128,6 @@
                     <li onclick="kategoriSec('Rezidans')">Rezidans</li>
                     <li onclick="kategoriSec('Villa')">Villa</li>
                     <li onclick="kategoriSec('Müstakil Ev')">Müstakil Ev</li>
-                    <li onclick="kategoriSec('Yalı')">Yalı</li>
-                    <li onclick="kategoriSec('Yazlık')">Yazlık</li>
-                </ul>
-            </div>
-
-            <div class="cat-item">
-                <div class="cat-header" onclick="toggleSub('arsa-sub')">
-                    <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Arazi</span>
-                    <i class="fa fa-chevron-down"></i>
-                </div>
-                <ul class="cat-sub" id="arsa-sub">
-                    <li onclick="kategoriSec('İmarlı Arsa')">İmarlı Arsa</li>
-                    <li onclick="kategoriSec('Tarla')">Tarla</li>
-                    <li onclick="kategoriSec('Bağ')">Bağ</li>
-                    <li onclick="kategoriSec('Bahçe')">Bahçe</li>
                 </ul>
             </div>
 
@@ -149,7 +140,6 @@
                     <li onclick="kategoriSec('Şehir İçi Taşımacılık')">Şehir İçi Taşımacılık</li>
                     <li onclick="kategoriSec('Şehirler Arası Nakliyat')">Şehirler Arası Nakliyat</li>
                     <li onclick="kategoriSec('Asansörlü Taşımacılık')">Asansörlü Taşımacılık</li>
-                    <li onclick="kategoriSec('Ofis / Yük Taşımacılığı')">Ofis / Yük Taşımacılığı</li>
                 </ul>
             </div>
 
@@ -238,70 +228,86 @@
                 </div>
             </div>
 
-            <!-- Profesyonel Ücretsiz İlan Ver & Nakliye / Kentsel Dönüşüm Başvuru Ekranı -->
+            <!-- Yeni Nesil Tek Ekran Akıllı İlan ve Hizmet Sihirbazı -->
             <div id="page-ilanver" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan Ver / Hizmet Talebi Oluştur</h2>
-                <p style="color: #64748b; font-size: 14px; margin-bottom: 15px;">İlan türünü seçin, detayları girin ve şirketlerden teklifler alın.</p>
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-bolt"></i> Yeni Nesil Hızlı İlan & Hizmet Merkezi</h2>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Aşağıdan ne yapmak istediğinizi seçin, alanlar anında önünüze açılsın.</p>
                 
+                <!-- Akıllı Kartlar -->
+                <div class="smart-cards-grid">
+                    <div class="smart-card selected" id="card-gayrimenkul" onclick="secilenKartiAyarla('gayrimenkul')">
+                        <i class="fa fa-home"></i>
+                        <h4>Gayrimenkul / Konut</h4>
+                    </div>
+                    <div class="smart-card" id="card-nakliye" onclick="secilenKartiAyarla('nakliye')">
+                        <i class="fa fa-truck-moving"></i>
+                        <h4>Nakliye Talebi</h4>
+                    </div>
+                    <div class="smart-card" id="card-donusum" onclick="secilenKartiAyarla('donusum')">
+                        <i class="fa fa-city"></i>
+                        <h4>Kentsel Dönüşüm</h4>
+                    </div>
+                </div>
+
                 <div style="background: var(--yb-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--yb-siniri);">
                     <div class="form-grid">
                         <div class="form-group form-full">
-                            <label>Hizmet veya İlan Türü</label>
-                            <select id="ilan-tipi" onchange="ilanTipiDegisti()">
-                                <option value="gayrimenkul">Gayrimenkul / Konut İlanı</option>
-                                <option value="nakliye">Nakliye Hizmet Talebi (Ev/Ofis Taşıma)</option>
-                                <option value="donusum">Kentsel Dönüşüm Bina Başvurusu</option>
-                            </select>
+                            <label>Başlık</label>
+                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir'de Lüks Daire veya Ev Taşıma Talebi">
                         </div>
 
-                        <!-- ORTAK ALANLAR -->
-                        <div class="form-group form-full">
-                            <label>İlan / Talep Başlığı</label>
-                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir'de Satılık 3+1 Daire veya 2+1 Ev Nakliye Talebi">
+                        <!-- GAYRİMENKUL ALANLARI -->
+                        <div class="form-group gayrimenkul-alan">
+                            <label>Konut Tipi</label>
+                            <select><option>Daire</option><option>Rezidans</option><option>Villa</option><option>Müstakil</option></select>
+                        </div>
+                        <div class="form-group gayrimenkul-alan">
+                            <label>Oda Sayısı</label>
+                            <select><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1+</option></select>
                         </div>
 
                         <!-- NAKLİYE ÖZEL ALANLAR -->
                         <div class="form-group nakliye-alan" style="display:none;">
-                            <label>Ev Tipi / Oda Sayısı (Nakliye)</label>
-                            <select id="nakliye-oda">
-                                <option>1+1 Daire</option>
-                                <option>2+1 Daire</option>
-                                <option>3+1 Daire</option>
-                                <option>4+1 ve Üzeri</option>
-                                <option>Villa / Müstakil</option>
-                                <option>Ofis / İş Yeri</option>
-                            </select>
+                            <label>Taşınacak Ev Tipi</label>
+                            <select><option>1+1 Daire</option><option>2+1 Daire</option><option>3+1 Daire</option><option>Villa / Geniş Ofis</option></select>
                         </div>
                         <div class="form-group nakliye-alan" style="display:none;">
-                            <label>Asansör Durumu (Kaçıncı Kat?)</label>
-                            <input type="text" placeholder="Örn: 5. Kat (Asansör Yok)">
+                            <label>Kat & Asansör Durumu</label>
+                            <input type="text" placeholder="Örn: 4. Kat, Asansör Yok">
                         </div>
 
                         <!-- KENTSEL DÖNÜŞÜM ÖZEL ALANLAR -->
                         <div class="form-group donusum-alan" style="display:none;">
-                            <label>Bina Yaşı (Yıl)</label>
+                            <label>Bina Yaşı</label>
                             <input type="number" placeholder="Örn: 35 Yıllık Bina">
                         </div>
                         <div class="form-group donusum-alan" style="display:none;">
-                            <label>Toplam Kat / Daire Sayısı</label>
-                            <input type="text" placeholder="Örn: 5 Katlı, Her katta 2 daire (Toplam 10 daire)">
+                            <label>Toplam Hane / Daire Sayısı</label>
+                            <input type="text" placeholder="Örn: 12 Daireli Apartman">
                         </div>
 
-                        <!-- GAYRİMENKUL / GENEL -->
+                        <!-- ORTAK ALANLAR -->
                         <div class="form-group">
                             <label>Fiyat / Bütçe (TL)</label>
-                            <input type="text" id="ilan-fiyat" placeholder="Örn: 3.500.000 TL veya Teklif Bekliyor">
+                            <input type="text" id="ilan-fiyat" placeholder="Örn: 4.500.000 TL veya Teklif Al">
                         </div>
                         <div class="form-group">
                             <label>İletişim Telefonu</label>
                             <input type="text" id="ilan-tel" placeholder="05XX XXX XX XX">
                         </div>
                         <div class="form-group form-full">
-                            <label>Açıklama & Detaylar</label>
-                            <textarea id="ilan-detay" rows="4" placeholder="İlanın veya almak istediğiniz hizmetin tüm detaylarını buraya yazın..."></textarea>
+                            <label>Açıklama / Detaylar</label>
+                            <textarea id="ilan-detay" rows="4" placeholder="Tüm detayları buraya yazın..."></textarea>
                         </div>
                     </div>
-                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 15px;">İlanı / Talebi Yayınla (Teklif Almaya Başla)</button>
+                    
+                    <!-- ESNAF ODASI PAYLAŞIM ENTEGRASYONU -->
+                    <div style="margin-top: 15px; padding: 12px; background: #fff; border: 1px dashed var(--yb-turuncu); border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 13px; font-weight: 600; color: var(--yb-karanlik);"><i class="fa fa-bullhorn" style="color:var(--yb-turuncu);"></i> Bu ilanı/talebi doğrudan bölge esnaf odasında (sohbet ağında) anında yayınla</span>
+                        <input type="checkbox" id="esnaf-paylas" checked style="width: 18px; height: 18px; accent-color: var(--yb-turuncu);">
+                    </div>
+
+                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 15px;">Hemen Yayınla ve Teklifleri Topla</button>
                 </div>
             </div>
 
@@ -367,13 +373,17 @@
             showPage('vitrin');
         }
 
-        function ilanTipiDegisti() {
-            const tip = document.getElementById('ilan-tipi').value;
+        function secilenKartiAyarla(tur) {
+            document.querySelectorAll('.smart-card').forEach(el => el.classList.remove('selected'));
+            document.getElementById('card-' + tur).classList.add('selected');
+
+            const gayrimenkulAlanlar = document.querySelectorAll('.gayrimenkul-alan');
             const nakliyeAlanlar = document.querySelectorAll('.nakliye-alan');
             const donusumAlanlar = document.querySelectorAll('.donusum-alan');
 
-            nakliyeAlanlar.forEach(el => el.style.display = (tip === 'nakliye') ? 'block' : 'none');
-            donusumAlanlar.forEach(el => el.style.display = (tip === 'donusum') ? 'block' : 'none');
+            gayrimenkulAlanlar.forEach(el => el.style.display = (tur === 'gayrimenkul') ? 'block' : 'none');
+            nakliyeAlanlar.forEach(el => el.style.display = (tur === 'nakliye') ? 'block' : 'none');
+            donusumAlanlar.forEach(el => el.style.display = (tur === 'donusum') ? 'block' : 'none');
         }
 
         const istanbulAvrupaIlceler = ["Arnavutköy", "Avcılar", "Bağcılar", "Bahçelievler", "Bakırköy", "Başakşehir", "Bayrampaşa", "Beşiktaş", "Beylikdüzü", "Beyoğlu", "Büyükçekmece", "Çatalca", "Esenler", "Esenyurt", "Eyüpsultan", "Fatih", "Gaziosmanpaşa", "Güngören", "Kağıthane", "Küçükçekmece", "Sarıyer", "Silivri", "Sultangazi", "Şişli", "Zeytinburnu"];
@@ -475,10 +485,10 @@
             const tel = document.getElementById('ilan-tel').value;
 
             if(!baslik || !fiyat || !tel) {
-                alert("Bay Kaya, lütfen İlan Başlığı, Fiyat ve İletişim Telefonu alanlarını eksiksiz doldurun!");
+                alert("Lütfen Başlık, Fiyat ve İletişim Telefonu alanlarını eksiksiz doldurun!");
                 return;
             }
-            alert("Tebrikler Bay Kaya! İlanınız veya hizmet talebiniz başarıyla yayınlandı ve ilgili esnaflara iletildi.");
+            alert("İlanınız başarıyla yayınlandı ve bölge esnaf odası ağına iletildi!");
             showPage('vitrin');
         }
 
@@ -498,7 +508,7 @@
             const mahalle = document.getElementById('mahalle-sec').value;
 
             if(!isim || !il || !ilce || !mahalle || (il === 'İstanbul' && !yaka)) {
-                alert("Bay Kaya, lütfen tüm bölgeleri eksiksiz doldurun!");
+                alert("Lütfen tüm bölgeleri eksiksiz doldurun!");
                 return;
             }
 
