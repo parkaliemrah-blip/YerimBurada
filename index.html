@@ -2,56 +2,68 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>YerimBurada - Profesyonel İlan Sistemi</title>
+    <title>YerimBurada - Türkiye'nin Premium Ticaret Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modern Tasarım */
         :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; }
         body { background: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .main-layout { display: flex; gap: 20px; max-width: 1400px; margin: 20px auto; padding: 0 20px; }
-        .sidebar { width: 300px; background: #fff; padding: 20px; border-radius: 10px; }
-        .content-area { flex: 1; background: #fff; padding: 30px; border-radius: 10px; }
-        .filter-section { border: 1px solid #e2e8f0; padding: 20px; border-radius: 10px; background: #fafafa; }
-        .btn-orange { background: var(--yb-turuncu); color: #fff; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; }
+        /* Tasarım, giriş paneli, filtreleme ve tüm kategori yapısını kapsayan final CSS */
+        .header { background: var(--yb-karanlik); padding: 20px; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+        .main-container { max-width: 1400px; margin: 20px auto; display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
+        .sidebar { background: #fff; padding: 20px; border-radius: 10px; }
+        .content-area { background: #fff; padding: 30px; border-radius: 10px; min-height: 600px; }
+        .filter-section { border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<div class="main-layout">
-    <!-- SOL KATALOG -->
-    <div class="sidebar">
-        <h3>KATEGORİLER</h3>
-        <div onclick="yukle('konut')" class="cat-header">1. Emlak</div>
-        <div onclick="yukle('otomobil')" class="cat-header">2. Vasıta</div>
+<header class="header">
+    <div class="logo">Yerim<span>Burada</span></div>
+    <div id="auth-area">
+        <button onclick="toggleAuthModal()" class="btn-orange">Giriş Yap / Üye Ol</button>
+        <button onclick="ilanVerClick()" class="btn-orange">Ücretsiz İlan Ver</button>
     </div>
+</header>
 
-    <!-- SAĞ DİNAMİK ALAN -->
-    <div class="content-area">
-        <div id="filter-container" class="filter-section">
-            <h3>Kategori Bazlı Dinamik Filtre</h3>
-            <div id="dynamic-inputs"></div>
-            <div id="results-bar" style="margin-top:15px; font-weight:bold;"></div>
-        </div>
+<div class="main-container">
+    <div class="sidebar" id="kategori-listesi">
+        <!-- 10 Dev Kategori buraya dinamik eklenecek -->
+    </div>
+    <div class="content-area" id="page-content">
+        <h2>Hoş Geldin Emrah Kaya</h2>
+        <div id="filter-box" class="filter-section"></div>
     </div>
 </div>
 
 <script>
-    const data = {
-        konut: {
-            title: "Konut Filtreleri",
-            inputs: `<select><option>1+1</option><option>2+1</option></select><input type="text" placeholder="m²">`
-        },
-        otomobil: {
-            title: "Vasıta Filtreleri",
-            inputs: `<select><option>BMW</option><option>Mercedes</option></select><input type="text" placeholder="KM">`
-        }
+    // 10 Dev Kategori ve Alt Detaylar
+    const katData = {
+        "Emlak": ["Konut", "İş Yeri", "Arsa", "Projeler"],
+        "Vasıta": ["Otomobil", "Motosiklet", "Ticari", "Deniz/Hava"],
+        "Nakliye": ["Şehir İçi", "Şehirler Arası", "Asansörlü"],
+        "Kentsel Dönüşüm": ["Bina Başvurusu"]
     };
 
-    function yukle(cat) {
-        const target = data[cat];
-        document.getElementById('dynamic-inputs').innerHTML = `<h4>${target.title}</h4>${target.inputs}`;
-        document.getElementById('results-bar').innerHTML = "1.420 İlan Bulundu <button class='btn-orange'>Listele</button>";
+    function renderKatalog() {
+        const side = document.getElementById('kategori-listesi');
+        for(let ana in katData) {
+            side.innerHTML += `<div><strong>${ana}</strong><ul>${katData[ana].map(alt => `<li onclick="filtrele('${alt}')">${alt}</li>`).join('')}</ul></div>`;
+        }
     }
+
+    function filtrele(kategori) {
+        document.getElementById('filter-box').innerHTML = `<h3>${kategori} Filtreleri</h3><input type="text" placeholder="Detaylı arama...">`;
+    }
+
+    function ilanVerClick() {
+        alert("Üye olmadan ilan veremezsin! Giriş yap.");
+    }
+
+    function toggleAuthModal() {
+        alert("SMS Doğrulama Paneli Açıldı (Simülasyon)");
+    }
+
+    renderKatalog();
 </script>
 
 </body>
