@@ -13,7 +13,7 @@
             --yb-turuncu-hover: #e03400;
             --yb-bg: #f3f4f6;
             --yb-siniri: #e2e8f0;
-            --yb-golge: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --yb-golge: 0 20px 40px -15px rgba(9, 13, 22, 0.12);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
         body { background-color: var(--yb-bg); color: var(--yb-karanlik); min-height: 100vh; display: flex; flex-direction: column; }
@@ -30,8 +30,8 @@
 
         .nav-actions { display: flex; gap: 12px; align-items: center; position: relative; }
         .btn { padding: 11px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: all 0.2s; }
-        .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; box-shadow: 0 4px 12px rgba(255,59,0,0.3); }
-        .btn-orange:hover { background-color: var(--yb-turuncu-hover); transform: translateY(-1px); }
+        .btn-orange { background: linear-gradient(135deg, #ff3b00, #ff6a00); color: white; border: none; box-shadow: 0 6px 20px rgba(255,59,0,0.35); transition: all 0.3s ease; }
+        .btn-orange:hover { background: linear-gradient(135deg, #e03400, #e05500); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,59,0,0.5); }
         .btn-outline { border: 1.5px solid rgba(255,255,255,0.25); color: white; background: rgba(255,255,255,0.05); }
 
         .user-dropdown { display: none; position: absolute; right: 0; top: 50px; background: #fff; border: 1px solid var(--yb-siniri); border-radius: 10px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; }
@@ -50,7 +50,7 @@
         .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 700; background: #fff; }
 
-        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 30px; min-height: 700px; box-shadow: var(--yb-golge); }
+        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 16px; padding: 35px; min-height: 700px; box-shadow: var(--yb-golge); }
         .panel-section { display: none; }
         .panel-section.active { display: block; }
 
@@ -59,11 +59,93 @@
         
         .form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px; }
-        .form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        .form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
         
-        .form-group label { display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; text-transform: uppercase; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 13px; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--yb-turuncu); }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--yb-siniri); border-radius: 10px; outline: none; background: #fff; font-size: 14px; transition: all 0.2s ease; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--yb-turuncu); box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.1); }
+
+        /* YENİLENEN GÖZ ALICI ESNAFIM KARTI TASARIMI */
+        .esnaf-hero-card {
+            background: linear-gradient(135deg, #090d16 0%, #1a233a 100%);
+            border-radius: 16px;
+            padding: 35px;
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(9, 13, 22, 0.25);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 59, 0, 0.3);
+        }
+        .esnaf-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 59, 0, 0.15);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+        .esnaf-hero-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+        .esnaf-hero-header i {
+            font-size: 32px;
+            color: var(--yb-turuncu);
+            background: rgba(255, 59, 0, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .esnaf-hero-header h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .esnaf-hero-header p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .esnaf-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .esnaf-form-group label {
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .esnaf-form-group input, .esnaf-form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .esnaf-form-group input::placeholder { color: #64748b; }
+        .esnaf-form-group select option { background: #090d16; color: #fff; }
+        .esnaf-form-group input:focus, .esnaf-form-group select:focus {
+            border-color: var(--yb-turuncu);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(255, 59, 0, 0.25);
+        }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,11,20,0.7); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: #fff; width: 440px; padding: 35px; border-radius: 16px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
@@ -123,11 +205,10 @@
 
     <div class="main-layout">
         
-        <!-- SOL KATALOG (Geliştirilmiş & Genişletilmiş) -->
+        <!-- SOL KATALOG -->
         <div class="sidebar">
             <h3>YERİMBURADA KATEGORİLER</h3>
             
-            <!-- 1. EMLAK -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('emlak-sub')"><span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> 1. Emlak</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="emlak-sub">
@@ -139,7 +220,6 @@
                 </ul>
             </div>
 
-            <!-- 2. VASITA (SUV, Pick-up, Jeep, Karavan, Panelvan, Çadır eklendi) -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('vasita-sub')"><span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> 2. Vasıta</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="vasita-sub">
@@ -155,7 +235,6 @@
                 </ul>
             </div>
 
-            <!-- 3. TOPTANCILAR & TOPTAN ALIM -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('toptan-sub')"><span><i class="fa fa-boxes" style="color:var(--yb-turuncu); width:20px;"></i> 3. Toptancılar & Toptan Ticaret</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="toptan-sub">
@@ -168,7 +247,6 @@
                 </ul>
             </div>
 
-            <!-- 4. TAMİRAT, TADİLAT VE USTALAR -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('usta-sub')"><span><i class="fa fa-hammer" style="color:var(--yb-turuncu); width:20px;"></i> 4. Tamirat, Tadilat & Ustalar</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="usta-sub">
@@ -182,7 +260,6 @@
                 </ul>
             </div>
 
-            <!-- 5. ALIŞVERİŞ -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('alisveris-sub')"><span><i class="fa fa-shopping-bag" style="color:var(--yb-turuncu); width:20px;"></i> 5. Alışveriş</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="alisveris-sub">
@@ -193,7 +270,6 @@
                 </ul>
             </div>
 
-            <!-- 6. İŞ İLANLARI -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('is-sub')"><span><i class="fa fa-briefcase" style="color:var(--yb-turuncu); width:20px;"></i> 6. İş İlanları</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="is-sub">
@@ -202,7 +278,6 @@
                 </ul>
             </div>
 
-            <!-- 7. HİZMETLER -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('hizmet-sub')"><span><i class="fa fa-concierge-bell" style="color:var(--yb-turuncu); width:20px;"></i> 7. Hizmetler</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="hizmet-sub">
@@ -211,7 +286,6 @@
                 </ul>
             </div>
 
-            <!-- 8. İŞ MAKİNELERİ & SANAYİ -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('makine-sub')"><span><i class="fa fa-industry" style="color:var(--yb-turuncu); width:20px;"></i> 8. İş Makineleri & Sanayi</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="makine-sub">
@@ -221,7 +295,6 @@
                 </ul>
             </div>
 
-            <!-- 9. EVCİL HAYVAN -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('hayvan-sub')"><span><i class="fa fa-paw" style="color:var(--yb-turuncu); width:20px;"></i> 9. Evcil Hayvan</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="hayvan-sub">
@@ -230,7 +303,6 @@
                 </ul>
             </div>
 
-            <!-- 10. ÖZEL DERS & YARDIMCI -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('ders-sub')"><span><i class="fa fa-chalkboard-teacher" style="color:var(--yb-turuncu); width:20px;"></i> 10. Özel Ders & Yardımcı</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="ders-sub">
@@ -243,6 +315,7 @@
         <!-- SAĞ İÇERİK ALANI -->
         <div class="content-area">
             
+            <!-- VİTRİN / FİLTRE PANELİ -->
             <div id="page-vitrin" class="panel-section active">
                 <div class="filter-box">
                     <div class="filter-title">
@@ -272,43 +345,72 @@
                         </div>
                     </div>
 
-                    <!-- DİNAMİK FİLTRE ALANI (SUV, Pick-up, Jeep, Karavan, Toptancı, Usta vb. Detaylı Özellikler) -->
                     <div id="dinamik-alan"></div>
 
-                    <button onclick="alert('Filtreleme uygulandı!')" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 14px;">Filtrelere Göre İlanları Listele</button>
+                    <button onclick="alert('Filtreleme uygulandı!')" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 10px;">Filtrelere Göre İlanları Listele</button>
                 </div>
 
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 20px; margin-bottom: 20px; background: #fff;">
+                <div style="border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; margin-bottom: 20px; background: #fff;">
                     <h3 style="font-size: 15px; color: var(--yb-karanlik);"><i class="fa fa-star" style="color: #eab308;"></i> Özel Vitrin İlanları</h3>
                 </div>
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 30px; background: #fff; text-align: center;">
+                <div style="border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 30px; background: #fff; text-align: center;">
                     <h3 style="font-size: 15px; color: var(--yb-karanlik); margin-bottom: 10px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
                     <p style="color: #64748b; font-size: 13px;">Seçtiğiniz filtrelerde henüz ilan bulunmuyor.</p>
                 </div>
             </div>
 
-            <!-- ESNAFIM PANELİ -->
+            <!-- GÖZ ALICI YENİLENEN ESNAFIM / TOPTANCI PANELİ -->
             <div id="page-esnaf" class="panel-section">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Toptancı Ağı</h2>
-                <div style="background: var(--yb-bg); padding: 22px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); margin-top: 18px;">
-                    <div class="form-grid-2">
-                        <div class="form-group"><label>Ad Soyad / Firma Ünvanı</label><input type="text" id="esnaf-isim" placeholder="Örn: Kaya Toptan Ticaret / Başakşehir Usta"></div>
-                        <div class="form-group"><label>İl Seçin</label><select id="il-sec" onchange="ilDegisti()"><option value="">İl Seçiniz</option></select></div>
-                        <div class="form-group" id="yaka-container" style="display:none;"><label>İstanbul Yakası</label><select id="yaka-sec" onchange="yakaDegisti()"><option value="">Yaka Seçiniz</option><option value="Avrupa">Avrupa Yakası</option><option value="Anadolu">Anadolu Yakası</option></select></div>
-                        <div class="form-group"><label>İlçe Seçin</label><select id="ilce-sec" onchange="ilceDegisti()"><option value="">Önce İl Seçiniz</option></select></div>
-                        <div class="form-group"><label>Semt / Mahalle Seçin</label><select id="mahalle-sec"><option value="">Önce İlçe Seçiniz</option></select></div>
-                    </div>
-                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 18px; width: 100%; justify-content: center; padding: 12px;">Bölge Esnaf / Toptancı Odasına Bağlan</button>
-                </div>
-                <div id="chat-container" style="display:none; margin-top:20px;">
-                    <h3 id="room-title" style="margin-bottom: 10px; font-size: 14px; color: var(--yb-karanlik);">📢 Odaya Bağlanıldı</h3>
-                    <div style="border: 1.5px solid var(--yb-siniri); border-radius: 10px; overflow: hidden; background: #fff;">
-                        <div id="chat-messages" style="height: 280px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
-                            <div style="background: var(--yb-bg); padding: 10px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;"><b>Sistem:</b> Toptancılar ve Ustalar bölge odasına hoş geldiniz!</div>
+                <div class="esnaf-hero-card">
+                    <div class="esnaf-hero-header">
+                        <i class="fa fa-store-alt"></i>
+                        <div>
+                            <h2>YerimBurada Esnaf & Toptancı Ağı</h2>
+                            <p>Bölgenizdeki esnaflar, toptancılar ve ustalarla doğrudan portföy ve ticaret ağı kurun.</p>
                         </div>
-                        <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1.5px solid var(--yb-siniri); gap: 10px;">
-                            <input type="text" id="mesaj-input" placeholder="Toptan fiyat veya usta hizmet teklifi yazın..." style="flex: 1; padding: 10px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff;">
-                            <button onclick="mesajGonder()" class="btn btn-orange">Gönder</button>
+                    </div>
+
+                    <div class="esnaf-form-grid">
+                        <div class="esnaf-form-group">
+                            <label><i class="fa fa-user-tie" style="color:var(--yb-turuncu); margin-right:6px;"></i> Ad Soyad / Firma Ünvanı</label>
+                            <input type="text" id="esnaf-isim" placeholder="Örn: Kaya Toptan Ticaret / Başakşehir Usta">
+                        </div>
+                        <div class="esnaf-form-group">
+                            <label><i class="fa fa-map-marker-alt" style="color:var(--yb-turuncu); margin-right:6px;"></i> İl Seçin</label>
+                            <select id="il-sec" onchange="ilDegisti()"><option value="">İl Seçiniz</option></select>
+                        </div>
+                        <div class="esnaf-form-group" id="yaka-container" style="display:none;">
+                            <label><i class="fa fa-compass" style="color:var(--yb-turuncu); margin-right:6px;"></i> İstanbul Yakası</label>
+                            <select id="yaka-sec" onchange="yakaDegisti()">
+                                <option value="">Yaka Seçiniz</option>
+                                <option value="Avrupa">Avrupa Yakası</option>
+                                <option value="Anadolu">Anadolu Yakası</option>
+                            </select>
+                        </div>
+                        <div class="esnaf-form-group">
+                            <label><i class="fa fa-city" style="color:var(--yb-turuncu); margin-right:6px;"></i> İlçe Seçin</label>
+                            <select id="ilce-sec" onchange="ilceDegisti()"><option value="">Önce İl Seçiniz</option></select>
+                        </div>
+                        <div class="esnaf-form-group" style="grid-column: span 2;">
+                            <label><i class="fa fa-road" style="color:var(--yb-turuncu); margin-right:6px;"></i> Semt / Mahalle Seçin</label>
+                            <select id="mahalle-sec"><option value="">Önce İlçe Seçiniz</option></select>
+                        </div>
+                    </div>
+
+                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 25px; width: 100%; justify-content: center; padding: 15px; font-size: 15px; border-radius: 10px;">
+                        <i class="fa fa-plug" style="margin-right: 8px;"></i> Bölge Esnaf / Toptancı Odasına Canlı Bağlan
+                    </button>
+                </div>
+
+                <div id="chat-container" style="display:none; margin-top:25px;">
+                    <h3 id="room-title" style="margin-bottom: 12px; font-size: 15px; color: var(--yb-karanlik); font-weight: 800;">📢 Odaya Bağlanıldı</h3>
+                    <div style="border: 1.5px solid var(--yb-siniri); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: var(--yb-golge);">
+                        <div id="chat-messages" style="height: 300px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+                            <div style="background: var(--yb-bg); padding: 12px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;"><b>Sistem:</b> Toptancılar ve Ustalar bölge odasına hoş geldiniz!</div>
+                        </div>
+                        <div style="display: flex; padding: 15px; background: #fafafa; border-top: 1.5px solid var(--yb-siniri); gap: 12px;">
+                            <input type="text" id="mesaj-input" placeholder="Toptan fiyat veya usta hizmet teklifi yazın..." style="flex: 1; padding: 12px 16px; border: 1.5px solid var(--yb-siniri); border-radius: 10px; outline: none; background: #fff; font-size: 14px;">
+                            <button onclick="mesajGonder()" class="btn btn-orange" style="padding: 12px 25px; border-radius: 10px;">Gönder</button>
                         </div>
                     </div>
                 </div>
@@ -317,13 +419,13 @@
             <!-- İLAN VER PANELİ -->
             <div id="page-ilanver" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-plus-circle"></i> Ücretsiz İlan, Toptan Ürün veya Usta Profili Ekleyin</h2>
-                <div style="background: var(--yb-bg); padding: 22px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); margin-top: 15px;">
+                <div style="background: var(--yb-bg); padding: 25px; border-radius: 12px; border: 1.5px solid var(--yb-siniri); margin-top: 15px;">
                     <div class="form-grid-2">
                         <div class="form-group" style="grid-column: span 2;"><label>İlan Başlığı</label><input type="text" id="ilan-baslik" placeholder="Örn: Toptan Gıda Satışı / Başakşehir Su Tesisatçısı Usta"></div>
                         <div class="form-group"><label>Fiyat / Toptan Birim Fiyatı (TL)</label><input type="text" id="ilan-fiyat" placeholder="25.000" oninput="fiyatFormatla(this)"></div>
                         <div class="form-group"><label>İletişim Telefonu</label><input type="text" id="ilan-tel" placeholder="05XX XXX XX XX"></div>
                     </div>
-                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 18px; width: 100%; justify-content: center; padding: 12px;">Hemen İlanı Yayınla</button>
+                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 10px;">Hemen İlanı Yayınla</button>
                 </div>
             </div>
 
@@ -410,13 +512,12 @@
             if (value !== '') { input.value = Number(value).toLocaleString('tr-TR'); }
         }
 
-        // DEV VE KUSURSUZ FİLTRE MOTORU (SUV, Pick-up, Jeep, Karavan, Toptancı, Ustalar Dahil)
         function kategoriSec(katAdi) {
+            showPage('vitrin');
             document.getElementById('secilen-kat-baslik').innerText = katAdi;
             const alan = document.getElementById('dinamik-alan');
             const kimdenSelect = document.getElementById('kimden-select');
 
-            // "Kimden" seçeneklerini sektöre göre akıllıca ayarla
             if (katAdi === 'Konut' || katAdi === 'İş Yeri' || katAdi === 'Arsa & Arazi' || katAdi === 'Konut Projeleri' || katAdi === 'Bina & Devremülk') {
                 kimdenSelect.innerHTML = '<option>Tümü</option><option>Sahibinden</option><option>Emlak Ofisinden</option><option>İnşaat Firmasından</option>';
             } else if (['Otomobil', 'SUV', 'Pick-up', 'Jeep / 4x4', 'Karavan', 'Panelvan', 'Motosiklet', 'Ticari Araçlar'].includes(katAdi)) {
@@ -486,7 +587,7 @@
                 alan.innerHTML = `
                     <div class="form-grid-4">
                         <div class="form-group"><label>Karavan Tipi</label><select><option>Çekme Karavan</option><option>Motokaravan</option><option>Tiny House</option><option>Araç Üstü Çadır</option></select></div>
-                        <div class="form-group"><label>Yatak Kapasitesi</label><select><oops>2 Kişilik</option><option>3-4 Kişilik</option><option>5 Kişilik ve Üzeri</option></select></div>
+                        <div class="form-group"><label>Yatak Kapasitesi</label><select><option>2 Kişilik</option><option>3-4 Kişilik</option><option>5 Kişilik ve Üzeri</option></select></div>
                         <div class="form-group"><label>Güneş Paneli / Enerji</label><select><option>Var</option><option>Yok</option></select></div>
                         <div class="form-group"><label>Tuvalet / Banyo</label><select><option>Var</option><option>Yok</option></select></div>
                     </div>
