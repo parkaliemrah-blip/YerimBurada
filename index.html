@@ -21,7 +21,7 @@
         header { background: var(--yb-karanlik); border-bottom: 3px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .nav-container { max-width: 1520px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 30px; }
         
-        .logo { font-size: 28px; font-weight: 800; color: #fff; text-decoration: none; }
+        .logo { font-size: 28px; font-weight: 800; color: #fff; text-decoration: none; cursor: pointer; }
         .logo span { color: var(--yb-turuncu); text-shadow: 0 0 15px rgba(255, 59, 0, 0.6); }
         
         .search-container { flex: 1; max-width: 500px; margin: 0 30px; display: flex; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -64,9 +64,6 @@
         .form-group label { display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; text-transform: uppercase; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 13px; }
         .form-group input:focus, .form-group select:focus { border-color: var(--yb-turuncu); }
-        
-        .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-        .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,11,20,0.7); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: #fff; width: 440px; padding: 35px; border-radius: 16px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
@@ -84,7 +81,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
+            <a href="#" onclick="location.reload()" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
                 <input type="text" placeholder="İlan no, mahalle, araç markası, nakliye veya ürün arayın...">
                 <button><i class="fa fa-search"></i> Ara</button>
@@ -126,7 +123,7 @@
 
     <div class="main-layout">
         
-        <!-- SOL KATALOG -->
+        <!-- SOL KATALOG (Eksiksiz Tüm Alt Kategoriler) -->
         <div class="sidebar">
             <h3>YERİMBURADA KATEGORİLER</h3>
             
@@ -200,7 +197,7 @@
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('hayvan-sub')"><span><i class="fa fa-paw" style="color:var(--yb-turuncu); width:20px;"></i> 8. Evcil Hayvan</span> <i class="fa fa-chevron-down" style="font-size:11px;"></i></div>
                 <ul class="cat-sub" id="hayvan-sub">
-                    <li onclick="kategoriSec('Evcil Hayvanlar')">Evcil Hayvanlar</li>
+                    <li onclick="kategoriSec('Evcil Hayvanlar')">Evcil Hayvan Sahiplendirme</li>
                     <li onclick="kategoriSec('Mama & Aksesuar')">Mama & Aksesuar</li>
                 </ul>
             </div>
@@ -393,7 +390,7 @@
             if (value !== '') { input.value = Number(value).toLocaleString('tr-TR'); }
         }
 
-        // Sahibinden.com Standartlarında Detaylı Dinamik Filtre Motoru
+        // KESİN ÇÖZÜM: BÜTÜN SOL KATEGORİLER İÇİN ÖZEL SAHİBİNDEN.COM FİLTRE MOTORU
         function kategoriSec(katAdi) {
             document.getElementById('secilen-kat-baslik').innerText = katAdi;
             const alan = document.getElementById('dinamik-alan');
@@ -411,6 +408,24 @@
                         <div class="form-group"><label>Eşyalı</label><select><option>Tümü</option><option>Evet</option><option>Hayır</option></select></div>
                     </div>
                 `;
+            } else if (katAdi === 'İş Yeri') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Bölüm / Oda Sayısı</label><select><option>Tümü</option><option>1-3 arası</option><option>4-8 arası</option><option>9 ve üzeri</option></select></div>
+                        <div class="form-group"><label>m² (Min)</label><input type="text" placeholder="Min m²"></div>
+                        <div class="form-group"><label>Devren mi?</label><select><option>Tümü</option><option>Evet</option><option>Hayır</option></select></div>
+                        <div class="form-group"><label>Kat Sayısı</label><select><option>Tümü</option><option>Zemin</option><option>Asma Katlı</option><option>Plaza Katı</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Arsa & Arazi') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>İmar Durumu</label><select><option>Tümü</option><option>Konut İmarlı</option><option>Ticari İmarlı</option><option>Sanayi İmarlı</option><option>Tarla / Tarım</option><option>Bağ & Bahçe</option></select></div>
+                        <div class="form-group"><label>m² (Min)</label><input type="text" placeholder="Min m²"></div>
+                        <div class="form-group"><label>m² (Max)</label><input type="text" placeholder="Max m²"></div>
+                        <div class="form-group"><label>Kredi Durumu</label><select><option>Tümü</option><option>Uygun</option><option>Değil</option></select></div>
+                    </div>
+                `;
             } else if (katAdi === 'Otomobil') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
@@ -424,15 +439,6 @@
                         <div class="form-group"><label>Araç Durumu</label><select><option>Tümü</option><option>İkinci El</option><option>Sıfır</option></select></div>
                     </div>
                 `;
-            } else if (katAdi === 'Arsa & Arazi') {
-                alan.innerHTML = `
-                    <div class="form-grid-4">
-                        <div class="form-group"><label>İmar Durumu</label><select><option>Tümü</option><option>Konut İmarlı</option><option>Ticari İmarlı</option><option>Tarla / Tarım</option><option>Bağ & Bahçe</option></select></div>
-                        <div class="form-group"><label>Metrekare (Min)</label><input type="text" placeholder="Min m²"></div>
-                        <div class="form-group"><label>Metrekare (Max)</label><input type="text" placeholder="Max m²"></div>
-                        <div class="form-group"><label>Kredi Durumu</label><select><option>Tümü</option><option>Uygun</option><option>Değil</option></select></div>
-                    </div>
-                `;
             } else if (katAdi === 'Nakliye Hizmeti') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
@@ -442,22 +448,56 @@
                         <div class="form-group"><label>Sigortalı Nakliye</label><select><option>Evet</option><option>İsteğe Bağlı</option></select></div>
                     </div>
                 `;
-            } else if (katAdi.includes('İş İlanları')) {
+            } else if (katAdi === 'Tamirat & Tadilat') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Çalışma Şekli</label><select><option>Tam Zamanlı</option><option>Part-Time</option><option>Stajyer</option><option>Serbest Zamanlı</option></select></div>
+                        <div class="form-group"><label>Hizmet Alanı</label><select><option>Anahtar Teslim Tadilat</option><option>Banyo & Mutfak Yenileme</option><option>Boya & Badana</option><option>Su Tesisatı & Elektrik</option><option>Alçıpan & Kartonpiyer</option></select></div>
+                        <div class="form-group"><label>Ücretsiz Keşif</label><select><option>İstiyorum</option><option>Gerek Yok</option></select></div>
+                        <div class="form-group"><label>Garantili İşçilik</label><select><option>İstiyorum</option><option>Farketmez</option></select></div>
+                        <div class="form-group"><label>Aciliyet</label><select><option>Hemen</option><option>Bu Hafta</option><option>Planlı</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Temizlik Hizmeti') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Temizlik Türü</label><select><option>Ev Temizliği</option><option>Ofis Temizliği</option><option>İnşaat Sonrası Temizlik</option><option>Koltuk & Halı Yıkama</option></select></div>
+                        <div class="form-group"><label>Malzeme Durumu</label><select><option>Temizlik Firmasından</option><option>Ev Sahibinden</option></select></div>
+                        <div class="form-group"><label>Periyot</label><select><option>Tek Seferlik</option><option>Haftalık Düzenli</option><option>Aylık Düzenli</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Sektörel İş İlanları' || katAdi === 'Part-Time / Stajyer') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Çalışma Şekli</label><select><option>Tam Zamanlı</option><option>Part-Time</option><option>Stajyer</option><option>Uzaktan (Remote)</option></select></div>
                         <div class="form-group"><label>Sektör</label><select><option>Gayrimenkul / Emlak</option><option>Bilişim / Yazılım</option><option>Lojistik / Nakliye</option><option>İnşaat</option><option>Otomotiv</option></select></div>
                         <div class="form-group"><label>Eğitim Seviyesi</label><select><option>Fark Etmez</option><option>Lise</option><option>Üniversite Mezunu</option></select></div>
                         <div class="form-group"><label>Deneyim</label><select><option>Deneyimsiz / Yetiştirilmek Üzere</option><option>1-3 Yıl</option><option>5 Yıl ve Üzeri</option></select></div>
                     </div>
                 `;
-            } else if (katAdi === 'İş Makineleri') {
+            } else if (katAdi === 'İş Makineleri' || katAdi === 'Tarım Makineleri' || katAdi === 'Sanayi Ekipmanları') {
                 alan.innerHTML = `
                     <div class="form-grid-4">
-                        <div class="form-group"><label>Makine Türü</label><select><option>Ekskavatör</option><option>Kepçe / Beko Loder</option><option>Vinç</option><option>Forklift</option><option>Greyder</option></select></div>
+                        <div class="form-group"><label>Makine / Ekipman Türü</label><select><option>Ekskavatör</option><option>Kepçe / Beko Loder</option><option>Vinç</option><option>Forklift</option><option>CNC Torna Tezgahı</option><option>Traktör & Tarım</option></select></div>
                         <div class="form-group"><label>Üretim Yılı (Min)</label><input type="text" placeholder="Örn: 2012"></div>
                         <div class="form-group"><label>Çalışma Saati (Max)</label><input type="text" placeholder="Örn: 5000"></div>
                         <div class="form-group"><label>Durumu</label><select><option>İkinci El</option><option>Sıfır</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi === 'Evcil Hayvanlar' || katAdi === 'Mama & Aksesuar') {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Kategori / Cins</label><select><option>Kedi (Yavru/Yetişkin)</option><option>Köpek (Yavru/Yetişkin)</option><option>Kuş & Papağan</option><option>Akvaryum & Balık</option><option>Mama & Kafes Ekipmanları</option></select></div>
+                        <div class="form-group"><label>Yaş</label><select><option>Yavru (0-1 Yaş)</option><option>Genç (1-3 Yaş)</option><option>Yetişkin</option></select></div>
+                        <div class="form-group"><label>Cinsiyet</label><select><option>Dişi</option><option>Erkek</option><option>Fark Etmez</option></select></div>
+                        <div class="form-group"><label>Aşı Durumu</label><select><option>Tam / Karneli</option><option>Eksik / Bilinmiyor</option></select></div>
+                    </div>
+                `;
+            } else if (katAdi.includes('Özel Ders') || katAdi.includes('Bakıcı')) {
+                alan.innerHTML = `
+                    <div class="form-grid-4">
+                        <div class="form-group"><label>Hizmet / Ders Konusu</label><select><option>Matematik / Fen Takviye</option><option>İngilizce / Yabancı Dil</option><option>Bebek & Çocuk Bakıcısı</option><option>Yaşlı & Hasta Bakıcısı</option></select></div>
+                        <div class="form-group"><label>Eğitmen / Bakıcı Kimden</label><select><option>Öğretmenden / Uzmandan</option><option>Öğrenciden</option><option>Kurumdan / Ajanstan</option></select></div>
+                        <div class="form-group"><label>Konum</label><select><option>Öğrencinin Evi</option><option>Eğirmenin Yeri / Online</option></select></div>
                     </div>
                 `;
             } else {
@@ -465,7 +505,7 @@
                     <div class="form-grid-2">
                         <div class="form-group" style="grid-column: span 2;">
                             <label>${katAdi} İçin Arama Kriterleri</label>
-                            <input type="text" placeholder="${katAdi} detaylarında veya niteliklerinde ara...">
+                            <input type="text" placeholder="${katAdi} detaylarında, marka veya modelinde arayın...">
                         </div>
                     </div>
                 `;
