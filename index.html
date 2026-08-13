@@ -34,9 +34,9 @@
         .btn-orange:hover { background-color: var(--yb-turuncu-hover); }
         .btn-outline { border: 1px solid var(--yb-siniri); color: white; background: transparent; }
 
-        .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; }
+        .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 340px 1fr; gap: 30px; width: 100%; flex: 1; }
         
-        /* Sol Gelişmiş Akordeon Katalog ve Detaylı Filtre Paneli */
+        /* Sol Gelişmiş Akordeon Katalog ve Dinamik Filtre Paneli */
         .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; height: fit-content; }
         .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -47,9 +47,11 @@
         .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
         .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
 
-        .filter-section { margin-top: 15px; border-top: 2px solid #e2e8f0; padding-top: 15px; }
-        .filter-title { font-size: 13px; font-weight: 700; color: var(--yb-karanlik); margin-bottom: 8px; }
-        .filter-content { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        /* Filtre Alanları */
+        .filter-panel { margin-top: 15px; border-top: 2px solid #e2e8f0; padding-top: 15px; display: none; }
+        .filter-panel.active { display: block; }
+        .filter-title { font-size: 13px; font-weight: 700; color: var(--yb-karanlik); margin-bottom: 6px; }
+        .filter-content { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
         .filter-content select, .filter-content input { width: 100%; padding: 8px; border: 1px solid var(--yb-siniri); border-radius: 4px; font-size: 12px; background: #fff; outline: none; }
         .range-group { display: flex; gap: 5px; align-items: center; }
         .range-group input { width: 50%; }
@@ -76,7 +78,7 @@
         <div class="nav-container">
             <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="Daire, rezidans, arsa, tarla, otomobil, nakliye ara...">
+                <input type="text" placeholder="İlan, marka, model, arsa veya esnaf ara...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions">
@@ -88,123 +90,119 @@
     </header>
 
     <div class="main-layout">
-        <!-- Sol Gelişmiş Akordeon Katalog (Kesinlikle Alt Alta ve Ayrı) -->
+        <!-- Sol Gelişmiş Akordeon Katalog ve Dinamik Filtre Paneli -->
         <div class="sidebar">
             <h3>YERİMBURADA KATALOĞU</h3>
             
-            <!-- Konut & Ev (Tek Tek Alt Alta) -->
+            <!-- Konut & Ev -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('konut-sub')">
                     <span><i class="fa fa-home" style="color:var(--yb-turuncu); width:20px;"></i> Konut & Ev</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="konut-sub">
-                    <li onclick="kategoriFiltrele('Daire')">Daire</li>
-                    <li onclick="kategoriFiltrele('Rezidans')">Rezidans</li>
-                    <li onclick="kategoriFiltrele('Villa')">Villa</li>
-                    <li onclick="kategoriFiltrele('Müstakil Ev')">Müstakil Ev</li>
-                    <li onclick="kategoriFiltrele('Yalı')">Yalı</li>
-                    <li onclick="kategoriFiltrele('Yalı Dairesi')">Yalı Dairesi</li>
-                    <li onclick="kategoriFiltrele('Yazlık')">Yazlık</li>
-                    <li onclick="kategoriFiltrele('Kooperatif')">Kooperatif</li>
-                    <li onclick="kategoriFiltrele('Köşk')">Köşk</li>
-                    <li onclick="kategoriFiltrele('Konak')">Konak</li>
+                    <li onclick="kategoriSec('Daire', 'konut')">Daire</li>
+                    <li onclick="kategoriSec('Rezidans', 'konut')">Rezidans</li>
+                    <li onclick="kategoriSec('Villa', 'konut')">Villa</li>
+                    <li onclick="kategoriSec('Müstakil Ev', 'konut')">Müstakil Ev</li>
+                    <li onclick="kategoriSec('Yalı', 'konut')">Yalı</li>
+                    <li onclick="kategoriSec('Yalı Dairesi', 'konut')">Yalı Dairesi</li>
+                    <li onclick="kategoriSec('Yazlık', 'konut')">Yazlık</li>
+                    <li onclick="kategoriSec('Kooperatif', 'konut')">Kooperatif</li>
+                    <li onclick="kategoriSec('Köşk', 'konut')">Köşk</li>
+                    <li onclick="kategoriSec('Konak', 'konut')">Konak</li>
                 </ul>
             </div>
 
-            <!-- Arsa & Tarla (Tek Tek Alt Alta Nitelikler) -->
+            <!-- Arsa & Arazi -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('arsa-sub')">
                     <span><i class="fa fa-tree" style="color:var(--yb-turuncu); width:20px;"></i> Arsa & Arazi</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="arsa-sub">
-                    <li onclick="kategoriFiltrele('İmarlı Arsa')">İmarlı Arsa</li>
-                    <li onclick="kategoriFiltrele('Tarla')">Tarla</li>
-                    <li onclick="kategoriFiltrele('Bağ')">Bağ</li>
-                    <li onclick="kategoriFiltrele('Bahçe')">Bahçe</li>
-                    <li onclick="kategoriFiltrele('Zeytinlik')">Zeytinlik</li>
-                    <li onclick="kategoriFiltrele('Mera')">Mera</li>
-                    <li onclick="kategoriFiltrele('Zirai Arazi')">Zirai Arazi</li>
+                    <li onclick="kategoriSec('İmarlı Arsa', 'arsa')">İmarlı Arsa</li>
+                    <li onclick="kategoriSec('Tarla', 'arsa')">Tarla</li>
+                    <li onclick="kategoriSec('Bağ', 'arsa')">Bağ</li>
+                    <li onclick="kategoriSec('Bahçe', 'arsa')">Bahçe</li>
+                    <li onclick="kategoriSec('Zeytinlik', 'arsa')">Zeytinlik</li>
+                    <li onclick="kategoriSec('Mera', 'arsa')">Mera</li>
+                    <li onclick="kategoriSec('Zirai Arazi', 'arsa')">Zirai Arazi</li>
                 </ul>
             </div>
 
-            <!-- İş Yeri & Dükkan (Tek Tek Alt Alta) -->
+            <!-- İş Yeri & Dükkan -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('isyeri-sub')">
                     <span><i class="fa fa-store" style="color:var(--yb-turuncu); width:20px;"></i> İş Yeri & Dükkan</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="isyeri-sub">
-                    <li onclick="kategoriFiltrele('Dükkan')">Dükkan</li>
-                    <li onclick="kategoriFiltrele('Mağaza')">Mağaza</li>
-                    <li onclick="kategoriFiltrele('Ofis')">Ofis</li>
-                    <li onclick="kategoriFiltrele('Büro')">Büro</li>
-                    <li onclick="kategoriFiltrele('Depo')">Depo</li>
-                    <li onclick="kategoriFiltrele('Antrepo')">Antrepo</li>
-                    <li onclick="kategoriFiltrele('Plaza Katı')">Plaza Katı</li>
+                    <li onclick="kategoriSec('Dükkan', 'isyeri')">Dükkan</li>
+                    <li onclick="kategoriSec('Mağaza', 'isyeri')">Mağaza</li>
+                    <li onclick="kategoriSec('Ofis', 'isyeri')">Ofis</li>
+                    <li onclick="kategoriSec('Büro', 'isyeri')">Büro</li>
+                    <li onclick="kategoriSec('Depo', 'isyeri')">Depo</li>
+                    <li onclick="kategoriSec('Antrepo', 'isyeri')">Antrepo</li>
+                    <li onclick="kategoriSec('Plaza Katı', 'isyeri')">Plaza Katı</li>
                 </ul>
             </div>
 
-            <!-- Vasıta & Galeri (Ayrı Ayrı Alt Alta) -->
+            <!-- Vasıta & Galeri -->
             <div class="cat-item">
                 <div class="cat-header" onclick="toggleSub('vasita-sub')">
                     <span><i class="fa fa-car" style="color:var(--yb-turuncu); width:20px;"></i> Vasıta & Galeri</span>
                     <i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="cat-sub" id="vasita-sub">
-                    <li onclick="kategoriFiltrele('Otomobil')">Otomobil</li>
-                    <li onclick="kategoriFiltrele('Arazi (SUV)')">Arazi (SUV)</li>
-                    <li onclick="kategoriFiltrele('Pickup')">Pickup</li>
-                    <li onclick="kategoriFiltrele('Minivan')">Minivan</li>
-                    <li onclick="kategoriFiltrele('Panelvan')">Panelvan</li>
-                    <li onclick="kategoriFiltrele('Motosiklet')">Motosiklet</li>
-                    <li onclick="kategoriFiltrele('Bisiklet')">Bisiklet</li>
-                    <li onclick="kategoriFiltrele('Scooter')">Scooter</li>
-                    <li onclick="kategoriFiltrele('Karavan')">Karavan</li>
-                    <li onclick="kategoriFiltrele('Deniz Araçları / Gemi')">Deniz Araçları / Gemi / Yat</li>
+                    <li onclick="kategoriSec('Otomobil', 'vasita')">Otomobil</li>
+                    <li onclick="kategoriSec('Arazi (SUV)', 'vasita')">Arazi (SUV)</li>
+                    <li onclick="kategoriSec('Pickup', 'vasita')">Pickup</li>
+                    <li onclick="kategoriSec('Minivan', 'vasita')">Minivan</li>
+                    <li onclick="kategoriSec('Panelvan', 'vasita')">Panelvan</li>
+                    <li onclick="kategoriSec('Motosiklet', 'vasita')">Motosiklet</li>
+                    <li onclick="kategoriSec('Bisiklet', 'vasita')">Bisiklet</li>
+                    <li onclick="kategoriSec('Scooter', 'vasita')">Scooter</li>
+                    <li onclick="kategoriSec('Karavan', 'vasita')">Karavan</li>
+                    <li onclick="kategoriSec('Deniz Araçları / Gemi', 'vasita')">Deniz Araçları / Gemi / Yat</li>
                 </ul>
             </div>
 
-            <!-- Nakliye Hizmetleri -->
+            <!-- Nakliye & Kentsel Dönüşüm -->
             <div class="cat-item">
-                <div class="cat-header" onclick="kategoriFiltrele('Nakliye Hizmetleri')">
+                <div class="cat-header" onclick="kategoriSec('Nakliye Hizmetleri', 'diger')">
                     <span><i class="fa fa-truck" style="color:var(--yb-turuncu); width:20px;"></i> <b>Nakliye Hizmetleri</b></span>
                 </div>
             </div>
-
-            <!-- Kentsel Dönüşüm -->
             <div class="cat-item">
-                <div class="cat-header" onclick="kategoriFiltrele('Kentsel Dönüşüm Hizmeti')">
+                <div class="cat-header" onclick="kategoriSec('Kentsel Dönüşüm Hizmeti', 'diger')">
                     <span><i class="fa fa-building" style="color:var(--yb-turuncu); width:20px;"></i> <b>Kentsel Dönüşüm</b></span>
                 </div>
             </div>
 
-            <!-- SAHİBİNDEN TARZI DETAYLI FİLTRELER -->
-            <div class="filter-section">
+            <!-- 1. KONUT FİLTRE PANELİ -->
+            <div id="filter-konut" class="filter-panel">
                 <div class="filter-title">m² (Net / Brüt)</div>
                 <div class="filter-content range-group">
                     <input type="number" placeholder="Min m²">
                     <input type="number" placeholder="Max m²">
                 </div>
-
                 <div class="filter-title">Oda Sayısı</div>
                 <div class="filter-content">
                     <select>
                         <option value="">Seçiniz</option>
-                        <option>Stüdyo (1+0)</option>
+                        <option>1+0 (Stüdyo)</option>
                         <option>1+1</option>
                         <option>2+1</option>
                         <option>3+1</option>
                         <option>4+1 ve Üzeri</option>
                     </select>
                 </div>
-
                 <div class="filter-title">Bina Yaşı</div>
                 <div class="filter-content">
                     <select>
                         <option value="">Seçiniz</option>
-                        <option>0 (Sıfır)</option>
+                        <option>0 (Sıfır Bina)</option>
                         <option>1 - 5 arası</option>
                         <option>6 - 10 arası</option>
                         <option>11 - 20 arası</option>
@@ -213,14 +211,120 @@
                         <option>50 ve Üzeri</option>
                     </select>
                 </div>
+                <div class="filter-title">Bulunduğu Kat</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Bahçe Katı</option>
+                        <option>Giriş Katı</option>
+                        <option>1. Kat</option>
+                        <option>2. Kat</option>
+                        <option>3. Kat</option>
+                        <option>4. Kat ve Üzeri</option>
+                        <option>Çatı Katı</option>
+                    </select>
+                </div>
+                <div class="filter-title">Isıtma Tipi</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Kombi (Doğalgaz)</option>
+                        <option>Merkezi (Pay Ölçer)</option>
+                        <option>Yerden Isıtma</option>
+                        <option>Klima</option>
+                    </select>
+                </div>
+            </div>
 
+            <!-- 2. VASITA / ARABA FİLTRE PANELİ (İSTEDİĞİN DETAYLAR) -->
+            <div id="filter-vasita" class="filter-panel">
+                <div class="filter-title">Fiyat Aralığı (TL)</div>
+                <div class="filter-content range-group">
+                    <input type="number" placeholder="Min TL">
+                    <input type="number" placeholder="Max TL">
+                </div>
+                <div class="filter-title">Yıl (Model Yılı)</div>
+                <div class="filter-content range-group">
+                    <input type="number" placeholder="Min Yıl">
+                    <input type="number" placeholder="Max Yıl">
+                </div>
+                <div class="filter-title">Kilometre (KM)</div>
+                <div class="filter-content range-group">
+                    <input type="number" placeholder="Min KM">
+                    <input type="number" placeholder="Max KM">
+                </div>
+                <div class="filter-title">Vites Tipi</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Düz Vites (Manuel)</option>
+                        <option>Otomatik Vites</option>
+                        <option>Yarı Otomatik Vites</option>
+                    </select>
+                </div>
+                <div class="filter-title">Yakıt Türü</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Benzin</option>
+                        <option>Dizel</option>
+                        <option>LPG & Benzin</option>
+                        <option>Hibrit</option>
+                        <option>Elektrik</option>
+                    </select>
+                </div>
+                <div class="filter-title">Renk</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Beyaz</option>
+                        <option>Siyah</option>
+                        <option>Gri / Gümüş</option>
+                        <option>Kırmızı</option>
+                        <option>Mavi</option>
+                        <option>Lacivert</option>
+                    </select>
+                </div>
+                <div class="filter-title">Hasar / Tramer Durumu</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Hatasız / Boyasız</option>
+                        <option>Birkaç Parça Boyalı</option>
+                        <option>Değişenli</option>
+                        <option>Ağır Hasar Kayıtlı</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 3. ARSA FİLTRE PANELİ -->
+            <div id="filter-arsa" class="filter-panel">
+                <div class="filter-title">m² (Toplam Alan)</div>
+                <div class="filter-content range-group">
+                    <input type="number" placeholder="Min m²">
+                    <input type="number" placeholder="Max m²">
+                </div>
+                <div class="filter-title">İmar Durumu</div>
+                <div class="filter-content">
+                    <select>
+                        <option value="">Seçiniz</option>
+                        <option>Konut İmarlı</option>
+                        <option>Ticari İmarlı</option>
+                        <option>Sanayi İmarlı</option>
+                        <option>Tarla / Tarım</option>
+                        <option>İmarsız</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ORTAK KİMDEN / FİLTRE UYGULA BUTONU -->
+            <div class="filter-section">
                 <div class="filter-title">Kimden?</div>
                 <div class="filter-content" style="font-size: 12px; gap: 4px;">
                     <label><input type="checkbox"> Sahibinden</label>
-                    <label><input type="checkbox"> Emlak Ofisinden</label>
+                    <label><input type="checkbox"> Galeriden / Emlak Ofisinden</label>
                     <label><input type="checkbox"> İnşaat Firmasından</label>
                 </div>
-
                 <button class="btn btn-orange" style="width:100%; margin-top:10px; justify-content:center;">Filtreleri Uygula</button>
             </div>
         </div>
@@ -231,7 +335,7 @@
             <div id="page-vitrin" class="panel-section active">
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
                     <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
-                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori veya detay filtre seçerek arama yapabilirsiniz.</p>
+                    <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori seçtiğinizde aradığınız tüm detaylı filtreler anında açılacaktır.</p>
                 </div>
                 <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px;">
                     <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
@@ -278,7 +382,7 @@
                     <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; overflow: hidden;">
                         <div id="chat-messages" style="height: 280px; background: #fff; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
                             <div style="background: var(--yb-bg); padding: 10px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;">
-                                <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz! Burada daire arayışları, kentsel dönüşüm ve nakliye talepleri paylaşabilirsiniz.
+                                <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz!
                             </div>
                         </div>
                         <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1px solid var(--yb-siniri); gap: 10px; align-items: center;">
@@ -286,7 +390,7 @@
                                 <i class="fa fa-image"></i>
                                 <input type="file" id="media-input" style="display: none;" onchange="dosyaSecildi(event)">
                             </label>
-                            <input type="text" id="mesaj-input" placeholder="Portföy, daire arayışı veya mesaj yazın..." style="flex: 1; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none;">
+                            <input type="text" id="mesaj-input" placeholder="Portföy, araba veya daire arayışı yazın..." style="flex: 1; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none;">
                             <button onclick="mesajGonder()" class="btn btn-orange">Gönder</button>
                         </div>
                     </div>
@@ -302,26 +406,23 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label>İlan Başlığı</label>
-                            <input type="text" placeholder="Örn: Başakşehir'de Satılık Daire / Nakliye / Arsa">
+                            <input type="text" placeholder="Örn: 2023 Model Hatasız Otomobil / Satılık Daire">
                         </div>
                         <div class="form-group">
                             <label>Kategori Seçin</label>
                             <select>
+                                <option>Otomobil</option>
+                                <option>Arazi (SUV)</option>
                                 <option>Daire</option>
-                                <option>Rezidans</option>
                                 <option>Villa</option>
-                                <option>Müstakil Ev</option>
-                                <option>Yalı</option>
                                 <option>İmarlı Arsa</option>
                                 <option>Tarla</option>
-                                <option>Otomobil</option>
                                 <option>Nakliye Hizmetleri</option>
-                                <option>Kentsel Dönüşüm Hizmeti</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Fiyat (TL)</label>
-                            <input type="text" placeholder="Örn: 3.500.000 TL">
+                            <input type="text" placeholder="Örn: 950.000 TL">
                         </div>
                         <div class="form-group">
                             <label>İletişim Telefonu</label>
@@ -385,9 +486,22 @@
             }
         }
 
-        function kategoriFiltrele(katAdi) {
+        function kategoriSec(katAdi, tip) {
             document.getElementById('kategori-baslik').innerHTML = `<i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Seçilen Kategori: ${katAdi}`;
-            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" kategorisine ait detaylı filtre sonuçları listeleniyor.`;
+            document.getElementById('kategori-aciklama').innerText = `"${katAdi}" için arama ve filtreleme paneli aktif edildi.`;
+            
+            // Tüm filtre panellerini gizle
+            document.querySelectorAll('.filter-panel').forEach(el => el.classList.remove('active'));
+            
+            // Seçilen türe göre doğru filtre panelini aç
+            if(tip === 'konut' || tip === 'isyeri') {
+                document.getElementById('filter-konut').classList.add('active');
+            } else if(tip === 'vasita') {
+                document.getElementById('filter-vasita').classList.add('active');
+            } else if(tip === 'arsa') {
+                document.getElementById('filter-arsa').classList.add('active');
+            }
+            
             showPage('vitrin');
         }
 
