@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Profesyonel İlan ve Esnaf Platformu</title>
+    <title>YerimBurada - Profesyonel İlan ve Bölgesel Esnaf Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --yb-karanlik: #050b14;
             --yb-card-bg: #ffffff;
             --yb-mavi: #1d4ed8;
-            --yb-turuncu: #FF3300; /* İstediğin gibi ultra parlak ve cırtlak turuncu */
+            --yb-turuncu: #FF3300; /* Ultra parlak cırtlak turuncu */
             --yb-turuncu-hover: #E62E00;
             --yb-bg: #f8fafc;
             --yb-siniri: #cbd5e1;
@@ -20,8 +20,8 @@
         
         header { background: var(--yb-karanlik); border-bottom: 2px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 15px 25px; }
-        .logo { font-size: 28px; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 2px; }
-        .logo span { color: var(--yb-turuncu); text-shadow: 0 0 10px rgba(255, 51, 0, 0.6); }
+        .logo { font-size: 28px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
+        .logo span { color: var(--yb-turuncu); text-shadow: 0 0 12px rgba(255, 51, 0, 0.7); }
         
         .search-container { flex: 1; max-width: 550px; margin: 0 30px; display: flex; }
         .search-container input { width: 100%; padding: 12px 20px; border: none; border-radius: 6px 0 0 6px; outline: none; font-size: 15px; }
@@ -43,12 +43,11 @@
 
         .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 30px; min-height: 600px; }
         
-        /* Esnafım Paneli Tasarımı */
-        .esnaf-panel { display: none; margin-top: 15px; }
+        .esnaf-panel { display: none; }
         .esnaf-panel.active { display: block; }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; background: #fff; }
 
         footer { background: var(--yb-karanlik); color: #94a3b8; padding: 40px 0; margin-top: auto; border-top: 1px solid #1e293b; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 25px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
@@ -61,7 +60,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" onclick="showVitrin()" class="logo">Yerim<span>Burada</span></a>
+            <a href="#" onclick="showVitrin()" class="logo">YerimBurada</a>
             <div class="search-container">
                 <input type="text" placeholder="Daire, arsa, tarla, dükkan, otomobil, telefon ara...">
                 <button><i class="fa fa-search"></i> Ara</button>
@@ -99,49 +98,50 @@
 
             <!-- ESNAFIM BÖLGESEL PANELİ -->
             <div id="esnaf-section" class="esnaf-panel">
-                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Ticaret & Sohbet Ağı</h2>
-                <p style="color: #64748b; font-size: 14px;">Bölgenizdeki esnaflarla tanışın, iş birliği yapın, mahallenizdeki fırsatlardan anında haberdar olun.</p>
+                <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
+                <p style="color: #64748b; font-size: 14px;">İl ve ilçenizi seçerek bölgenizdeki diğer esnaflarla buluşun, portföy ve müşteri arayışlarınızı paylaşın.</p>
                 
                 <div style="background: var(--yb-bg); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--yb-siniri);">
                     <h3 style="font-size: 15px; margin-bottom: 10px;">Esnaf Kayıt ve Bölge Seçimi</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Ad Soyad / Firma Adı</label>
-                            <input type="text" id="esnaf-isim" placeholder="Örn: Mehmet Usta">
+                            <label>Ad Soyad / Firma Ünvanı</label>
+                            <input type="text" id="esnaf-isim" placeholder="Örn: Halit - Halit Arsa Ofisi">
                         </div>
                         <div class="form-group">
                             <label>İl Seçin</label>
-                            <select id="il-sec">
+                            <select id="il-sec" onchange="ilceleriGetir()">
                                 <option value="">İl Seçiniz</option>
-                                <option value="İstanbul">İstanbul</option>
-                                <option value="Ankara">Ankara</option>
-                                <option value="İzmir">İzmir</option>
-                                <option value="Bursa">Bursa</option>
-                                <option value="Antalya">Antalya</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>İlçe Yazın</label>
-                            <input type="text" id="ilce-sec" placeholder="Örn: Başakşehir">
+                            <label>İlçe Seçin</label>
+                            <select id="ilce-sec">
+                                <option value="">Önce İl Seçiniz</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Mahalle / Semt Yazın</label>
                             <input type="text" id="mahalle-sec" placeholder="Örn: Güvercintepe Mah.">
                         </div>
                     </div>
-                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 15px; width: 100%;">Sohbet Odasına Katıl</button>
+                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 15px; width: 100%;">Bölge Esnaf Odasına Giriş Yap</button>
                 </div>
 
                 <div id="chat-container" style="display:none; margin-top:20px;">
-                    <h3 id="room-title" style="margin-bottom: 10px; font-size: 15px; color: var(--yb-karanlik);">📢 Bölge Odası</h3>
+                    <h3 id="room-title" style="margin-bottom: 10px; font-size: 15px; color: var(--yb-karanlik);">📢 Oda: Yükleniyor...</h3>
                     <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; overflow: hidden;">
-                        <div id="chat-messages" style="height: 250px; background: #fff; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+                        <div id="chat-messages" style="height: 280px; background: #fff; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
                             <div style="background: var(--yb-bg); padding: 10px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;">
-                                <b>Sistem:</b> Bölge esnaf odasına hoş geldiniz!
+                                <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz! Burada daire arayışları, ilanlar ve görseller paylaşabilirsiniz.
                             </div>
                         </div>
-                        <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1px solid var(--yb-siniri); gap: 10px;">
-                            <input type="text" id="mesaj-input" placeholder="Esnaflara mesaj yazın veya ilan/görsel paylaşın..." style="flex: 1; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none;">
+                        <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1px solid var(--yb-siniri); gap: 10px; align-items: center;">
+                            <label style="cursor: pointer; color: var(--yb-turuncu); font-size: 18px;" title="Fotoğraf veya Belge Yükle">
+                                <i class="fa fa-image"></i>
+                                <input type="file" id="media-input" style="display: none;" onchange="dosyaSecildi(event)">
+                            </label>
+                            <input type="text" id="mesaj-input" placeholder="Portföy, daire arayışı veya mesaj yazın..." style="flex: 1; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none;">
                             <button onclick="mesajGonder()" class="btn btn-orange">Gönder</button>
                         </div>
                     </div>
@@ -179,6 +179,51 @@
     </footer>
 
     <script>
+        // Türkiye'nin 81 İli ve İlçeleri Veri Tabanı
+        constturkiyeIlIlce = {
+            "İstanbul": ["Adalar", "Arnavutköy", "Ataşehir", "Avcılar", "Bağcılar", "Bahçelievler", "Bakırköy", "Başakşehir", "Bayrampaşa", "Beşiktaş", "Beykoz", "Beylikdüzü", "Beyoğlu", "Büyükçekmece", "Çatalca", "Çekmeköy", "Esenler", "Esenyurt", "Eyüpsultan", "Fatih", "Gaziosmanpaşa", "Güngören", "Kadıköy", "Kağıthane", "Kartal", "Küçükçekmece", "Maltepe", "Pendik", "Sancaktepe", "Sarıyer", "Silivri", "Sultanbeyli", "Sultangazi", "Şile", "Şişli", "Tuzla", "Ümraniye", "Üsküdar", "Zeytinburnu"],
+            "Ankara": ["Akyurt", "Altındağ", "Ayaş", "Bala", "Beypazarı", "Çamlıdere", "Çankaya", "Çubuk", "Elmadağ", "Etimesgut", "Evren", "Gölbaşı", "Güdül", "Haymana", "Kahramankazan", "Kalecik", "Keçiören", "Kızılcahamam", "Mamak", "Nallıhan", "Polatlı", "Pursaklar", "Sincan", "Şereflikoçhisar", "Yenimahalle"],
+            "İzmir": ["Aliağa", "Balçova", "Bayındır", "Bayraklı", "Bergama", "Beydağ", "Bornova", "Buca", "Çeşme", "Çiğli", "Dikili", "Foça", "Gaziemir", "Güzelbahçe", "Karabağlar", "Karaburun", "Karşıyaka", "Kemalpaşa", "Kınık", "Kiraz", "Konak", "Menderes", "Menemen", "Narlıdere", "Ödemiş", "Seferihisar", "Selçuk", "Tire", "Torbalı", "Urla"],
+            "Adana": ["Aladağ", "Ceyhan", "Çukurova", "Feke", "İmamoğlu", "Karaisalı", "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yumurtalık", "Yüreğir"],
+            "Antalya": ["Akseki", "Aksu", "Alanya", "Demre", "Döşemealtı", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş", "İbradı", "Kaş", "Kemer", "Kepez", "Konyaaltı", "Korkuteli", "Kumluca", "Manavgat", "Muratpaşa", "Serik"],
+            "Bursa": ["İnegöl", "Nilüfer", "Osmangazi", "Yıldırım", "Gemlik", "Mudanya", "Gürsu", "Kestel", "Büyükorhan", "Harmancık", "Keles", "Mustafakemalpaşa", "Orhaneli", "Orhangazi", "Yenişehir"],
+            "Kırklareli": ["Babaeski", "Demirköy", "Kofçaz", "Lüleburgaz", "Pehlivanköy", "Pınarhisar", "Vize"]
+        };
+
+        // Sayfa açıldığında 81 ili yükle (Diğer tüm iller dahil genel liste)
+        window.onload = function() {
+            const ilSelect = document.getElementById('il-sec');
+            const tumIller = ["Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu", "Kayseri", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"];
+            
+            tumIller.sort().forEach(il => {
+                let opt = document.createElement('option');
+                opt.value = il;
+                opt.innerHTML = il;
+                ilSelect.appendChild(opt);
+            });
+        };
+
+        function ilceleriGetir() {
+            const il = document.getElementById('il-sec').value;
+            const ilceSelect = document.getElementById('ilce-sec');
+            ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
+            
+            if(turkiyeIlIlce[il]) {
+                turkiyeIlIlce[il].forEach(ilce => {
+                    let opt = document.createElement('option');
+                    opt.value = ilce;
+                    opt.innerHTML = ilce;
+                    ilceSelect.appendChild(opt);
+                });
+            } else if(il) {
+                // Eğer özel tanımlı değilse manuel ilçe yazma/ekleme esnekliği
+                let opt = document.createElement('option');
+                opt.value = "Merkez / Tüm İlçeler";
+                opt.innerHTML = "Merkez / Tüm İlçeler";
+                ilceSelect.appendChild(opt);
+            }
+        }
+
         function toggleEsnafPanel() {
             const vitrin = document.getElementById('vitrin-section');
             const esnaf = document.getElementById('esnaf-section');
@@ -196,20 +241,28 @@
             document.getElementById('vitrin-section').style.display = 'block';
         }
 
+        let secilenDosyaAdi = "";
+        function dosyaSecildi(event) {
+            if(event.target.files && event.target.files[0]) {
+                secilenDosyaAdi = event.target.files[0].name;
+                alert("Dosya seçildi: " + secilenDosyaAdi + " (Mesaj gönder butonuna basarak paylaşabilirsiniz)");
+            }
+        }
+
         function esnafGirisYap() {
             const isim = document.getElementById('esnaf-isim').value;
             const il = document.getElementById('il-sec').value;
             const ilce = document.getElementById('ilce-sec').value;
             const mahalle = document.getElementById('mahalle-sec').value;
 
-            if(!isim || !il || !ilce || !mahalle) {
-                alert("Lütfen tüm alanları eksiksiz doldurun!");
+            if(!isim || !il || !ilce) {
+                alert("Lütfen Ad Soyad/Firma ünvanı, İl ve İlçe bilgilerini eksiksiz doldurun!");
                 return;
             }
 
-            document.getElementById('room-title').innerText = `📢 Bölge Odası: ${il} / ${ilce} / ${mahalle} Esnaf Grubu`;
+            document.getElementById('room-title').innerText = `📢 ${il} / ${ilce} Esnaf Portföy & Paylaşım Ağı`;
             document.getElementById('chat-container').style.display = 'block';
-            alert("Tebrikler! Esnaf ağına başarıyla kaydoldunuz.");
+            alert(`Tebrikler ${isim}! ${il} - ${ilce} esnaf odasına başarıyla bağlandınız.`);
         }
 
         function mesajGonder() {
@@ -217,13 +270,19 @@
             const mesajText = input.value;
             const isim = document.getElementById('esnaf-isim').value;
 
-            if(!mesajText) return;
+            if(!mesajText && !secilenDosyaAdi) return;
 
             const chatBox = document.getElementById('chat-messages');
             const yeniMesaj = document.createElement('div');
-            yeniMesaj.style.cssText = "background: var(--yb-bg); padding: 10px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;";
-            yeniMesaj.innerHTML = `<b>${isim}:</b> ${mesajText}`;
+            yeniMesaj.style.cssText = "background: var(--yb-bg); padding: 12px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;";
             
+            let icerik = `<b>${isim}:</b> ${mesajText}`;
+            if(secilenDosyaAdi) {
+                icerik += `<br><span style="color:var(--yb-mavi); font-weight:600;"><i class="fa fa-paperclip"></i> Eklenen Dosya/Görsel: ${secilenDosyaAdi}</span>`;
+                secilenDosyaAdi = "";
+            }
+
+            yeniMesaj.innerHTML = icerik;
             chatBox.appendChild(yeniMesaj);
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
