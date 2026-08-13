@@ -3,64 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada | Profesyonel İlan Ağı</title>
+    <title>YerimBurada | Profesyonel İlan ve Ticaret Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; --yb-bg: #f3f4f6; }
+        :root { --yb-turuncu: #ff3b00; --yb-karanlik: #090d16; --yb-bg: #f3f4f6; --yb-siniri: #e2e8f0; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--yb-bg); }
         
-        /* Layout */
-        .header { background: var(--yb-karanlik); color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--yb-turuncu); }
-        .container { display: flex; max-width: 1300px; margin: 30px auto; gap: 30px; padding: 0 20px; }
+        .header { background: var(--yb-karanlik); color: #fff; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 26px; font-weight: 800; color: #fff; }
+        .logo span { color: var(--yb-turuncu); }
         
-        /* Sidebar */
-        .sidebar { width: 300px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: fit-content; }
-        .sidebar h3 { font-size: 14px; color: var(--yb-turuncu); margin-bottom: 15px; text-transform: uppercase; }
-        .cat-item { padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 600; }
-        .cat-item:hover { color: var(--yb-turuncu); }
+        .container { display: flex; max-width: 1400px; margin: 30px auto; gap: 30px; padding: 0 20px; }
+        
+        /* Sidebar Kategoriler */
+        .sidebar { width: 320px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: fit-content; max-height: 80vh; overflow-y: auto; }
+        .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
+        .cat-item { padding: 12px 10px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: space-between; transition: color 0.2s; }
+        .cat-item:hover { color: var(--yb-turuncu); background: #fff7ed; border-radius: 6px; }
 
-        /* Content */
-        .main-content { flex: 1; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .filter-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        /* İçerik Alanı */
+        .main-content { flex: 1; background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .filter-box { background: #fafafa; padding: 25px; border-radius: 10px; border: 1.5px solid var(--yb-siniri); }
         
-        /* Form */
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: var(--yb-turuncu); color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        input, select { width: 100%; padding: 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 14px; }
+        
+        .btn-orange { background: var(--yb-turuncu); color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; }
+        .btn-orange:hover { background: #e03400; }
+        .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-outline:hover { border-color: #fff; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <div style="font-size: 24px; font-weight: bold;">Yerim<span>Burada</span></div>
-    <div>
-        <button onclick="alert('Giriş sistemi aktif edilecek')" style="background:transparent; color:#fff; border:1px solid #fff; padding:10px;">Giriş Yap</button>
-        <button class="btn-orange" style="background:var(--yb-turuncu); color:#fff; padding:10px 20px; border:none;">İlan Ver</button>
+    <div class="logo">Yerim<span>Burada</span></div>
+    <div style="display: flex; gap: 12px;">
+        <button class="btn-outline" onclick="alert('Giriş Paneli')">Giriş Yap</button>
+        <button class="btn-orange" onclick="alert('İlan Ver Paneli')">İlan Ver</button>
     </div>
 </div>
 
 <div class="container">
+    <!-- 10 Dev Kategori Sol Menü -->
     <div class="sidebar">
         <h3>KATEGORİLER</h3>
-        <div class="cat-item">1. Emlak</div>
-        <div class="cat-item">2. Vasıta</div>
-        <div class="cat-item">3. Yedek Parça</div>
-        <div class="cat-item">4. Alışveriş</div>
+        <div class="cat-item">1. Emlak <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">2. Vasıta <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">3. Yedek Parça & Tuning <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">4. Alışveriş (İkinci El/Sıfır) <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">5. İş İlanları <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">6. Hizmetler <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">7. İş Makineleri & Sanayi <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">8. Evcil Hayvan <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">9. Özel Ders Verenler <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
+        <div class="cat-item">10. Yardımcı Arayanlar <i class="fa fa-chevron-right" style="font-size:11px; color:#94a3b8;"></i></div>
     </div>
 
+    <!-- Sağ Detaylı Arama ve Vitrin Alanı -->
     <div class="main-content">
         <div class="filter-box">
-            <h3>Detaylı Arama</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-                <input type="text" placeholder="Kategori">
-                <input type="text" placeholder="Minimum Fiyat">
-                <input type="text" placeholder="Maksimum Fiyat">
+            <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 8px;"><i class="fa fa-filter" style="color:var(--yb-turuncu);"></i> Detaylı Arama & Filtreleme</h3>
+            <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">Aradığınız kategoriyi seçin, kriterlere göre anında filtreleyin.</p>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Kategori Seçin</label>
+                    <select>
+                        <option>Tüm Kategoriler</option>
+                        <option>1. Emlak (Konut, İş Yeri)</option>
+                        <option>2. Vasıta (Otomobil, Motorsiklet)</option>
+                        <option>3. Yedek Parça</option>
+                        <option>4. Alışveriş</option>
+                        <option>5. İş İlanları</option>
+                        <option>6. Hizmetler (Nakliye vb.)</option>
+                        <option>7. İş Makineleri</option>
+                        <option>8. Evcil Hayvan</option>
+                        <option>9. Özel Ders</option>
+                        <option>10. Yardımcı Arayanlar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Min Fiyat (TL)</label>
+                    <input type="text" placeholder="5.000.000">
+                </div>
+                <div class="form-group">
+                    <label>Max Fiyat (TL)</label>
+                    <input type="text" placeholder="15.000.000">
+                </div>
             </div>
-            <button>İlanları Filtrele</button>
+            <div style="margin-top: 15px;">
+                <button class="btn-orange" style="width: 100%;">İlanları Filtrele</button>
+            </div>
         </div>
-        <div style="margin-top: 30px;">
-            <h3>Vitrin İlanları</h3>
-            <p>Henüz ilan yok.</p>
+
+        <div style="margin-top: 35px; border-top: 1px solid var(--yb-siniri); padding-top: 25px;">
+            <h3 style="font-size: 16px; margin-bottom: 15px; color: var(--yb-karanlik);"><i class="fa fa-layer-group" style="color: #2563eb;"></i> Canlı İlan Vitrini</h3>
+            <p style="color: #64748b; font-size: 14px; text-align: center; padding: 40px; background: #fafafa; border-radius: 8px; border: 1px dashed var(--yb-siniri);">Henüz ilan bulunmuyor. İlk ilanı siz verin!</p>
         </div>
     </div>
 </div>
