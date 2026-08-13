@@ -3,73 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YerimBurada - Profesyonel İlan, Nakliye ve Kentsel Dönüşüm Platformu</title>
+    <title>YerimBurada - Türkiye'nin Premium Gayrimenkul, Nakliye ve Kentsel Dönüşüm Ağı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --yb-karanlik: #050b14;
+            --yb-karanlik: #090d16;
             --yb-card-bg: #ffffff;
-            --yb-mavi: #1d4ed8;
-            --yb-turuncu: #FF3300;
-            --yb-turuncu-hover: #E62E00;
-            --yb-bg: #f8fafc;
-            --yb-siniri: #cbd5e1;
+            --yb-mavi: #2563eb;
+            --yb-turuncu: #ff3b00;
+            --yb-turuncu-hover: #e03400;
+            --yb-bg: #f3f4f6;
+            --yb-siniri: #e2e8f0;
+            --yb-golge: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
         body { background-color: var(--yb-bg); color: var(--yb-karanlik); min-height: 100vh; display: flex; flex-direction: column; }
         
-        header { background: var(--yb-karanlik); border-bottom: 2px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 15px 25px; }
+        header { background: var(--yb-karanlik); border-bottom: 3px solid var(--yb-turuncu); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .nav-container { max-width: 1480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 30px; }
         
-        .logo { font-size: 28px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
-        .logo span { color: var(--yb-turuncu); text-shadow: 0 0 12px rgba(255, 51, 0, 0.7); font-weight: 700; }
+        .logo { font-size: 30px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
+        .logo span { color: var(--yb-turuncu); text-shadow: 0 0 15px rgba(255, 59, 0, 0.6); }
         
-        .search-container { flex: 1; max-width: 550px; margin: 0 30px; display: flex; }
-        .search-container input { width: 100%; padding: 12px 20px; border: none; border-radius: 6px 0 0 6px; outline: none; font-size: 15px; }
-        .search-container button { background: var(--yb-turuncu); color: white; border: none; padding: 0 25px; border-radius: 0 6px 6px 0; cursor: pointer; font-weight: bold; }
+        .search-container { flex: 1; max-width: 600px; margin: 0 40px; display: flex; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .search-container input { width: 100%; padding: 14px 20px; border: none; outline: none; font-size: 15px; }
+        .search-container button { background: var(--yb-turuncu); color: white; border: none; padding: 0 30px; cursor: pointer; font-weight: 700; font-size: 15px; transition: background 0.2s; }
+        .search-container button:hover { background: var(--yb-turuncu-hover); }
 
-        .nav-actions { display: flex; gap: 12px; align-items: center; }
-        .btn { padding: 10px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
-        .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; }
-        .btn-orange:hover { background-color: var(--yb-turuncu-hover); }
-        .btn-outline { border: 1px solid var(--yb-siniri); color: white; background: transparent; }
+        .nav-actions { display: flex; gap: 14px; align-items: center; }
+        .btn { padding: 11px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: all 0.2s; }
+        .btn-orange { background-color: var(--yb-turuncu); color: white; border: none; box-shadow: 0 4px 12px rgba(255,59,0,0.3); }
+        .btn-orange:hover { background-color: var(--yb-turuncu-hover); transform: translateY(-1px); }
+        .btn-outline { border: 1.5px solid rgba(255,255,255,0.2); color: white; background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-        .main-layout { max-width: 1400px; margin: 30px auto; padding: 0 25px; display: grid; grid-template-columns: 320px 1fr; gap: 30px; width: 100%; flex: 1; align-items: start; }
+        .main-layout { max-width: 1480px; margin: 35px auto; padding: 0 30px; display: grid; grid-template-columns: 340px 1fr; gap: 35px; width: 100%; flex: 1; align-items: start; }
         
-        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 15px; }
-        .sidebar h3 { font-size: 13px; color: var(--yb-turuncu); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sidebar { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 20px; box-shadow: var(--yb-golge); }
+        .sidebar h3 { font-size: 12px; color: var(--yb-turuncu); margin-bottom: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         
         .cat-item { border-bottom: 1px solid #f1f5f9; }
-        .cat-header { padding: 12px 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--yb-karanlik); border-radius: 6px; transition: background 0.2s; }
+        .cat-header { padding: 14px 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--yb-karanlik); border-radius: 8px; transition: all 0.2s; }
         .cat-header:hover { background: #fff7ed; color: var(--yb-turuncu); }
-        .cat-sub { display: none; padding-left: 15px; list-style: none; background: #fafafa; border-radius: 6px; margin-bottom: 5px; }
-        .cat-sub li { padding: 8px 10px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; }
-        .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 500; background: #fff; }
+        .cat-sub { display: none; padding-left: 15px; list-style: none; background: #fafafa; border-radius: 8px; margin-bottom: 8px; }
+        .cat-sub li { padding: 10px 12px; font-size: 13px; cursor: pointer; color: #475569; border-bottom: 1px solid #edf2f7; transition: color 0.2s; }
+        .cat-sub li:hover { color: var(--yb-turuncu); font-weight: 600; background: #fff; }
 
-        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 30px; min-height: 600px; }
+        .content-area { background: var(--yb-card-bg); border: 1px solid var(--yb-siniri); border-radius: 12px; padding: 35px; min-height: 650px; box-shadow: var(--yb-golge); }
         .panel-section { display: none; }
         .panel-section.active { display: block; }
         
-        .smart-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-        .smart-card { border: 2px solid var(--yb-siniri); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fff; }
-        .smart-card:hover, .smart-card.selected { border-color: var(--yb-turuncu); background: #fff7ed; transform: translateY(-2px); }
-        .smart-card i { font-size: 28px; color: var(--yb-turuncu); margin-bottom: 10px; }
-        .smart-card h4 { font-size: 15px; font-weight: 700; }
+        /* Premium Akıllı Kartlar */
+        .smart-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 25px; }
+        .smart-card { border: 2px solid var(--yb-siniri); border-radius: 10px; padding: 22px; text-align: center; cursor: pointer; transition: all 0.25s ease; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .smart-card:hover, .smart-card.selected { border-color: var(--yb-turuncu); background: #fff8f6; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,59,0,0.1); }
+        .smart-card i { font-size: 32px; color: var(--yb-turuncu); margin-bottom: 12px; }
+        .smart-card h4 { font-size: 16px; font-weight: 700; color: var(--yb-karanlik); }
 
-        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none; background: #fff; font-size: 14px; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 18px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff; font-size: 14px; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--yb-mavi); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
         .form-full { grid-column: span 2; }
 
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-box { background: #fff; width: 400px; padding: 30px; border-radius: 8px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 20px; cursor: pointer; color: #64748b; }
+        /* Milyon Dolarlık Modern Modal (Giriş / Sosyal Hesaplar) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,11,20,0.7); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-box { background: #fff; width: 440px; padding: 35px; border-radius: 16px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 22px; cursor: pointer; color: #94a3b8; transition: color 0.2s; }
+        .modal-close:hover { color: var(--yb-karanlik); }
 
-        footer { background: var(--yb-karanlik); color: #94a3b8; padding: 40px 0; margin-top: auto; border-top: 1px solid #1e293b; }
-        .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 25px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .footer-content h4 { color: #fff; margin-bottom: 15px; font-size: 16px; }
+        .social-btn { width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 1.5px solid var(--yb-siniri); background: #fff; transition: background 0.2s; margin-bottom: 10px; }
+        .social-btn:hover { background: #f8fafc; }
+        .social-btn.google { color: #1e293b; border-color: #cbd5e1; }
+        .social-btn.apple { background: #000; color: #fff; border-color: #000; }
+        .social-btn.apple:hover { background: #222; }
+
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #94a3b8; font-size: 13px; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--yb-siniri); }
+        .divider::before { margin-right: 10px; }
+        .divider::after { margin-left: 10px; }
+
+        footer { background: var(--yb-karanlik); color: #94a3b8; padding: 50px 0; margin-top: auto; border-top: 1px solid #1e293b; }
+        .footer-content { max-width: 1480px; margin: 0 auto; padding: 0 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .footer-content h4 { color: #fff; margin-bottom: 18px; font-size: 16px; font-weight: 700; }
         .footer-content ul { list-style: none; }
-        .footer-content ul li { margin-bottom: 8px; font-size: 14px; cursor: pointer; }
+        .footer-content ul li { margin-bottom: 10px; font-size: 14px; cursor: pointer; transition: color 0.2s; }
+        .footer-content ul li:hover { color: #fff; }
     </style>
 </head>
 <body>
@@ -78,7 +98,7 @@
         <div class="nav-container">
             <a href="#" onclick="showPage('vitrin')" class="logo">Yerim<span>Burada</span></a>
             <div class="search-container">
-                <input type="text" placeholder="İlan, nakliye, kentsel dönüşüm, arsa ara...">
+                <input type="text" placeholder="İlan, mahalle, nakliye veya kentsel dönüşüm arayın...">
                 <button><i class="fa fa-search"></i> Ara</button>
             </div>
             <div class="nav-actions">
@@ -89,25 +109,35 @@
         </div>
     </header>
 
-    <!-- Giriş Yap / Üye Ol Modalı -->
+    <!-- Milyon Dolarlık Modern Giriş / Üye Ol Modalı (Sosyal Hesaplar Destekli) -->
     <div id="auth-modal" class="modal-overlay">
         <div class="modal-box">
             <span class="modal-close" onclick="toggleAuthModal()">&times;</span>
-            <h2 style="color: var(--yb-turuncu); margin-bottom: 15px;"><i class="fa fa-user-circle"></i> Kullanıcı Portalı</h2>
-            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                <button class="btn btn-orange" style="flex:1; justify-content:center;" onclick="switchAuthTab('giris')">Giriş Yap</button>
-                <button class="btn btn-outline" style="flex:1; justify-content:center; color:#050b14; border-color:var(--yb-siniri);" onclick="switchAuthTab('uye')">Üye Ol</button>
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="color: var(--yb-karanlik); font-size: 24px; font-weight: 800; margin-bottom: 6px;">YerimBurada'ya Hoş Geldiniz</h2>
+                <p style="color: #64748b; font-size: 14px;">Güvenli esnaf ve ilan ağına hemen katılın</p>
             </div>
+
+            <!-- Sosyal Giriş Butonları -->
+            <button class="social-btn google" onclick="alert('Google ile bağlantı kuruluyor...')">
+                <i class="fab fa-google" style="color: #ea4335; font-size: 16px;"></i> Google ile Devam Et
+            </button>
+            <button class="social-btn apple" onclick="alert('Apple ID ile bağlantı kuruluyor...')">
+                <i class="fab fa-apple" style="font-size: 18px;"></i> Apple ile Devam Et
+            </button>
+
+            <div class="divider">veya telefon numarası ile</div>
+
             <div id="auth-form-content">
-                <div class="form-group" style="margin-bottom:10px;">
-                    <label>E-Posta veya Telefon</label>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Cep Telefonu Numarası</label>
                     <input type="text" placeholder="05XX XXX XX XX">
                 </div>
-                <div class="form-group" style="margin-bottom:15px;">
+                <div class="form-group" style="margin-bottom:20px;">
                     <label>Şifre</label>
-                    <input type="password" placeholder="******">
+                    <input type="password" placeholder="••••••••">
                 </div>
-                <button onclick="alert('Giriş başarılı!')" class="btn btn-orange" style="width:100%; justify-content:center;">Giriş Yap</button>
+                <button onclick="alert('Giriş başarılı!')" class="btn btn-orange" style="width:100%; justify-content:center; padding: 13px; font-size: 15px;">Giriş Yap / Üye Ol</button>
             </div>
         </div>
     </div>
@@ -124,13 +154,15 @@
                 </div>
                 <ul class="cat-sub" id="konut-sub">
                     <li onclick="kategoriSec('Daire')">Daire</li>
+                    <li onclick="kategoriSec('Ara Kat Dubleks')">Ara Kat Dubleks</li>
+                    <li onclick="kategoriSec('Çatı Dubleksi')">Çatı Dubleksi</li>
+                    <li onclick="kategoriSec('Ters Dubleks')">Ters Dubleks</li>
+                    <li onclick="kategoriSec('Bahçe Katı')">Bahçe Katı</li>
                     <li onclick="kategoriSec('Rezidans')">Rezidans</li>
                     <li onclick="kategoriSec('Villa')">Villa</li>
                     <li onclick="kategoriSec('Müstakil Ev')">Müstakil Ev</li>
-                    <li onclick="kategoriSec('Yalı')">Yalı</li>
+                    <li onclick="kategoriSec('Yalı & Yalı Dairesi')">Yalı & Yalı Dairesi</li>
                     <li onclick="kategoriSec('Yazlık')">Yazlık</li>
-                    <li onclick="kategoriSec('Köşk & Konak')">Köşk & Konak</li>
-                    <li onclick="kategoriSec('Dubpleks & Çatı Katı')">Dubleks / Çatı Katı</li>
                 </ul>
             </div>
 
@@ -195,23 +227,23 @@
             
             <!-- Vitrin Ekranı -->
             <div id="page-vitrin" class="panel-section active">
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
-                    <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
+                <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 22px; margin-bottom: 25px; background: #fff;">
+                    <h3 id="kategori-baslik" style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 12px;"><i class="fa fa-star" style="color: #eab308;"></i> YerimBurada Özel Vitrin İlanları</h3>
                     <p style="color: #64748b; font-size: 14px;" id="kategori-aciklama">Sol menüden kategori seçerek ilanları veya hizmet taleplerini inceleyebilirsiniz.</p>
                 </div>
-                <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; padding: 20px;">
+                <div style="border: 1px solid var(--yb-siniri); border-radius: 10px; padding: 22px; background: #fff;">
                     <h3 style="font-size: 16px; color: var(--yb-karanlik); margin-bottom: 15px;"><i class="fa fa-layer-group" style="color: var(--yb-mavi);"></i> Canlı İlan Vitrini (0)</h3>
-                    <p style="color: #64748b; font-size: 14px; text-align: center; padding: 40px;">Henüz ilan bulunmuyor. İlk ilanı veya nakliye talebini siz verin!</p>
+                    <p style="color: #64748b; font-size: 14px; text-align: center; padding: 50px;">Henüz ilan bulunmuyor. İlk ilanı veya nakliye talebini siz verin!</p>
                 </div>
             </div>
 
             <!-- Esnafım Bölgesel Sohbet Paneli -->
             <div id="page-esnaf" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-handshake"></i> Esnafım - Bölgesel Portföy ve Paylaşım Ağı</h2>
-                <p style="color: #64748b; font-size: 14px;">İstanbul için Avrupa / Anadolu yakası seçimi ve tüm Türkiye'nin eksiksiz il, ilçe ve mahalle ağı.</p>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">İstanbul için Avrupa / Anadolu yakası seçimi ve tüm Türkiye'nin eksiksiz il, ilçe ve mahalle ağı.</p>
                 
-                <div style="background: var(--yb-bg); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--yb-siniri);">
-                    <h3 style="font-size: 15px; margin-bottom: 10px;">Esnaf Kayıt ve Bölge Seçimi</h3>
+                <div style="background: var(--yb-bg); padding: 25px; border-radius: 10px; border: 1.5px solid var(--yb-siniri);">
+                    <h3 style="font-size: 15px; margin-bottom: 12px; font-weight: 700;">Esnaf Kayıt ve Bölge Seçimi</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Ad Soyad / Firma Ünvanı</label>
@@ -246,33 +278,33 @@
                             </select>
                         </div>
                     </div>
-                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 15px; width: 100%;">Bölge Esnaf Odasına Giriş Yap</button>
+                    <button onclick="esnafGirisYap()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 13px;">Bölge Esnaf Odasına Giriş Yap</button>
                 </div>
 
-                <div id="chat-container" style="display:none; margin-top:20px;">
-                    <h3 id="room-title" style="margin-bottom: 10px; font-size: 15px; color: var(--yb-karanlik);">📢 Oda: Yükleniyor...</h3>
-                    <div style="border: 1px solid var(--yb-siniri); border-radius: 8px; overflow: hidden;">
-                        <div id="chat-messages" style="height: 280px; background: #fff; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
-                            <div style="background: var(--yb-bg); padding: 10px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;">
+                <div id="chat-container" style="display:none; margin-top:25px;">
+                    <h3 id="room-title" style="margin-bottom: 12px; font-size: 15px; color: var(--yb-karanlik);">📢 Oda: Yükleniyor...</h3>
+                    <div style="border: 1.5px solid var(--yb-siniri); border-radius: 10px; overflow: hidden; background: #fff;">
+                        <div id="chat-messages" style="height: 300px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+                            <div style="background: var(--yb-bg); padding: 12px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;">
                                 <b>Sistem:</b> Bölge esnaf portföy odasına hoş geldiniz!
                             </div>
                         </div>
-                        <div style="display: flex; padding: 10px; background: var(--yb-bg); border-top: 1px solid var(--yb-siniri); gap: 10px; align-items: center;">
-                            <label style="cursor: pointer; color: var(--yb-turuncu); font-size: 18px;" title="Fotoğraf veya Belge Yükle">
+                        <div style="display: flex; padding: 12px; background: var(--yb-bg); border-top: 1.5px solid var(--yb-siniri); gap: 12px; align-items: center;">
+                            <label style="cursor: pointer; color: var(--yb-turuncu); font-size: 20px;" title="Fotoğraf veya Belge Yükle">
                                 <i class="fa fa-image"></i>
                                 <input type="file" id="media-input" style="display: none;" onchange="dosyaSecildi(event)">
                             </label>
-                            <input type="text" id="mesaj-input" placeholder="Portföy veya ilan paylaşın..." style="flex: 1; padding: 10px; border: 1px solid var(--yb-siniri); border-radius: 6px; outline: none;">
+                            <input type="text" id="mesaj-input" placeholder="Portföy veya ilan paylaşın..." style="flex: 1; padding: 12px; border: 1.5px solid var(--yb-siniri); border-radius: 8px; outline: none; background: #fff;">
                             <button onclick="mesajGonder()" class="btn btn-orange">Gönder</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Yeni Nesil Tek Ekran Akıllı İlan ve Hizmet Sihirbazı -->
+            <!-- Yeni Nesil Tek Ekran Akıllı İlan ve Hizmet Sihirbazı (Eksiksiz Semt/Mahalle ve Bulunduğu Kat Seçenekleri Dahil) -->
             <div id="page-ilanver" class="panel-section">
                 <h2 style="color: var(--yb-turuncu); margin-bottom: 10px;"><i class="fa fa-bolt"></i> Yeni Nesil Hızlı İlan & Hizmet Merkezi</h2>
-                <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Aşağıdan kategori seçin, detaylı daire niteliklerini belirleyin ve anında yayınlayın.</p>
+                <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Aşağıdan kategori seçin, detaylı daire niteliklerini, kat ve tam semt adresini belirleyerek anında yayınlayın.</p>
                 
                 <!-- Akıllı Kartlar -->
                 <div class="smart-cards-grid">
@@ -290,14 +322,14 @@
                     </div>
                 </div>
 
-                <div style="background: var(--yb-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--yb-siniri);">
+                <div style="background: var(--yb-bg); padding: 25px; border-radius: 10px; border: 1.5px solid var(--yb-siniri);">
                     <div class="form-grid">
                         <div class="form-group form-full">
                             <label>İlan / Talep Başlığı</label>
-                            <input type="text" id="ilan-baslik" placeholder="Örn: Başakşehir'de Ara Kat Dubleks Lüks Daire">
+                            <input type="text" id="ilan-baslik" placeholder="Örn: Küçükçekmece Sefaköy'de Ara Kat Dubleks Lüks Daire">
                         </div>
 
-                        <!-- ADRES SEÇİM ALANLARI (İl, Yaka, İlçe, Mahalle) -->
+                        <!-- ADRES SEÇİM ALANLARI (İl, Yaka, İlçe, Semt/Mahalle) -->
                         <div class="form-group">
                             <label>İl Seçin</label>
                             <select id="ilan-il" onchange="ilanIlDegisti()">
@@ -328,7 +360,7 @@
                             </select>
                         </div>
 
-                        <!-- GAYRİMENKUL ALANLARI (Genişletilmiş Nitelikler ve 15+1 Oda Seçenekleri) -->
+                        <!-- GAYRİMENKUL ALANLARI (Nitelikler, 15+1'e Kadar Odalar ve 1-50 Kat Seçenekleri) -->
                         <div class="form-group gayrimenkul-alan">
                             <label>Konut Tipi / Nitelikleri</label>
                             <select>
@@ -350,40 +382,18 @@
                         <div class="form-group gayrimenkul-alan">
                             <label>Oda Sayısı (1+1'den 15+1'e)</label>
                             <select>
-                                <option>1+1</option>
-                                <option>2+1</option>
-                                <option>2,5+1</option>
-                                <option>3+1</option>
-                                <option>3,5+1</option>
-                                <option>4+1</option>
-                                <option>4,5+1</option>
-                                <option>4+2</option>
-                                <option>2+2</option>
-                                <option>3+3</option>
-                                <option>4+3</option>
-                                <option>5+1</option>
-                                <option>5+2</option>
-                                <option>6+1</option>
-                                <option>6+2</option>
-                                <option>7+1</option>
-                                <option>7+2</option>
-                                <option>7+3</option>
-                                <option>8+1</option>
-                                <option>8+2</option>
-                                <option>9+1</option>
-                                <option>10+1</option>
-                                <option>15+1</option>
+                                <option>1+1</option><option>2+1</option><option>2,5+1</option><option>3+1</option><option>3,5+1</option>
+                                <option>4+1</option><option>4,5+1</option><option>4+2</option><option>2+2</option><option>3+3</option>
+                                <option>4+3</option><option>5+1</option><option>5+2</option><option>6+1</option><option>6+2</option>
+                                <option>7+1</option><option>7+2</option><option>7+3</option><option>8+1</option><option>8+2</option>
+                                <option>9+1</option><option>10+1</option><option>15+1</option>
                             </select>
                         </div>
 
                         <div class="form-group gayrimenkul-alan">
                             <label>Bulunduğu Kat (1'den 50'ye)</label>
                             <select>
-                                <option>Bodrum Kat</option>
-                                <option>Zemin Kat</option>
-                                <option>Giriş Katı</option>
-                                <option>Yüksek Giriş</option>
-                                <option>Bahçe Katı</option>
+                                <option>Bodrum Kat</option><option>Zemin Kat</option><option>Giriş Katı</option><option>Yüksek Giriş</option><option>Bahçe Katı</option>
                                 <option>1. Kat</option><option>2. Kat</option><option>3. Kat</option><option>4. Kat</option><option>5. Kat</option>
                                 <option>6. Kat</option><option>7. Kat</option><option>8. Kat</option><option>9. Kat</option><option>10. Kat</option>
                                 <option>11. Kat</option><option>12. Kat</option><option>13. Kat</option><option>14. Kat</option><option>15. Kat</option>
@@ -401,12 +411,8 @@
                         <div class="form-group gayrimenkul-alan">
                             <label>Isıtma Tipi</label>
                             <select>
-                                <option>Kombi (Doğalgaz)</option>
-                                <option>Merkezi (Pay Ölçer)</option>
-                                <option>Yerden Isıtma</option>
-                                <option>Klima</option>
-                                <option>Sobalı</option>
-                                <option>Yerden Isıtma + Kombi</option>
+                                <option>Kombi (Doğalgaz)</option><option>Merkezi (Pay Ölçer)</option><option>Yerden Isıtma</option>
+                                <option>Klima</option><option>Sobalı</option><option>Yerden Isıtma + Kombi</option>
                             </select>
                         </div>
 
@@ -446,12 +452,12 @@
                     </div>
                     
                     <!-- ESNAF ODASI PAYLAŞIM ENTEGRASYONU -->
-                    <div style="margin-top: 15px; padding: 12px; background: #fff; border: 1px dashed var(--yb-turuncu); border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="margin-top: 18px; padding: 14px; background: #fff; border: 1.5px dashed var(--yb-turuncu); border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                         <span style="font-size: 13px; font-weight: 600; color: var(--yb-karanlik);"><i class="fa fa-bullhorn" style="color:var(--yb-turuncu);"></i> Bu ilanı/talebi doğrudan bölge esnaf odasında (sohbet ağında) anında yayınla</span>
                         <input type="checkbox" id="esnaf-paylas" checked style="width: 18px; height: 18px; accent-color: var(--yb-turuncu);">
                     </div>
 
-                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 12px; font-size: 15px;">Hemen Yayınla ve Teklifleri Topla</button>
+                    <button onclick="ilanYayinla()" class="btn btn-orange" style="margin-top: 20px; width: 100%; justify-content: center; padding: 13px; font-size: 15px;">Hemen Yayınla ve Teklifleri Topla</button>
                 </div>
             </div>
 
@@ -488,24 +494,6 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function switchAuthTab(tab) {
-            const content = document.getElementById('auth-form-content');
-            if(tab === 'uye') {
-                content.innerHTML = `
-                    <div class="form-group" style="margin-bottom:10px;"><label>Ad Soyad</label><input type="text" placeholder="Adınız Soyadınız"></div>
-                    <div class="form-group" style="margin-bottom:10px;"><label>Telefon Numarası</label><input type="text" placeholder="05XX XXX XX XX"></div>
-                    <div class="form-group" style="margin-bottom:15px;"><label>Şifre Belirle</label><input type="password" placeholder="******"></div>
-                    <button onclick="alert('Üyeliğiniz başarıyla oluşturuldu!')" class="btn btn-orange" style="width:100%; justify-content:center;">Kayıt Ol</button>
-                `;
-            } else {
-                content.innerHTML = `
-                    <div class="form-group" style="margin-bottom:10px;"><label>E-Posta veya Telefon</label><input type="text" placeholder="05XX XXX XX XX"></div>
-                    <div class="form-group" style="margin-bottom:15px;"><label>Şifre</label><input type="password" placeholder="******"></div>
-                    <button onclick="alert('Giriş başarılı!')" class="btn btn-orange" style="width:100%; justify-content:center;">Giriş Yap</button>
-                `;
-            }
-        }
-
         function toggleSub(subId) {
             const subMenu = document.getElementById(subId);
             subMenu.style.display = (subMenu.style.display === 'block') ? 'none' : 'block';
@@ -538,15 +526,13 @@
             "Ankara": ["Akyurt", "Altındağ", "Ayaş", "Bala", "Beypazarı", "Çamlıdere", "Çankaya", "Çubuk", "Elmadağ", "Etimesgut", "Evren", "Gölbaşı", "Güdül", "Haymana", "Kahramankazan", "Kalecik", "Keçiören", "Kızılcahamam", "Mamak", "Nallıhan", "Polatlı", "Pursaklar", "Sincan", "Şereflikoçhisar", "Yenimahalle"],
             "İzmir": ["Aliağa", "Balçova", "Bayındır", "Bayraklı", "Bergama", "Beydağ", "Bornova", "Buca", "Çeşme", "Çiğli", "Dikili", "Foça", "Gaziemir", "Güzelbahçe", "Karabağlar", "Karaburun", "Karşıyaka", "Kemalpaşa", "Kınık", "Kiraz", "Konak", "Menderes", "Menemen", "Narlıdere", "Ödemiş", "Seferihisar", "Selçuk", "Tire", "Torbalı", "Urla"],
             "Antalya": ["Akseki", "Aksu", "Alanya", "Demre", "Döşemealtı", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş", "İbradı", "Kaş", "Kemer", "Kepez", "Konyaaltı", "Korkuteli", "Kumluca", "Manavgat", "Muratpaşa", "Serik"],
-            "Bursa": ["Büyükorhan", "Gemlik", "Gürsu", "Harmancık", "İnegöl", "İznik", "Karacabey", "Keles", "Kestel", "Mudanya", "Mustafakemalpaşa", "Nilüfer", "Orhaneli", "Orhangazi", "Osmangazi", "Yenişehir", "Yıldırım"],
-            "Amasya": ["Göynücek", "Gümüşhacıköy", "Hamamözü", "Merkez", "Merzifon", "Suluova", "Taşova"],
-            "Afyonkarahisar": ["Başmakçı", "Bayat", "Bolvadin", "Çay", "Çobanlar", "Dazkırı", "Dinar", "Emirdağ", "Evciler", "Hocalar", "İhsaniye", "İscehisar", "Kızılören", "Merkez", "Sandıklı", "Sinanpaşa", "Sultandağı", "Şuhut"],
-            "Kırklareli": ["Babaeski", "Demirköy", "Kofçaz", "Lüleburgaz", "Pehlivanköy", "Pınarhisar", "Merkez", "Vize"]
+            "Bursa": ["Büyükorhan", "Gemlik", "Gürsu", "Harmancık", "İnegöl", "İznik", "Karacabey", "Keles", "Kestel", "Mudanya", "Mustafakemalpaşa", "Nilüfer", "Orhaneli", "Orhangazi", "Osmangazi", "Yenişehir", "Yıldırım"]
         };
 
+        // KÜÇÜKÇEKMECE VE TÜM İLÇELERİN GERÇEK SEMT VE MAHALLELERİ
         const ilceMahalleleri = {
+            "Küçükçekmece": ["Atatürk Mah.", "Beşyol Mah.", "Cennet Mah.", "Cevat Şakir Mah.", "Fatih Mah.", "Fevzi Çakmak Mah.", "Gültepe Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Kartaltepe Mah.", "Kemalpaşa Mah.", "Mehmet Akif Mah.", "Sefaköy (Merkez)", "Söğütlüçeşme Mah.", "Sultan Murat Mah.", "Tepeüstü Mah.", "Tevfikbey Mah.", "Yarımburgaz Mah.", "Yeni Mah.", "Yeşilova Mah."],
             "Başakşehir": ["Güvercintepe Mah.", "Altınşehir Mah.", "Başak Mah.", "Bahçeşehir 1. Kısım", "Bahçeşehir 2. Kısım", "Ziya Gökalp Mah.", "Şahintepe Mah.", "İkitelli OSB", "Kayabaşı Mah.", "Şamlar Mah."],
-            "Küçükçekmece": ["Atatürk Mah.", "Beşyol Mah.", "Cennet Mah.", "Fatih Mah.", "Fevzi Çakmak Mah.", "Gültepe Mah.", "Halkalı Merkez Mah.", "İnönü Mah.", "İstasyon Mah.", "Kanarya Mah.", "Kartaltepe Mah.", "Kemalpaşa Mah.", "Mehmet Akif Mah.", "Söğütlüçeşme Mah.", "Sultan Murat Mah.", "Tepeüstü Mah.", "Yarımburgaz Mah.", "Yeni Mah."],
             "Arnavutköy": ["Merkez Mah.", "Bolluca Mah.", "Haraççı Mah.", "İmrahor Mah.", "Karlıbayır Mah.", "Mustafa Kemal Paşa Mah.", "Nenehatun Mah.", "Taşoluk Mah.", "Hadımköy Mah.", "Yenidoğan Mah."],
             "Kadıköy": ["Moda Mah.", "Fenerbahçe Mah.", "Caddebostan Mah.", "Suadiye Mah.", "Göztepe Mah.", "Kozyatağı Mah.", "Bostancı Mah.", "Caferağa Mah.", "Feneryolu Mah.", "Rasimpaşa Mah."],
             "Beşiktaş": ["Levent Mah.", "Etiler Mah.", "Bebek Mah.", "Ortaköy Mah.", "Sinanpaşa Mah.", "Yıldız Mah.", "Balmumcu Mah.", "Vişnezade Mah."]
@@ -558,13 +544,8 @@
             const tumIller = ["Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Aksaray", "Amasya", "Ankara", "Antalya", "Ardahan", "Artvin", "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "İstanbul", "İzmir", "Kahramanmaraş", "Karabük", "Karaman", "Kars", "Kastamonu", "Kayseri", "Kilis", "Kırıkkale", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Şanlıurfa", "Şırnak", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"].sort();
             
             tumIller.forEach(il => {
-                let opt1 = document.createElement('option');
-                opt1.value = il; opt1.innerHTML = il;
-                ilSelect.appendChild(opt1);
-
-                let opt2 = document.createElement('option');
-                opt2.value = il; opt2.innerHTML = il;
-                ilanIlSelect.appendChild(opt2);
+                let opt1 = document.createElement('option'); opt1.value = il; opt1.innerHTML = il; ilSelect.appendChild(opt1);
+                let opt2 = document.createElement('option'); opt2.value = il; opt2.innerHTML = il; ilanIlSelect.appendChild(opt2);
             });
         };
 
@@ -689,7 +670,7 @@
 
             const chatBox = document.getElementById('chat-messages');
             const yeniMesaj = document.createElement('div');
-            yeniMesaj.style.cssText = "background: var(--yb-bg); padding: 12px; border-radius: 6px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;";
+            yeniMesaj.style.cssText = "background: var(--yb-bg); padding: 12px; border-radius: 8px; border-left: 4px solid var(--yb-turuncu); font-size: 13px;";
             
             let icerik = `<b>${isim}:</b> ${mesajText}`;
             if(secilenDosyaAdi) {
